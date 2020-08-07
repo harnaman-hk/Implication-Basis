@@ -1,0 +1,4 @@
+1. The no. of iterations were around 100 for epsilon = 0.01, delta = 0.1 and using 8 threads and time taken around 10 seconds.
+2.  Using Slide no. 50 in Sparc-15-queries: Epsilon strong approximation result with epsilon = delta = 0.00001 and 40 threads - Code has been running for 2 hrs and over 1300 iterations. Code hasn't terminated yet.
+3. Epsilon strong approximation result with epsilon = 0.01, delta = 0.1 and 40 threads - Running time = around 16 minutes, 774 iterations. Result file "results-strong.txt" attached
+ 

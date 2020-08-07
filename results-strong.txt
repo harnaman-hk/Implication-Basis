@@ -1,0 +1,4071 @@
+5
+Done reading context
+8124 120
+Going to get counter example. (Iteration Number: 1 )
+Max number of tries for this iteration: 331
+Counter-example found after 3 tries 
+Got counter example
+918
+Going to get counter example. (Iteration Number: 2 )
+Max number of tries for this iteration: 431
+Counter-example found after 3 tries 
+Got counter example
+773
+Going to get counter example. (Iteration Number: 3 )
+Max number of tries for this iteration: 531
+Counter-example found after 3 tries 
+Got counter example
+3599
+Going to get counter example. (Iteration Number: 4 )
+Max number of tries for this iteration: 631
+Counter-example found after 4 tries 
+Got counter example
+3958
+Going to get counter example. (Iteration Number: 5 )
+Max number of tries for this iteration: 731
+Counter-example found after 3 tries 
+Got counter example
+675
+Going to get counter example. (Iteration Number: 6 )
+Max number of tries for this iteration: 831
+Counter-example found after 4 tries 
+Got counter example
+1948
+Going to get counter example. (Iteration Number: 7 )
+Max number of tries for this iteration: 931
+Counter-example found after 4 tries 
+Got counter example
+1336
+Going to get counter example. (Iteration Number: 8 )
+Max number of tries for this iteration: 1031
+Counter-example found after 4 tries 
+Got counter example
+921
+Going to get counter example. (Iteration Number: 9 )
+Max number of tries for this iteration: 1131
+Counter-example found after 4 tries 
+Got counter example
+713
+Going to get counter example. (Iteration Number: 10 )
+Max number of tries for this iteration: 1231
+Counter-example found after 4 tries 
+Got counter example
+1103
+Going to get counter example. (Iteration Number: 11 )
+Max number of tries for this iteration: 1331
+Counter-example found after 5 tries 
+Got counter example
+839
+Going to get counter example. (Iteration Number: 12 )
+Max number of tries for this iteration: 1431
+Counter-example found after 5 tries 
+Got counter example
+664
+Going to get counter example. (Iteration Number: 13 )
+Max number of tries for this iteration: 1531
+Counter-example found after 5 tries 
+Got counter example
+665
+Going to get counter example. (Iteration Number: 14 )
+Max number of tries for this iteration: 1631
+Counter-example found after 3 tries 
+Got counter example
+979
+Going to get counter example. (Iteration Number: 15 )
+Max number of tries for this iteration: 1731
+Counter-example found after 7 tries 
+Got counter example
+1018
+Going to get counter example. (Iteration Number: 16 )
+Max number of tries for this iteration: 1831
+Counter-example found after 5 tries 
+Got counter example
+927
+Going to get counter example. (Iteration Number: 17 )
+Max number of tries for this iteration: 1931
+Counter-example found after 6 tries 
+Got counter example
+852
+Going to get counter example. (Iteration Number: 18 )
+Max number of tries for this iteration: 2031
+Counter-example found after 4 tries 
+Got counter example
+1004
+Going to get counter example. (Iteration Number: 19 )
+Max number of tries for this iteration: 2131
+Counter-example found after 4 tries 
+Got counter example
+775
+Going to get counter example. (Iteration Number: 20 )
+Max number of tries for this iteration: 2231
+Counter-example found after 5 tries 
+Got counter example
+1371
+Going to get counter example. (Iteration Number: 21 )
+Max number of tries for this iteration: 2331
+Counter-example found after 5 tries 
+Got counter example
+794
+Going to get counter example. (Iteration Number: 22 )
+Max number of tries for this iteration: 2431
+Counter-example found after 4 tries 
+Got counter example
+875
+Going to get counter example. (Iteration Number: 23 )
+Max number of tries for this iteration: 2531
+Counter-example found after 6 tries 
+Got counter example
+931
+Going to get counter example. (Iteration Number: 24 )
+Max number of tries for this iteration: 2631
+Counter-example found after 4 tries 
+Got counter example
+954
+Going to get counter example. (Iteration Number: 25 )
+Max number of tries for this iteration: 2731
+Counter-example found after 4 tries 
+Got counter example
+957
+Going to get counter example. (Iteration Number: 26 )
+Max number of tries for this iteration: 2831
+Counter-example found after 6 tries 
+Got counter example
+914
+Going to get counter example. (Iteration Number: 27 )
+Max number of tries for this iteration: 2931
+Counter-example found after 11 tries 
+Got counter example
+1247
+Going to get counter example. (Iteration Number: 28 )
+Max number of tries for this iteration: 3031
+Counter-example found after 5 tries 
+Got counter example
+1176
+Going to get counter example. (Iteration Number: 29 )
+Max number of tries for this iteration: 3131
+Counter-example found after 5 tries 
+Got counter example
+829
+Going to get counter example. (Iteration Number: 30 )
+Max number of tries for this iteration: 3231
+Counter-example found after 5 tries 
+Got counter example
+844
+Going to get counter example. (Iteration Number: 31 )
+Max number of tries for this iteration: 3331
+Counter-example found after 7 tries 
+Got counter example
+1312
+Going to get counter example. (Iteration Number: 32 )
+Max number of tries for this iteration: 3431
+Counter-example found after 3 tries 
+Got counter example
+1131
+Going to get counter example. (Iteration Number: 33 )
+Max number of tries for this iteration: 3531
+Counter-example found after 7 tries 
+Got counter example
+969
+Going to get counter example. (Iteration Number: 34 )
+Max number of tries for this iteration: 3631
+Counter-example found after 8 tries 
+Got counter example
+1049
+Going to get counter example. (Iteration Number: 35 )
+Max number of tries for this iteration: 3731
+Counter-example found after 4 tries 
+Got counter example
+1026
+Going to get counter example. (Iteration Number: 36 )
+Max number of tries for this iteration: 3831
+Counter-example found after 7 tries 
+Got counter example
+1064
+Going to get counter example. (Iteration Number: 37 )
+Max number of tries for this iteration: 3931
+Counter-example found after 10 tries 
+Got counter example
+1079
+Going to get counter example. (Iteration Number: 38 )
+Max number of tries for this iteration: 4031
+Counter-example found after 5 tries 
+Got counter example
+878
+Going to get counter example. (Iteration Number: 39 )
+Max number of tries for this iteration: 4131
+Counter-example found after 5 tries 
+Got counter example
+937
+Going to get counter example. (Iteration Number: 40 )
+Max number of tries for this iteration: 4231
+Counter-example found after 4 tries 
+Got counter example
+1487
+Going to get counter example. (Iteration Number: 41 )
+Max number of tries for this iteration: 4331
+Counter-example found after 7 tries 
+Got counter example
+992
+Going to get counter example. (Iteration Number: 42 )
+Max number of tries for this iteration: 4431
+Counter-example found after 8 tries 
+Got counter example
+1341
+Going to get counter example. (Iteration Number: 43 )
+Max number of tries for this iteration: 4531
+Counter-example found after 6 tries 
+Got counter example
+1323
+Going to get counter example. (Iteration Number: 44 )
+Max number of tries for this iteration: 4631
+Counter-example found after 7 tries 
+Got counter example
+1351
+Going to get counter example. (Iteration Number: 45 )
+Max number of tries for this iteration: 4731
+Counter-example found after 6 tries 
+Got counter example
+1150
+Going to get counter example. (Iteration Number: 46 )
+Max number of tries for this iteration: 4831
+Counter-example found after 7 tries 
+Got counter example
+1108
+Going to get counter example. (Iteration Number: 47 )
+Max number of tries for this iteration: 4931
+Counter-example found after 3 tries 
+Got counter example
+1077
+Going to get counter example. (Iteration Number: 48 )
+Max number of tries for this iteration: 5031
+Counter-example found after 6 tries 
+Got counter example
+1148
+Going to get counter example. (Iteration Number: 49 )
+Max number of tries for this iteration: 5131
+Counter-example found after 5 tries 
+Got counter example
+1085
+Going to get counter example. (Iteration Number: 50 )
+Max number of tries for this iteration: 5231
+Counter-example found after 5 tries 
+Got counter example
+1014
+Going to get counter example. (Iteration Number: 51 )
+Max number of tries for this iteration: 5331
+Counter-example found after 7 tries 
+Got counter example
+1053
+Going to get counter example. (Iteration Number: 52 )
+Max number of tries for this iteration: 5431
+Counter-example found after 5 tries 
+Got counter example
+1322
+Going to get counter example. (Iteration Number: 53 )
+Max number of tries for this iteration: 5531
+Counter-example found after 6 tries 
+Got counter example
+1081
+Going to get counter example. (Iteration Number: 54 )
+Max number of tries for this iteration: 5631
+Counter-example found after 7 tries 
+Got counter example
+1158
+Going to get counter example. (Iteration Number: 55 )
+Max number of tries for this iteration: 5731
+Counter-example found after 6 tries 
+Got counter example
+1941
+Going to get counter example. (Iteration Number: 56 )
+Max number of tries for this iteration: 5831
+Counter-example found after 5 tries 
+Got counter example
+1197
+Going to get counter example. (Iteration Number: 57 )
+Max number of tries for this iteration: 5931
+Counter-example found after 6 tries 
+Got counter example
+1100
+Going to get counter example. (Iteration Number: 58 )
+Max number of tries for this iteration: 6031
+Counter-example found after 5 tries 
+Got counter example
+1138
+Going to get counter example. (Iteration Number: 59 )
+Max number of tries for this iteration: 6131
+Counter-example found after 2 tries 
+Got counter example
+11862
+Going to get counter example. (Iteration Number: 60 )
+Max number of tries for this iteration: 6231
+Counter-example found after 6 tries 
+Got counter example
+1118
+Going to get counter example. (Iteration Number: 61 )
+Max number of tries for this iteration: 6331
+Counter-example found after 5 tries 
+Got counter example
+879
+Going to get counter example. (Iteration Number: 62 )
+Max number of tries for this iteration: 6431
+Counter-example found after 4 tries 
+Got counter example
+998
+Going to get counter example. (Iteration Number: 63 )
+Max number of tries for this iteration: 6531
+Counter-example found after 6 tries 
+Got counter example
+1573
+Going to get counter example. (Iteration Number: 64 )
+Max number of tries for this iteration: 6631
+Counter-example found after 7 tries 
+Got counter example
+1264
+Going to get counter example. (Iteration Number: 65 )
+Max number of tries for this iteration: 6731
+Counter-example found after 5 tries 
+Got counter example
+1363
+Going to get counter example. (Iteration Number: 66 )
+Max number of tries for this iteration: 6831
+Counter-example found after 7 tries 
+Got counter example
+1178
+Going to get counter example. (Iteration Number: 67 )
+Max number of tries for this iteration: 6931
+Counter-example found after 7 tries 
+Got counter example
+1033
+Going to get counter example. (Iteration Number: 68 )
+Max number of tries for this iteration: 7031
+Counter-example found after 4 tries 
+Got counter example
+1448
+Going to get counter example. (Iteration Number: 69 )
+Max number of tries for this iteration: 7131
+Counter-example found after 5 tries 
+Got counter example
+1246
+Going to get counter example. (Iteration Number: 70 )
+Max number of tries for this iteration: 7231
+Counter-example found after 7 tries 
+Got counter example
+1069
+Going to get counter example. (Iteration Number: 71 )
+Max number of tries for this iteration: 7331
+Counter-example found after 6 tries 
+Got counter example
+1121
+Going to get counter example. (Iteration Number: 72 )
+Max number of tries for this iteration: 7431
+Counter-example found after 6 tries 
+Got counter example
+1102
+Going to get counter example. (Iteration Number: 73 )
+Max number of tries for this iteration: 7531
+Counter-example found after 4 tries 
+Got counter example
+1753
+Going to get counter example. (Iteration Number: 74 )
+Max number of tries for this iteration: 7631
+Counter-example found after 6 tries 
+Got counter example
+1150
+Going to get counter example. (Iteration Number: 75 )
+Max number of tries for this iteration: 7731
+Counter-example found after 4 tries 
+Got counter example
+1290
+Going to get counter example. (Iteration Number: 76 )
+Max number of tries for this iteration: 7831
+Counter-example found after 5 tries 
+Got counter example
+1296
+Going to get counter example. (Iteration Number: 77 )
+Max number of tries for this iteration: 7931
+Counter-example found after 4 tries 
+Got counter example
+1338
+Going to get counter example. (Iteration Number: 78 )
+Max number of tries for this iteration: 8031
+Counter-example found after 6 tries 
+Got counter example
+1503
+Going to get counter example. (Iteration Number: 79 )
+Max number of tries for this iteration: 8131
+Counter-example found after 7 tries 
+Got counter example
+1816
+Going to get counter example. (Iteration Number: 80 )
+Max number of tries for this iteration: 8231
+Counter-example found after 7 tries 
+Got counter example
+1212
+Going to get counter example. (Iteration Number: 81 )
+Max number of tries for this iteration: 8331
+Counter-example found after 7 tries 
+Got counter example
+1332
+Going to get counter example. (Iteration Number: 82 )
+Max number of tries for this iteration: 8431
+Counter-example found after 6 tries 
+Got counter example
+1200
+Going to get counter example. (Iteration Number: 83 )
+Max number of tries for this iteration: 8531
+Counter-example found after 6 tries 
+Got counter example
+2121
+Going to get counter example. (Iteration Number: 84 )
+Max number of tries for this iteration: 8631
+Counter-example found after 7 tries 
+Got counter example
+1465
+Going to get counter example. (Iteration Number: 85 )
+Max number of tries for this iteration: 8731
+Counter-example found after 7 tries 
+Got counter example
+1778
+Going to get counter example. (Iteration Number: 86 )
+Max number of tries for this iteration: 8831
+Counter-example found after 6 tries 
+Got counter example
+1282
+Going to get counter example. (Iteration Number: 87 )
+Max number of tries for this iteration: 8931
+Counter-example found after 7 tries 
+Got counter example
+1564
+Going to get counter example. (Iteration Number: 88 )
+Max number of tries for this iteration: 9031
+Counter-example found after 6 tries 
+Got counter example
+1264
+Going to get counter example. (Iteration Number: 89 )
+Max number of tries for this iteration: 9131
+Counter-example found after 7 tries 
+Got counter example
+1609
+Going to get counter example. (Iteration Number: 90 )
+Max number of tries for this iteration: 9231
+Counter-example found after 7 tries 
+Got counter example
+1441
+Going to get counter example. (Iteration Number: 91 )
+Max number of tries for this iteration: 9331
+Counter-example found after 6 tries 
+Got counter example
+1523
+Going to get counter example. (Iteration Number: 92 )
+Max number of tries for this iteration: 9431
+Counter-example found after 7 tries 
+Got counter example
+1284
+Going to get counter example. (Iteration Number: 93 )
+Max number of tries for this iteration: 9531
+Counter-example found after 7 tries 
+Got counter example
+1359
+Going to get counter example. (Iteration Number: 94 )
+Max number of tries for this iteration: 9631
+Counter-example found after 7 tries 
+Got counter example
+1185
+Going to get counter example. (Iteration Number: 95 )
+Max number of tries for this iteration: 9731
+Counter-example found after 5 tries 
+Got counter example
+1391
+Going to get counter example. (Iteration Number: 96 )
+Max number of tries for this iteration: 9831
+Counter-example found after 6 tries 
+Got counter example
+1333
+Going to get counter example. (Iteration Number: 97 )
+Max number of tries for this iteration: 9931
+Counter-example found after 6 tries 
+Got counter example
+1314
+Going to get counter example. (Iteration Number: 98 )
+Max number of tries for this iteration: 10031
+Counter-example found after 6 tries 
+Got counter example
+1322
+Going to get counter example. (Iteration Number: 99 )
+Max number of tries for this iteration: 10131
+Counter-example found after 6 tries 
+Got counter example
+1293
+Going to get counter example. (Iteration Number: 100 )
+Max number of tries for this iteration: 10231
+Counter-example found after 8 tries 
+Got counter example
+1699
+Going to get counter example. (Iteration Number: 101 )
+Max number of tries for this iteration: 10331
+Counter-example found after 7 tries 
+Got counter example
+1327
+Going to get counter example. (Iteration Number: 102 )
+Max number of tries for this iteration: 10431
+Counter-example found after 6 tries 
+Got counter example
+1513
+Going to get counter example. (Iteration Number: 103 )
+Max number of tries for this iteration: 10531
+Counter-example found after 7 tries 
+Got counter example
+1546
+Going to get counter example. (Iteration Number: 104 )
+Max number of tries for this iteration: 10631
+Counter-example found after 7 tries 
+Got counter example
+1653
+Going to get counter example. (Iteration Number: 105 )
+Max number of tries for this iteration: 10731
+Counter-example found after 8 tries 
+Got counter example
+1680
+Going to get counter example. (Iteration Number: 106 )
+Max number of tries for this iteration: 10831
+Counter-example found after 7 tries 
+Got counter example
+1795
+Going to get counter example. (Iteration Number: 107 )
+Max number of tries for this iteration: 10931
+Counter-example found after 3 tries 
+Got counter example
+10934
+Going to get counter example. (Iteration Number: 108 )
+Max number of tries for this iteration: 11031
+Counter-example found after 7 tries 
+Got counter example
+1792
+Going to get counter example. (Iteration Number: 109 )
+Max number of tries for this iteration: 11131
+Counter-example found after 7 tries 
+Got counter example
+1455
+Going to get counter example. (Iteration Number: 110 )
+Max number of tries for this iteration: 11231
+Counter-example found after 7 tries 
+Got counter example
+1978
+Going to get counter example. (Iteration Number: 111 )
+Max number of tries for this iteration: 11331
+Counter-example found after 7 tries 
+Got counter example
+1523
+Going to get counter example. (Iteration Number: 112 )
+Max number of tries for this iteration: 11431
+Counter-example found after 6 tries 
+Got counter example
+1390
+Going to get counter example. (Iteration Number: 113 )
+Max number of tries for this iteration: 11531
+Counter-example found after 7 tries 
+Got counter example
+1773
+Going to get counter example. (Iteration Number: 114 )
+Max number of tries for this iteration: 11631
+Counter-example found after 6 tries 
+Got counter example
+1403
+Going to get counter example. (Iteration Number: 115 )
+Max number of tries for this iteration: 11731
+Counter-example found after 7 tries 
+Got counter example
+1431
+Going to get counter example. (Iteration Number: 116 )
+Max number of tries for this iteration: 11831
+Counter-example found after 7 tries 
+Got counter example
+1737
+Going to get counter example. (Iteration Number: 117 )
+Max number of tries for this iteration: 11931
+Counter-example found after 8 tries 
+Got counter example
+45504
+Going to get counter example. (Iteration Number: 118 )
+Max number of tries for this iteration: 12031
+Counter-example found after 7 tries 
+Got counter example
+1457
+Going to get counter example. (Iteration Number: 119 )
+Max number of tries for this iteration: 12131
+Counter-example found after 7 tries 
+Got counter example
+1597
+Going to get counter example. (Iteration Number: 120 )
+Max number of tries for this iteration: 12231
+Counter-example found after 8 tries 
+Got counter example
+1781
+Going to get counter example. (Iteration Number: 121 )
+Max number of tries for this iteration: 12331
+Counter-example found after 7 tries 
+Got counter example
+1658
+Going to get counter example. (Iteration Number: 122 )
+Max number of tries for this iteration: 12431
+Counter-example found after 7 tries 
+Got counter example
+1591
+Going to get counter example. (Iteration Number: 123 )
+Max number of tries for this iteration: 12531
+Counter-example found after 6 tries 
+Got counter example
+2080
+Going to get counter example. (Iteration Number: 124 )
+Max number of tries for this iteration: 12631
+Counter-example found after 6 tries 
+Got counter example
+1262
+Going to get counter example. (Iteration Number: 125 )
+Max number of tries for this iteration: 12731
+Counter-example found after 5 tries 
+Got counter example
+1737
+Going to get counter example. (Iteration Number: 126 )
+Max number of tries for this iteration: 12831
+Counter-example found after 7 tries 
+Got counter example
+1315
+Going to get counter example. (Iteration Number: 127 )
+Max number of tries for this iteration: 12931
+Counter-example found after 6 tries 
+Got counter example
+1263
+Going to get counter example. (Iteration Number: 128 )
+Max number of tries for this iteration: 13031
+Counter-example found after 7 tries 
+Got counter example
+1880
+Going to get counter example. (Iteration Number: 129 )
+Max number of tries for this iteration: 13131
+Counter-example found after 7 tries 
+Got counter example
+1958
+Going to get counter example. (Iteration Number: 130 )
+Max number of tries for this iteration: 13231
+Counter-example found after 7 tries 
+Got counter example
+1394
+Going to get counter example. (Iteration Number: 131 )
+Max number of tries for this iteration: 13331
+Counter-example found after 6 tries 
+Got counter example
+1815
+Going to get counter example. (Iteration Number: 132 )
+Max number of tries for this iteration: 13431
+Counter-example found after 6 tries 
+Got counter example
+1460
+Going to get counter example. (Iteration Number: 133 )
+Max number of tries for this iteration: 13531
+Counter-example found after 6 tries 
+Got counter example
+1660
+Going to get counter example. (Iteration Number: 134 )
+Max number of tries for this iteration: 13631
+Counter-example found after 8 tries 
+Got counter example
+1828
+Going to get counter example. (Iteration Number: 135 )
+Max number of tries for this iteration: 13731
+Counter-example found after 6 tries 
+Got counter example
+7833
+Going to get counter example. (Iteration Number: 136 )
+Max number of tries for this iteration: 13831
+Counter-example found after 5 tries 
+Got counter example
+1486
+Going to get counter example. (Iteration Number: 137 )
+Max number of tries for this iteration: 13931
+Counter-example found after 6 tries 
+Got counter example
+1781
+Going to get counter example. (Iteration Number: 138 )
+Max number of tries for this iteration: 14031
+Counter-example found after 7 tries 
+Got counter example
+1836
+Going to get counter example. (Iteration Number: 139 )
+Max number of tries for this iteration: 14131
+Counter-example found after 7 tries 
+Got counter example
+1791
+Going to get counter example. (Iteration Number: 140 )
+Max number of tries for this iteration: 14231
+Counter-example found after 7 tries 
+Got counter example
+2004
+Going to get counter example. (Iteration Number: 141 )
+Max number of tries for this iteration: 14331
+Counter-example found after 7 tries 
+Got counter example
+1627
+Going to get counter example. (Iteration Number: 142 )
+Max number of tries for this iteration: 14431
+Counter-example found after 6 tries 
+Got counter example
+1892
+Going to get counter example. (Iteration Number: 143 )
+Max number of tries for this iteration: 14531
+Counter-example found after 6 tries 
+Got counter example
+1370
+Going to get counter example. (Iteration Number: 144 )
+Max number of tries for this iteration: 14631
+Counter-example found after 7 tries 
+Got counter example
+1476
+Going to get counter example. (Iteration Number: 145 )
+Max number of tries for this iteration: 14731
+Counter-example found after 7 tries 
+Got counter example
+1374
+Going to get counter example. (Iteration Number: 146 )
+Max number of tries for this iteration: 14831
+Counter-example found after 7 tries 
+Got counter example
+1616
+Going to get counter example. (Iteration Number: 147 )
+Max number of tries for this iteration: 14931
+Counter-example found after 6 tries 
+Got counter example
+1672
+Going to get counter example. (Iteration Number: 148 )
+Max number of tries for this iteration: 15031
+Counter-example found after 6 tries 
+Got counter example
+2002
+Going to get counter example. (Iteration Number: 149 )
+Max number of tries for this iteration: 15131
+Counter-example found after 5 tries 
+Got counter example
+1797
+Going to get counter example. (Iteration Number: 150 )
+Max number of tries for this iteration: 15231
+Counter-example found after 9 tries 
+Got counter example
+2307
+Going to get counter example. (Iteration Number: 151 )
+Max number of tries for this iteration: 15331
+Counter-example found after 7 tries 
+Got counter example
+2070
+Going to get counter example. (Iteration Number: 152 )
+Max number of tries for this iteration: 15431
+Counter-example found after 6 tries 
+Got counter example
+1807
+Going to get counter example. (Iteration Number: 153 )
+Max number of tries for this iteration: 15531
+Counter-example found after 7 tries 
+Got counter example
+1904
+Going to get counter example. (Iteration Number: 154 )
+Max number of tries for this iteration: 15631
+Counter-example found after 6 tries 
+Got counter example
+2122
+Going to get counter example. (Iteration Number: 155 )
+Max number of tries for this iteration: 15731
+Counter-example found after 6 tries 
+Got counter example
+2010
+Going to get counter example. (Iteration Number: 156 )
+Max number of tries for this iteration: 15831
+Counter-example found after 8 tries 
+Got counter example
+2233
+Going to get counter example. (Iteration Number: 157 )
+Max number of tries for this iteration: 15931
+Counter-example found after 7 tries 
+Got counter example
+1916
+Going to get counter example. (Iteration Number: 158 )
+Max number of tries for this iteration: 16031
+Counter-example found after 6 tries 
+Got counter example
+2009
+Going to get counter example. (Iteration Number: 159 )
+Max number of tries for this iteration: 16131
+Counter-example found after 6 tries 
+Got counter example
+1914
+Going to get counter example. (Iteration Number: 160 )
+Max number of tries for this iteration: 16231
+Counter-example found after 10 tries 
+Got counter example
+3137
+Going to get counter example. (Iteration Number: 161 )
+Max number of tries for this iteration: 16331
+Counter-example found after 25 tries 
+Got counter example
+5854
+Going to get counter example. (Iteration Number: 162 )
+Max number of tries for this iteration: 16431
+Counter-example found after 6 tries 
+Got counter example
+2438
+Going to get counter example. (Iteration Number: 163 )
+Max number of tries for this iteration: 16531
+Counter-example found after 7 tries 
+Got counter example
+2248
+Going to get counter example. (Iteration Number: 164 )
+Max number of tries for this iteration: 16631
+Counter-example found after 15 tries 
+Got counter example
+3618
+Going to get counter example. (Iteration Number: 165 )
+Max number of tries for this iteration: 16731
+Counter-example found after 7 tries 
+Got counter example
+2640
+Going to get counter example. (Iteration Number: 166 )
+Max number of tries for this iteration: 16831
+Counter-example found after 7 tries 
+Got counter example
+2485
+Going to get counter example. (Iteration Number: 167 )
+Max number of tries for this iteration: 16931
+Counter-example found after 8 tries 
+Got counter example
+2450
+Going to get counter example. (Iteration Number: 168 )
+Max number of tries for this iteration: 17031
+Counter-example found after 7 tries 
+Got counter example
+2179
+Going to get counter example. (Iteration Number: 169 )
+Max number of tries for this iteration: 17131
+Counter-example found after 7 tries 
+Got counter example
+1998
+Going to get counter example. (Iteration Number: 170 )
+Max number of tries for this iteration: 17231
+Counter-example found after 8 tries 
+Got counter example
+2294
+Going to get counter example. (Iteration Number: 171 )
+Max number of tries for this iteration: 17331
+Counter-example found after 7 tries 
+Got counter example
+2251
+Going to get counter example. (Iteration Number: 172 )
+Max number of tries for this iteration: 17431
+Counter-example found after 13 tries 
+Got counter example
+4044
+Going to get counter example. (Iteration Number: 173 )
+Max number of tries for this iteration: 17531
+Counter-example found after 6 tries 
+Got counter example
+2187
+Going to get counter example. (Iteration Number: 174 )
+Max number of tries for this iteration: 17631
+Counter-example found after 16 tries 
+Got counter example
+4199
+Going to get counter example. (Iteration Number: 175 )
+Max number of tries for this iteration: 17731
+Counter-example found after 7 tries 
+Got counter example
+2296
+Going to get counter example. (Iteration Number: 176 )
+Max number of tries for this iteration: 17831
+Counter-example found after 7 tries 
+Got counter example
+2831
+Going to get counter example. (Iteration Number: 177 )
+Max number of tries for this iteration: 17931
+Counter-example found after 8 tries 
+Got counter example
+2698
+Going to get counter example. (Iteration Number: 178 )
+Max number of tries for this iteration: 18031
+Counter-example found after 5 tries 
+Got counter example
+2173
+Going to get counter example. (Iteration Number: 179 )
+Max number of tries for this iteration: 18131
+Counter-example found after 8 tries 
+Got counter example
+2199
+Going to get counter example. (Iteration Number: 180 )
+Max number of tries for this iteration: 18231
+Counter-example found after 8 tries 
+Got counter example
+3798
+Going to get counter example. (Iteration Number: 181 )
+Max number of tries for this iteration: 18331
+Counter-example found after 6 tries 
+Got counter example
+2236
+Going to get counter example. (Iteration Number: 182 )
+Max number of tries for this iteration: 18431
+Counter-example found after 8 tries 
+Got counter example
+2601
+Going to get counter example. (Iteration Number: 183 )
+Max number of tries for this iteration: 18531
+Counter-example found after 5 tries 
+Got counter example
+2353
+Going to get counter example. (Iteration Number: 184 )
+Max number of tries for this iteration: 18631
+Counter-example found after 9 tries 
+Got counter example
+3305
+Going to get counter example. (Iteration Number: 185 )
+Max number of tries for this iteration: 18731
+Counter-example found after 8 tries 
+Got counter example
+45320
+Going to get counter example. (Iteration Number: 186 )
+Max number of tries for this iteration: 18831
+Counter-example found after 7 tries 
+Got counter example
+2371
+Going to get counter example. (Iteration Number: 187 )
+Max number of tries for this iteration: 18931
+Counter-example found after 8 tries 
+Got counter example
+3722
+Going to get counter example. (Iteration Number: 188 )
+Max number of tries for this iteration: 19031
+Counter-example found after 7 tries 
+Got counter example
+3272
+Going to get counter example. (Iteration Number: 189 )
+Max number of tries for this iteration: 19131
+Counter-example found after 6 tries 
+Got counter example
+2815
+Going to get counter example. (Iteration Number: 190 )
+Max number of tries for this iteration: 19231
+Counter-example found after 6 tries 
+Got counter example
+2162
+Going to get counter example. (Iteration Number: 191 )
+Max number of tries for this iteration: 19331
+Counter-example found after 7 tries 
+Got counter example
+2607
+Going to get counter example. (Iteration Number: 192 )
+Max number of tries for this iteration: 19431
+Counter-example found after 8 tries 
+Got counter example
+3202
+Going to get counter example. (Iteration Number: 193 )
+Max number of tries for this iteration: 19531
+Counter-example found after 7 tries 
+Got counter example
+2686
+Going to get counter example. (Iteration Number: 194 )
+Max number of tries for this iteration: 19631
+Counter-example found after 6 tries 
+Got counter example
+2497
+Going to get counter example. (Iteration Number: 195 )
+Max number of tries for this iteration: 19731
+Counter-example found after 8 tries 
+Got counter example
+2758
+Going to get counter example. (Iteration Number: 196 )
+Max number of tries for this iteration: 19831
+Counter-example found after 7 tries 
+Got counter example
+3167
+Going to get counter example. (Iteration Number: 197 )
+Max number of tries for this iteration: 19931
+Counter-example found after 16 tries 
+Got counter example
+4942
+Going to get counter example. (Iteration Number: 198 )
+Max number of tries for this iteration: 20031
+Counter-example found after 11 tries 
+Got counter example
+4219
+Going to get counter example. (Iteration Number: 199 )
+Max number of tries for this iteration: 20131
+Counter-example found after 14 tries 
+Got counter example
+4620
+Going to get counter example. (Iteration Number: 200 )
+Max number of tries for this iteration: 20231
+Counter-example found after 14 tries 
+Got counter example
+4631
+Going to get counter example. (Iteration Number: 201 )
+Max number of tries for this iteration: 20331
+Counter-example found after 15 tries 
+Got counter example
+5237
+Going to get counter example. (Iteration Number: 202 )
+Max number of tries for this iteration: 20431
+Counter-example found after 25 tries 
+Got counter example
+8483
+Going to get counter example. (Iteration Number: 203 )
+Max number of tries for this iteration: 20531
+Counter-example found after 8 tries 
+Got counter example
+3710
+Going to get counter example. (Iteration Number: 204 )
+Max number of tries for this iteration: 20631
+Counter-example found after 8 tries 
+Got counter example
+3272
+Going to get counter example. (Iteration Number: 205 )
+Max number of tries for this iteration: 20731
+Counter-example found after 90 tries 
+Got counter example
+30632
+Going to get counter example. (Iteration Number: 206 )
+Max number of tries for this iteration: 20831
+Counter-example found after 9 tries 
+Got counter example
+4060
+Going to get counter example. (Iteration Number: 207 )
+Max number of tries for this iteration: 20931
+Counter-example found after 7 tries 
+Got counter example
+3128
+Going to get counter example. (Iteration Number: 208 )
+Max number of tries for this iteration: 21031
+Counter-example found after 14 tries 
+Got counter example
+4582
+Going to get counter example. (Iteration Number: 209 )
+Max number of tries for this iteration: 21131
+Counter-example found after 33 tries 
+Got counter example
+9673
+Going to get counter example. (Iteration Number: 210 )
+Max number of tries for this iteration: 21231
+Counter-example found after 34 tries 
+Got counter example
+9845
+Going to get counter example. (Iteration Number: 211 )
+Max number of tries for this iteration: 21331
+Counter-example found after 34 tries 
+Got counter example
+10606
+Going to get counter example. (Iteration Number: 212 )
+Max number of tries for this iteration: 21431
+Counter-example found after 14 tries 
+Got counter example
+4702
+Going to get counter example. (Iteration Number: 213 )
+Max number of tries for this iteration: 21531
+Counter-example found after 8 tries 
+Got counter example
+2815
+Going to get counter example. (Iteration Number: 214 )
+Max number of tries for this iteration: 21631
+Counter-example found after 13 tries 
+Got counter example
+4645
+Going to get counter example. (Iteration Number: 215 )
+Max number of tries for this iteration: 21731
+Counter-example found after 14 tries 
+Got counter example
+4654
+Going to get counter example. (Iteration Number: 216 )
+Max number of tries for this iteration: 21831
+Counter-example found after 6 tries 
+Got counter example
+2660
+Going to get counter example. (Iteration Number: 217 )
+Max number of tries for this iteration: 21931
+Counter-example found after 31 tries 
+Got counter example
+10156
+Going to get counter example. (Iteration Number: 218 )
+Max number of tries for this iteration: 22031
+Counter-example found after 49 tries 
+Got counter example
+15388
+Going to get counter example. (Iteration Number: 219 )
+Max number of tries for this iteration: 22131
+Counter-example found after 8 tries 
+Got counter example
+3193
+Going to get counter example. (Iteration Number: 220 )
+Max number of tries for this iteration: 22231
+Counter-example found after 14 tries 
+Got counter example
+4771
+Going to get counter example. (Iteration Number: 221 )
+Max number of tries for this iteration: 22331
+Counter-example found after 16 tries 
+Got counter example
+5250
+Going to get counter example. (Iteration Number: 222 )
+Max number of tries for this iteration: 22431
+Counter-example found after 23 tries 
+Got counter example
+8581
+Going to get counter example. (Iteration Number: 223 )
+Max number of tries for this iteration: 22531
+Counter-example found after 14 tries 
+Got counter example
+5026
+Going to get counter example. (Iteration Number: 224 )
+Max number of tries for this iteration: 22631
+Counter-example found after 53 tries 
+Got counter example
+17865
+Going to get counter example. (Iteration Number: 225 )
+Max number of tries for this iteration: 22731
+Counter-example found after 71 tries 
+Got counter example
+24510
+Going to get counter example. (Iteration Number: 226 )
+Max number of tries for this iteration: 22831
+Counter-example found after 69 tries 
+Got counter example
+25076
+Going to get counter example. (Iteration Number: 227 )
+Max number of tries for this iteration: 22931
+Counter-example found after 59 tries 
+Got counter example
+22195
+Going to get counter example. (Iteration Number: 228 )
+Max number of tries for this iteration: 23031
+Counter-example found after 5 tries 
+Got counter example
+2870
+Going to get counter example. (Iteration Number: 229 )
+Max number of tries for this iteration: 23131
+Counter-example found after 14 tries 
+Got counter example
+5092
+Going to get counter example. (Iteration Number: 230 )
+Max number of tries for this iteration: 23231
+Counter-example found after 115 tries 
+Got counter example
+39517
+Going to get counter example. (Iteration Number: 231 )
+Max number of tries for this iteration: 23331
+Counter-example found after 73 tries 
+Got counter example
+45218
+Going to get counter example. (Iteration Number: 232 )
+Max number of tries for this iteration: 23431
+Counter-example found after 60 tries 
+Got counter example
+19151
+Going to get counter example. (Iteration Number: 233 )
+Max number of tries for this iteration: 23531
+Counter-example found after 8 tries 
+Got counter example
+3238
+Going to get counter example. (Iteration Number: 234 )
+Max number of tries for this iteration: 23631
+Counter-example found after 14 tries 
+Got counter example
+4795
+Going to get counter example. (Iteration Number: 235 )
+Max number of tries for this iteration: 23731
+Counter-example found after 8 tries 
+Got counter example
+2920
+Going to get counter example. (Iteration Number: 236 )
+Max number of tries for this iteration: 23831
+Counter-example found after 15 tries 
+Got counter example
+5252
+Going to get counter example. (Iteration Number: 237 )
+Max number of tries for this iteration: 23931
+Counter-example found after 24 tries 
+Got counter example
+8102
+Going to get counter example. (Iteration Number: 238 )
+Max number of tries for this iteration: 24031
+Counter-example found after 7 tries 
+Got counter example
+2721
+Going to get counter example. (Iteration Number: 239 )
+Max number of tries for this iteration: 24131
+Counter-example found after 6 tries 
+Got counter example
+2804
+Going to get counter example. (Iteration Number: 240 )
+Max number of tries for this iteration: 24231
+Counter-example found after 7 tries 
+Got counter example
+3221
+Going to get counter example. (Iteration Number: 241 )
+Max number of tries for this iteration: 24331
+Counter-example found after 16 tries 
+Got counter example
+5358
+Going to get counter example. (Iteration Number: 242 )
+Max number of tries for this iteration: 24431
+Counter-example found after 6 tries 
+Got counter example
+2702
+Going to get counter example. (Iteration Number: 243 )
+Max number of tries for this iteration: 24531
+Counter-example found after 17 tries 
+Got counter example
+5998
+Going to get counter example. (Iteration Number: 244 )
+Max number of tries for this iteration: 24631
+Counter-example found after 6 tries 
+Got counter example
+2865
+Going to get counter example. (Iteration Number: 245 )
+Max number of tries for this iteration: 24731
+Counter-example found after 155 tries 
+Got counter example
+52023
+Going to get counter example. (Iteration Number: 246 )
+Max number of tries for this iteration: 24831
+Counter-example found after 10 tries 
+Got counter example
+4204
+Going to get counter example. (Iteration Number: 247 )
+Max number of tries for this iteration: 24931
+Counter-example found after 17 tries 
+Got counter example
+6663
+Going to get counter example. (Iteration Number: 248 )
+Max number of tries for this iteration: 25031
+Counter-example found after 57 tries 
+Got counter example
+19632
+Going to get counter example. (Iteration Number: 249 )
+Max number of tries for this iteration: 25131
+Counter-example found after 6 tries 
+Got counter example
+2803
+Going to get counter example. (Iteration Number: 250 )
+Max number of tries for this iteration: 25231
+Counter-example found after 7 tries 
+Got counter example
+3772
+Going to get counter example. (Iteration Number: 251 )
+Max number of tries for this iteration: 25331
+Counter-example found after 10 tries 
+Got counter example
+4470
+Going to get counter example. (Iteration Number: 252 )
+Max number of tries for this iteration: 25431
+Counter-example found after 8 tries 
+Got counter example
+3748
+Going to get counter example. (Iteration Number: 253 )
+Max number of tries for this iteration: 25531
+Counter-example found after 15 tries 
+Got counter example
+6441
+Going to get counter example. (Iteration Number: 254 )
+Max number of tries for this iteration: 25631
+Counter-example found after 57 tries 
+Got counter example
+22997
+Going to get counter example. (Iteration Number: 255 )
+Max number of tries for this iteration: 25731
+Counter-example found after 24 tries 
+Got counter example
+9361
+Going to get counter example. (Iteration Number: 256 )
+Max number of tries for this iteration: 25831
+Counter-example found after 25 tries 
+Got counter example
+10687
+Going to get counter example. (Iteration Number: 257 )
+Max number of tries for this iteration: 25931
+Counter-example found after 58 tries 
+Got counter example
+19708
+Going to get counter example. (Iteration Number: 258 )
+Max number of tries for this iteration: 26031
+Counter-example found after 45 tries 
+Got counter example
+16366
+Going to get counter example. (Iteration Number: 259 )
+Max number of tries for this iteration: 26131
+Counter-example found after 16 tries 
+Got counter example
+6177
+Going to get counter example. (Iteration Number: 260 )
+Max number of tries for this iteration: 26231
+Counter-example found after 7 tries 
+Got counter example
+3797
+Going to get counter example. (Iteration Number: 261 )
+Max number of tries for this iteration: 26331
+Counter-example found after 5 tries 
+Got counter example
+3024
+Going to get counter example. (Iteration Number: 262 )
+Max number of tries for this iteration: 26431
+Counter-example found after 6 tries 
+Got counter example
+3123
+Going to get counter example. (Iteration Number: 263 )
+Max number of tries for this iteration: 26531
+Counter-example found after 7 tries 
+Got counter example
+3770
+Going to get counter example. (Iteration Number: 264 )
+Max number of tries for this iteration: 26631
+Counter-example found after 8 tries 
+Got counter example
+3456
+Going to get counter example. (Iteration Number: 265 )
+Max number of tries for this iteration: 26731
+Counter-example found after 7 tries 
+Got counter example
+4487
+Going to get counter example. (Iteration Number: 266 )
+Max number of tries for this iteration: 26831
+Counter-example found after 8 tries 
+Got counter example
+3877
+Going to get counter example. (Iteration Number: 267 )
+Max number of tries for this iteration: 26931
+Counter-example found after 7 tries 
+Got counter example
+3165
+Going to get counter example. (Iteration Number: 268 )
+Max number of tries for this iteration: 27031
+Counter-example found after 24 tries 
+Got counter example
+10194
+Going to get counter example. (Iteration Number: 269 )
+Max number of tries for this iteration: 27131
+Counter-example found after 30 tries 
+Got counter example
+11902
+Going to get counter example. (Iteration Number: 270 )
+Max number of tries for this iteration: 27231
+Counter-example found after 15 tries 
+Got counter example
+5621
+Going to get counter example. (Iteration Number: 271 )
+Max number of tries for this iteration: 27331
+Counter-example found after 72 tries 
+Got counter example
+27378
+Going to get counter example. (Iteration Number: 272 )
+Max number of tries for this iteration: 27431
+Counter-example found after 8 tries 
+Got counter example
+3710
+Going to get counter example. (Iteration Number: 273 )
+Max number of tries for this iteration: 27531
+Counter-example found after 8 tries 
+Got counter example
+3768
+Going to get counter example. (Iteration Number: 274 )
+Max number of tries for this iteration: 27631
+Counter-example found after 8 tries 
+Got counter example
+7438
+Going to get counter example. (Iteration Number: 275 )
+Max number of tries for this iteration: 27731
+Counter-example found after 7 tries 
+Got counter example
+3988
+Going to get counter example. (Iteration Number: 276 )
+Max number of tries for this iteration: 27831
+Counter-example found after 16 tries 
+Got counter example
+7315
+Going to get counter example. (Iteration Number: 277 )
+Max number of tries for this iteration: 27931
+Counter-example found after 6 tries 
+Got counter example
+2916
+Going to get counter example. (Iteration Number: 278 )
+Max number of tries for this iteration: 28031
+Counter-example found after 8 tries 
+Got counter example
+3671
+Going to get counter example. (Iteration Number: 279 )
+Max number of tries for this iteration: 28131
+Counter-example found after 11 tries 
+Got counter example
+5475
+Going to get counter example. (Iteration Number: 280 )
+Max number of tries for this iteration: 28231
+Counter-example found after 14 tries 
+Got counter example
+5561
+Going to get counter example. (Iteration Number: 281 )
+Max number of tries for this iteration: 28331
+Counter-example found after 7 tries 
+Got counter example
+2872
+Going to get counter example. (Iteration Number: 282 )
+Max number of tries for this iteration: 28431
+Counter-example found after 8 tries 
+Got counter example
+4109
+Going to get counter example. (Iteration Number: 283 )
+Max number of tries for this iteration: 28531
+Counter-example found after 32 tries 
+Got counter example
+13622
+Going to get counter example. (Iteration Number: 284 )
+Max number of tries for this iteration: 28631
+Counter-example found after 72 tries 
+Got counter example
+31936
+Going to get counter example. (Iteration Number: 285 )
+Max number of tries for this iteration: 28731
+Counter-example found after 15 tries 
+Got counter example
+6538
+Going to get counter example. (Iteration Number: 286 )
+Max number of tries for this iteration: 28831
+Counter-example found after 36 tries 
+Got counter example
+16029
+Going to get counter example. (Iteration Number: 287 )
+Max number of tries for this iteration: 28931
+Counter-example found after 110 tries 
+Got counter example
+42161
+Going to get counter example. (Iteration Number: 288 )
+Max number of tries for this iteration: 29031
+Counter-example found after 8 tries 
+Got counter example
+3103
+Going to get counter example. (Iteration Number: 289 )
+Max number of tries for this iteration: 29131
+Counter-example found after 8 tries 
+Got counter example
+2955
+Going to get counter example. (Iteration Number: 290 )
+Max number of tries for this iteration: 29231
+Counter-example found after 6 tries 
+Got counter example
+3223
+Going to get counter example. (Iteration Number: 291 )
+Max number of tries for this iteration: 29331
+Counter-example found after 16 tries 
+Got counter example
+7131
+Going to get counter example. (Iteration Number: 292 )
+Max number of tries for this iteration: 29431
+Counter-example found after 7 tries 
+Got counter example
+2893
+Going to get counter example. (Iteration Number: 293 )
+Max number of tries for this iteration: 29531
+Counter-example found after 8 tries 
+Got counter example
+2886
+Going to get counter example. (Iteration Number: 294 )
+Max number of tries for this iteration: 29631
+Counter-example found after 9 tries 
+Got counter example
+3251
+Going to get counter example. (Iteration Number: 295 )
+Max number of tries for this iteration: 29731
+Counter-example found after 9 tries 
+Got counter example
+3055
+Going to get counter example. (Iteration Number: 296 )
+Max number of tries for this iteration: 29831
+Counter-example found after 8 tries 
+Got counter example
+3105
+Going to get counter example. (Iteration Number: 297 )
+Max number of tries for this iteration: 29931
+Counter-example found after 7 tries 
+Got counter example
+3330
+Going to get counter example. (Iteration Number: 298 )
+Max number of tries for this iteration: 30031
+Counter-example found after 7 tries 
+Got counter example
+3459
+Going to get counter example. (Iteration Number: 299 )
+Max number of tries for this iteration: 30131
+Counter-example found after 7 tries 
+Got counter example
+3804
+Going to get counter example. (Iteration Number: 300 )
+Max number of tries for this iteration: 30231
+Counter-example found after 8 tries 
+Got counter example
+3792
+Going to get counter example. (Iteration Number: 301 )
+Max number of tries for this iteration: 30331
+Counter-example found after 24 tries 
+Got counter example
+8856
+Going to get counter example. (Iteration Number: 302 )
+Max number of tries for this iteration: 30431
+Counter-example found after 18 tries 
+Got counter example
+7137
+Going to get counter example. (Iteration Number: 303 )
+Max number of tries for this iteration: 30531
+Counter-example found after 81 tries 
+Got counter example
+30186
+Going to get counter example. (Iteration Number: 304 )
+Max number of tries for this iteration: 30631
+Counter-example found after 8 tries 
+Got counter example
+4116
+Going to get counter example. (Iteration Number: 305 )
+Max number of tries for this iteration: 30731
+Counter-example found after 16 tries 
+Got counter example
+7439
+Going to get counter example. (Iteration Number: 306 )
+Max number of tries for this iteration: 30831
+Counter-example found after 15 tries 
+Got counter example
+5810
+Going to get counter example. (Iteration Number: 307 )
+Max number of tries for this iteration: 30931
+Counter-example found after 25 tries 
+Got counter example
+9654
+Going to get counter example. (Iteration Number: 308 )
+Max number of tries for this iteration: 31031
+Counter-example found after 16 tries 
+Got counter example
+6742
+Going to get counter example. (Iteration Number: 309 )
+Max number of tries for this iteration: 31131
+Counter-example found after 16 tries 
+Got counter example
+6792
+Going to get counter example. (Iteration Number: 310 )
+Max number of tries for this iteration: 31231
+Counter-example found after 33 tries 
+Got counter example
+14575
+Going to get counter example. (Iteration Number: 311 )
+Max number of tries for this iteration: 31331
+Counter-example found after 16 tries 
+Got counter example
+7224
+Going to get counter example. (Iteration Number: 312 )
+Max number of tries for this iteration: 31431
+Counter-example found after 23 tries 
+Got counter example
+10708
+Going to get counter example. (Iteration Number: 313 )
+Max number of tries for this iteration: 31531
+Counter-example found after 85 tries 
+Got counter example
+36256
+Going to get counter example. (Iteration Number: 314 )
+Max number of tries for this iteration: 31631
+Counter-example found after 59 tries 
+Got counter example
+24602
+Going to get counter example. (Iteration Number: 315 )
+Max number of tries for this iteration: 31731
+Counter-example found after 15 tries 
+Got counter example
+6194
+Going to get counter example. (Iteration Number: 316 )
+Max number of tries for this iteration: 31831
+Counter-example found after 8 tries 
+Got counter example
+3822
+Going to get counter example. (Iteration Number: 317 )
+Max number of tries for this iteration: 31931
+Counter-example found after 6 tries 
+Got counter example
+3376
+Going to get counter example. (Iteration Number: 318 )
+Max number of tries for this iteration: 32031
+Counter-example found after 54 tries 
+Got counter example
+21242
+Going to get counter example. (Iteration Number: 319 )
+Max number of tries for this iteration: 32131
+Counter-example found after 16 tries 
+Got counter example
+6735
+Going to get counter example. (Iteration Number: 320 )
+Max number of tries for this iteration: 32231
+Counter-example found after 41 tries 
+Got counter example
+15713
+Going to get counter example. (Iteration Number: 321 )
+Max number of tries for this iteration: 32331
+Counter-example found after 71 tries 
+Got counter example
+27257
+Going to get counter example. (Iteration Number: 322 )
+Max number of tries for this iteration: 32431
+Counter-example found after 25 tries 
+Got counter example
+10658
+Going to get counter example. (Iteration Number: 323 )
+Max number of tries for this iteration: 32531
+Counter-example found after 6 tries 
+Got counter example
+3137
+Going to get counter example. (Iteration Number: 324 )
+Max number of tries for this iteration: 32631
+Counter-example found after 14 tries 
+Got counter example
+5874
+Going to get counter example. (Iteration Number: 325 )
+Max number of tries for this iteration: 32731
+Counter-example found after 14 tries 
+Got counter example
+6821
+Going to get counter example. (Iteration Number: 326 )
+Max number of tries for this iteration: 32831
+Counter-example found after 31 tries 
+Got counter example
+12596
+Going to get counter example. (Iteration Number: 327 )
+Max number of tries for this iteration: 32931
+Counter-example found after 61 tries 
+Got counter example
+30846
+Going to get counter example. (Iteration Number: 328 )
+Max number of tries for this iteration: 33031
+Counter-example found after 56 tries 
+Got counter example
+24879
+Going to get counter example. (Iteration Number: 329 )
+Max number of tries for this iteration: 33131
+Counter-example found after 7 tries 
+Got counter example
+3879
+Going to get counter example. (Iteration Number: 330 )
+Max number of tries for this iteration: 33231
+Counter-example found after 25 tries 
+Got counter example
+10193
+Going to get counter example. (Iteration Number: 331 )
+Max number of tries for this iteration: 33331
+Counter-example found after 7 tries 
+Got counter example
+3756
+Going to get counter example. (Iteration Number: 332 )
+Max number of tries for this iteration: 33431
+Counter-example found after 72 tries 
+Got counter example
+29195
+Going to get counter example. (Iteration Number: 333 )
+Max number of tries for this iteration: 33531
+Counter-example found after 24 tries 
+Got counter example
+9847
+Going to get counter example. (Iteration Number: 334 )
+Max number of tries for this iteration: 33631
+Counter-example found after 14 tries 
+Got counter example
+6387
+Going to get counter example. (Iteration Number: 335 )
+Max number of tries for this iteration: 33731
+Counter-example found after 7 tries 
+Got counter example
+3103
+Going to get counter example. (Iteration Number: 336 )
+Max number of tries for this iteration: 33831
+Counter-example found after 16 tries 
+Got counter example
+7480
+Going to get counter example. (Iteration Number: 337 )
+Max number of tries for this iteration: 33931
+Counter-example found after 8 tries 
+Got counter example
+3379
+Going to get counter example. (Iteration Number: 338 )
+Max number of tries for this iteration: 34031
+Counter-example found after 8 tries 
+Got counter example
+3927
+Going to get counter example. (Iteration Number: 339 )
+Max number of tries for this iteration: 34131
+Counter-example found after 8 tries 
+Got counter example
+3541
+Going to get counter example. (Iteration Number: 340 )
+Max number of tries for this iteration: 34231
+Counter-example found after 8 tries 
+Got counter example
+3992
+Going to get counter example. (Iteration Number: 341 )
+Max number of tries for this iteration: 34331
+Counter-example found after 7 tries 
+Got counter example
+3345
+Going to get counter example. (Iteration Number: 342 )
+Max number of tries for this iteration: 34431
+Counter-example found after 7 tries 
+Got counter example
+3015
+Going to get counter example. (Iteration Number: 343 )
+Max number of tries for this iteration: 34531
+Counter-example found after 7 tries 
+Got counter example
+3490
+Going to get counter example. (Iteration Number: 344 )
+Max number of tries for this iteration: 34631
+Counter-example found after 8 tries 
+Got counter example
+4490
+Going to get counter example. (Iteration Number: 345 )
+Max number of tries for this iteration: 34731
+Counter-example found after 14 tries 
+Got counter example
+6644
+Going to get counter example. (Iteration Number: 346 )
+Max number of tries for this iteration: 34831
+Counter-example found after 23 tries 
+Got counter example
+10165
+Going to get counter example. (Iteration Number: 347 )
+Max number of tries for this iteration: 34931
+Counter-example found after 90 tries 
+Got counter example
+38700
+Going to get counter example. (Iteration Number: 348 )
+Max number of tries for this iteration: 35031
+Counter-example found after 8 tries 
+Got counter example
+4148
+Going to get counter example. (Iteration Number: 349 )
+Max number of tries for this iteration: 35131
+Counter-example found after 173 tries 
+Got counter example
+79472
+Going to get counter example. (Iteration Number: 350 )
+Max number of tries for this iteration: 35231
+Counter-example found after 387 tries 
+Got counter example
+174939
+Going to get counter example. (Iteration Number: 351 )
+Max number of tries for this iteration: 35331
+Counter-example found after 303 tries 
+Got counter example
+139368
+Going to get counter example. (Iteration Number: 352 )
+Max number of tries for this iteration: 35431
+Counter-example found after 26 tries 
+Got counter example
+45352
+Going to get counter example. (Iteration Number: 353 )
+Max number of tries for this iteration: 35531
+Counter-example found after 94 tries 
+Got counter example
+42224
+Going to get counter example. (Iteration Number: 354 )
+Max number of tries for this iteration: 35631
+Counter-example found after 90 tries 
+Got counter example
+40842
+Going to get counter example. (Iteration Number: 355 )
+Max number of tries for this iteration: 35731
+Counter-example found after 216 tries 
+Got counter example
+101160
+Going to get counter example. (Iteration Number: 356 )
+Max number of tries for this iteration: 35831
+Counter-example found after 8 tries 
+Got counter example
+4592
+Going to get counter example. (Iteration Number: 357 )
+Max number of tries for this iteration: 35931
+Counter-example found after 61 tries 
+Got counter example
+31372
+Going to get counter example. (Iteration Number: 358 )
+Max number of tries for this iteration: 36031
+Counter-example found after 519 tries 
+Got counter example
+283266
+Going to get counter example. (Iteration Number: 359 )
+Max number of tries for this iteration: 36131
+Counter-example found after 141 tries 
+Got counter example
+73981
+Going to get counter example. (Iteration Number: 360 )
+Max number of tries for this iteration: 36231
+Counter-example found after 201 tries 
+Got counter example
+107354
+Going to get counter example. (Iteration Number: 361 )
+Max number of tries for this iteration: 36331
+Counter-example found after 164 tries 
+Got counter example
+77146
+Going to get counter example. (Iteration Number: 362 )
+Max number of tries for this iteration: 36431
+Counter-example found after 15 tries 
+Got counter example
+7340
+Going to get counter example. (Iteration Number: 363 )
+Max number of tries for this iteration: 36531
+Counter-example found after 156 tries 
+Got counter example
+69911
+Going to get counter example. (Iteration Number: 364 )
+Max number of tries for this iteration: 36631
+Counter-example found after 121 tries 
+Got counter example
+57561
+Going to get counter example. (Iteration Number: 365 )
+Max number of tries for this iteration: 36731
+Counter-example found after 247 tries 
+Got counter example
+114180
+Going to get counter example. (Iteration Number: 366 )
+Max number of tries for this iteration: 36831
+Counter-example found after 236 tries 
+Got counter example
+107248
+Going to get counter example. (Iteration Number: 367 )
+Max number of tries for this iteration: 36931
+Counter-example found after 45 tries 
+Got counter example
+21109
+Going to get counter example. (Iteration Number: 368 )
+Max number of tries for this iteration: 37031
+Counter-example found after 8 tries 
+Got counter example
+3204
+Going to get counter example. (Iteration Number: 369 )
+Max number of tries for this iteration: 37131
+Counter-example found after 8 tries 
+Got counter example
+3719
+Going to get counter example. (Iteration Number: 370 )
+Max number of tries for this iteration: 37231
+Counter-example found after 7 tries 
+Got counter example
+4157
+Going to get counter example. (Iteration Number: 371 )
+Max number of tries for this iteration: 37331
+Counter-example found after 7 tries 
+Got counter example
+3877
+Going to get counter example. (Iteration Number: 372 )
+Max number of tries for this iteration: 37431
+Counter-example found after 7 tries 
+Got counter example
+4190
+Going to get counter example. (Iteration Number: 373 )
+Max number of tries for this iteration: 37531
+Counter-example found after 7 tries 
+Got counter example
+3675
+Going to get counter example. (Iteration Number: 374 )
+Max number of tries for this iteration: 37631
+Counter-example found after 8 tries 
+Got counter example
+4354
+Going to get counter example. (Iteration Number: 375 )
+Max number of tries for this iteration: 37731
+Counter-example found after 8 tries 
+Got counter example
+4435
+Going to get counter example. (Iteration Number: 376 )
+Max number of tries for this iteration: 37831
+Counter-example found after 72 tries 
+Got counter example
+31842
+Going to get counter example. (Iteration Number: 377 )
+Max number of tries for this iteration: 37931
+Counter-example found after 170 tries 
+Got counter example
+92183
+Going to get counter example. (Iteration Number: 378 )
+Max number of tries for this iteration: 38031
+Counter-example found after 6 tries 
+Got counter example
+4422
+Going to get counter example. (Iteration Number: 379 )
+Max number of tries for this iteration: 38131
+Counter-example found after 127 tries 
+Got counter example
+64925
+Going to get counter example. (Iteration Number: 380 )
+Max number of tries for this iteration: 38231
+Counter-example found after 7 tries 
+Got counter example
+4484
+Going to get counter example. (Iteration Number: 381 )
+Max number of tries for this iteration: 38331
+Counter-example found after 8 tries 
+Got counter example
+4651
+Going to get counter example. (Iteration Number: 382 )
+Max number of tries for this iteration: 38431
+Counter-example found after 7 tries 
+Got counter example
+4268
+Going to get counter example. (Iteration Number: 383 )
+Max number of tries for this iteration: 38531
+Counter-example found after 7 tries 
+Got counter example
+45439
+Going to get counter example. (Iteration Number: 384 )
+Max number of tries for this iteration: 38631
+Counter-example found after 8 tries 
+Got counter example
+4166
+Going to get counter example. (Iteration Number: 385 )
+Max number of tries for this iteration: 38731
+Counter-example found after 8 tries 
+Got counter example
+5959
+Going to get counter example. (Iteration Number: 386 )
+Max number of tries for this iteration: 38831
+Counter-example found after 8 tries 
+Got counter example
+4753
+Going to get counter example. (Iteration Number: 387 )
+Max number of tries for this iteration: 38931
+Counter-example found after 8 tries 
+Got counter example
+5238
+Going to get counter example. (Iteration Number: 388 )
+Max number of tries for this iteration: 39031
+Counter-example found after 24 tries 
+Got counter example
+12431
+Going to get counter example. (Iteration Number: 389 )
+Max number of tries for this iteration: 39131
+Counter-example found after 27 tries 
+Got counter example
+13313
+Going to get counter example. (Iteration Number: 390 )
+Max number of tries for this iteration: 39231
+Counter-example found after 409 tries 
+Got counter example
+193877
+Going to get counter example. (Iteration Number: 391 )
+Max number of tries for this iteration: 39331
+Counter-example found after 8 tries 
+Got counter example
+5106
+Going to get counter example. (Iteration Number: 392 )
+Max number of tries for this iteration: 39431
+Counter-example found after 8 tries 
+Got counter example
+4544
+Going to get counter example. (Iteration Number: 393 )
+Max number of tries for this iteration: 39531
+Counter-example found after 8 tries 
+Got counter example
+3788
+Going to get counter example. (Iteration Number: 394 )
+Max number of tries for this iteration: 39631
+Counter-example found after 8 tries 
+Got counter example
+4295
+Going to get counter example. (Iteration Number: 395 )
+Max number of tries for this iteration: 39731
+Counter-example found after 8 tries 
+Got counter example
+3571
+Going to get counter example. (Iteration Number: 396 )
+Max number of tries for this iteration: 39831
+Counter-example found after 26 tries 
+Got counter example
+12580
+Going to get counter example. (Iteration Number: 397 )
+Max number of tries for this iteration: 39931
+Counter-example found after 71 tries 
+Got counter example
+33720
+Going to get counter example. (Iteration Number: 398 )
+Max number of tries for this iteration: 40031
+Counter-example found after 7 tries 
+Got counter example
+4345
+Going to get counter example. (Iteration Number: 399 )
+Max number of tries for this iteration: 40131
+Counter-example found after 223 tries 
+Got counter example
+107611
+Going to get counter example. (Iteration Number: 400 )
+Max number of tries for this iteration: 40231
+Counter-example found after 60 tries 
+Got counter example
+31220
+Going to get counter example. (Iteration Number: 401 )
+Max number of tries for this iteration: 40331
+Counter-example found after 217 tries 
+Got counter example
+115942
+Going to get counter example. (Iteration Number: 402 )
+Max number of tries for this iteration: 40431
+Counter-example found after 139 tries 
+Got counter example
+67463
+Going to get counter example. (Iteration Number: 403 )
+Max number of tries for this iteration: 40531
+Counter-example found after 393 tries 
+Got counter example
+192080
+Going to get counter example. (Iteration Number: 404 )
+Max number of tries for this iteration: 40631
+Counter-example found after 311 tries 
+Got counter example
+150836
+Going to get counter example. (Iteration Number: 405 )
+Max number of tries for this iteration: 40731
+Counter-example found after 188 tries 
+Got counter example
+89978
+Going to get counter example. (Iteration Number: 406 )
+Max number of tries for this iteration: 40831
+Counter-example found after 81 tries 
+Got counter example
+37387
+Going to get counter example. (Iteration Number: 407 )
+Max number of tries for this iteration: 40931
+Counter-example found after 8 tries 
+Got counter example
+4738
+Going to get counter example. (Iteration Number: 408 )
+Max number of tries for this iteration: 41031
+Counter-example found after 8 tries 
+Got counter example
+4512
+Going to get counter example. (Iteration Number: 409 )
+Max number of tries for this iteration: 41131
+Counter-example found after 23 tries 
+Got counter example
+10865
+Going to get counter example. (Iteration Number: 410 )
+Max number of tries for this iteration: 41231
+Counter-example found after 23 tries 
+Got counter example
+11075
+Going to get counter example. (Iteration Number: 411 )
+Max number of tries for this iteration: 41331
+Counter-example found after 200 tries 
+Got counter example
+94532
+Going to get counter example. (Iteration Number: 412 )
+Max number of tries for this iteration: 41431
+Counter-example found after 125 tries 
+Got counter example
+65221
+Going to get counter example. (Iteration Number: 413 )
+Max number of tries for this iteration: 41531
+Counter-example found after 262 tries 
+Got counter example
+126592
+Going to get counter example. (Iteration Number: 414 )
+Max number of tries for this iteration: 41631
+Counter-example found after 434 tries 
+Got counter example
+213153
+Going to get counter example. (Iteration Number: 415 )
+Max number of tries for this iteration: 41731
+Counter-example found after 54 tries 
+Got counter example
+27335
+Going to get counter example. (Iteration Number: 416 )
+Max number of tries for this iteration: 41831
+Counter-example found after 47 tries 
+Got counter example
+22922
+Going to get counter example. (Iteration Number: 417 )
+Max number of tries for this iteration: 41931
+Counter-example found after 230 tries 
+Got counter example
+120233
+Going to get counter example. (Iteration Number: 418 )
+Max number of tries for this iteration: 42031
+Counter-example found after 57 tries 
+Got counter example
+30372
+Going to get counter example. (Iteration Number: 419 )
+Max number of tries for this iteration: 42131
+Counter-example found after 38 tries 
+Got counter example
+20035
+Going to get counter example. (Iteration Number: 420 )
+Max number of tries for this iteration: 42231
+Counter-example found after 270 tries 
+Got counter example
+138843
+Going to get counter example. (Iteration Number: 421 )
+Max number of tries for this iteration: 42331
+Counter-example found after 24 tries 
+Got counter example
+12076
+Going to get counter example. (Iteration Number: 422 )
+Max number of tries for this iteration: 42431
+Counter-example found after 7 tries 
+Got counter example
+2998
+Going to get counter example. (Iteration Number: 423 )
+Max number of tries for this iteration: 42531
+Counter-example found after 8 tries 
+Got counter example
+3908
+Going to get counter example. (Iteration Number: 424 )
+Max number of tries for this iteration: 42631
+Counter-example found after 8 tries 
+Got counter example
+4063
+Going to get counter example. (Iteration Number: 425 )
+Max number of tries for this iteration: 42731
+Counter-example found after 8 tries 
+Got counter example
+4676
+Going to get counter example. (Iteration Number: 426 )
+Max number of tries for this iteration: 42831
+Counter-example found after 8 tries 
+Got counter example
+4225
+Going to get counter example. (Iteration Number: 427 )
+Max number of tries for this iteration: 42931
+Counter-example found after 7 tries 
+Got counter example
+3924
+Going to get counter example. (Iteration Number: 428 )
+Max number of tries for this iteration: 43031
+Counter-example found after 15 tries 
+Got counter example
+8355
+Going to get counter example. (Iteration Number: 429 )
+Max number of tries for this iteration: 43131
+Counter-example found after 9 tries 
+Got counter example
+4662
+Going to get counter example. (Iteration Number: 430 )
+Max number of tries for this iteration: 43231
+Counter-example found after 8 tries 
+Got counter example
+5147
+Going to get counter example. (Iteration Number: 431 )
+Max number of tries for this iteration: 43331
+Counter-example found after 7 tries 
+Got counter example
+5024
+Going to get counter example. (Iteration Number: 432 )
+Max number of tries for this iteration: 43431
+Counter-example found after 7 tries 
+Got counter example
+4907
+Going to get counter example. (Iteration Number: 433 )
+Max number of tries for this iteration: 43531
+Counter-example found after 8 tries 
+Got counter example
+4879
+Going to get counter example. (Iteration Number: 434 )
+Max number of tries for this iteration: 43631
+Counter-example found after 8 tries 
+Got counter example
+5002
+Going to get counter example. (Iteration Number: 435 )
+Max number of tries for this iteration: 43731
+Counter-example found after 34 tries 
+Got counter example
+16948
+Going to get counter example. (Iteration Number: 436 )
+Max number of tries for this iteration: 43831
+Counter-example found after 334 tries 
+Got counter example
+179489
+Going to get counter example. (Iteration Number: 437 )
+Max number of tries for this iteration: 43931
+Counter-example found after 165 tries 
+Got counter example
+88705
+Going to get counter example. (Iteration Number: 438 )
+Max number of tries for this iteration: 44031
+Counter-example found after 66 tries 
+Got counter example
+32485
+Going to get counter example. (Iteration Number: 439 )
+Max number of tries for this iteration: 44131
+Counter-example found after 202 tries 
+Got counter example
+102620
+Going to get counter example. (Iteration Number: 440 )
+Max number of tries for this iteration: 44231
+Counter-example found after 30 tries 
+Got counter example
+14807
+Going to get counter example. (Iteration Number: 441 )
+Max number of tries for this iteration: 44331
+Counter-example found after 588 tries 
+Got counter example
+307825
+Going to get counter example. (Iteration Number: 442 )
+Max number of tries for this iteration: 44431
+Counter-example found after 205 tries 
+Got counter example
+111781
+Going to get counter example. (Iteration Number: 443 )
+Max number of tries for this iteration: 44531
+Counter-example found after 318 tries 
+Got counter example
+171739
+Going to get counter example. (Iteration Number: 444 )
+Max number of tries for this iteration: 44631
+Counter-example found after 226 tries 
+Got counter example
+123051
+Going to get counter example. (Iteration Number: 445 )
+Max number of tries for this iteration: 44731
+Counter-example found after 410 tries 
+Got counter example
+219702
+Going to get counter example. (Iteration Number: 446 )
+Max number of tries for this iteration: 44831
+Counter-example found after 115 tries 
+Got counter example
+63874
+Going to get counter example. (Iteration Number: 447 )
+Max number of tries for this iteration: 44931
+Counter-example found after 63 tries 
+Got counter example
+30569
+Going to get counter example. (Iteration Number: 448 )
+Max number of tries for this iteration: 45031
+Counter-example found after 29 tries 
+Got counter example
+15734
+Going to get counter example. (Iteration Number: 449 )
+Max number of tries for this iteration: 45131
+Counter-example found after 251 tries 
+Got counter example
+143156
+Going to get counter example. (Iteration Number: 450 )
+Max number of tries for this iteration: 45231
+Counter-example found after 181 tries 
+Got counter example
+100710
+Going to get counter example. (Iteration Number: 451 )
+Max number of tries for this iteration: 45331
+Counter-example found after 453 tries 
+Got counter example
+254177
+Going to get counter example. (Iteration Number: 452 )
+Max number of tries for this iteration: 45431
+Counter-example found after 190 tries 
+Got counter example
+102675
+Going to get counter example. (Iteration Number: 453 )
+Max number of tries for this iteration: 45531
+Counter-example found after 69 tries 
+Got counter example
+38876
+Going to get counter example. (Iteration Number: 454 )
+Max number of tries for this iteration: 45631
+Counter-example found after 9 tries 
+Got counter example
+7537
+Going to get counter example. (Iteration Number: 455 )
+Max number of tries for this iteration: 45731
+Counter-example found after 7 tries 
+Got counter example
+4304
+Going to get counter example. (Iteration Number: 456 )
+Max number of tries for this iteration: 45831
+Counter-example found after 7 tries 
+Got counter example
+5345
+Going to get counter example. (Iteration Number: 457 )
+Max number of tries for this iteration: 45931
+Counter-example found after 15 tries 
+Got counter example
+8112
+Going to get counter example. (Iteration Number: 458 )
+Max number of tries for this iteration: 46031
+Counter-example found after 16 tries 
+Got counter example
+8687
+Going to get counter example. (Iteration Number: 459 )
+Max number of tries for this iteration: 46131
+Counter-example found after 7 tries 
+Got counter example
+4976
+Going to get counter example. (Iteration Number: 460 )
+Max number of tries for this iteration: 46231
+Counter-example found after 7 tries 
+Got counter example
+5468
+Going to get counter example. (Iteration Number: 461 )
+Max number of tries for this iteration: 46331
+Counter-example found after 16 tries 
+Got counter example
+9513
+Going to get counter example. (Iteration Number: 462 )
+Max number of tries for this iteration: 46431
+Counter-example found after 8 tries 
+Got counter example
+4996
+Going to get counter example. (Iteration Number: 463 )
+Max number of tries for this iteration: 46531
+Counter-example found after 17 tries 
+Got counter example
+10856
+Going to get counter example. (Iteration Number: 464 )
+Max number of tries for this iteration: 46631
+Counter-example found after 69 tries 
+Got counter example
+39471
+Going to get counter example. (Iteration Number: 465 )
+Max number of tries for this iteration: 46731
+Counter-example found after 118 tries 
+Got counter example
+69482
+Going to get counter example. (Iteration Number: 466 )
+Max number of tries for this iteration: 46831
+Counter-example found after 7 tries 
+Got counter example
+4972
+Going to get counter example. (Iteration Number: 467 )
+Max number of tries for this iteration: 46931
+Counter-example found after 134 tries 
+Got counter example
+76563
+Going to get counter example. (Iteration Number: 468 )
+Max number of tries for this iteration: 47031
+Counter-example found after 2326 tries 
+Got counter example
+1423943
+Going to get counter example. (Iteration Number: 469 )
+Max number of tries for this iteration: 47131
+Counter-example found after 153 tries 
+Got counter example
+89159
+Going to get counter example. (Iteration Number: 470 )
+Max number of tries for this iteration: 47231
+Counter-example found after 402 tries 
+Got counter example
+235336
+Going to get counter example. (Iteration Number: 471 )
+Max number of tries for this iteration: 47331
+Counter-example found after 205 tries 
+Got counter example
+112413
+Going to get counter example. (Iteration Number: 472 )
+Max number of tries for this iteration: 47431
+Counter-example found after 76 tries 
+Got counter example
+39736
+Going to get counter example. (Iteration Number: 473 )
+Max number of tries for this iteration: 47531
+Counter-example found after 6 tries 
+Got counter example
+4133
+Going to get counter example. (Iteration Number: 474 )
+Max number of tries for this iteration: 47631
+Counter-example found after 12 tries 
+Got counter example
+7458
+Going to get counter example. (Iteration Number: 475 )
+Max number of tries for this iteration: 47731
+Counter-example found after 16 tries 
+Got counter example
+9936
+Going to get counter example. (Iteration Number: 476 )
+Max number of tries for this iteration: 47831
+Counter-example found after 7 tries 
+Got counter example
+5631
+Going to get counter example. (Iteration Number: 477 )
+Max number of tries for this iteration: 47931
+Counter-example found after 9 tries 
+Got counter example
+5563
+Going to get counter example. (Iteration Number: 478 )
+Max number of tries for this iteration: 48031
+Counter-example found after 8 tries 
+Got counter example
+5222
+Going to get counter example. (Iteration Number: 479 )
+Max number of tries for this iteration: 48131
+Counter-example found after 8 tries 
+Got counter example
+6167
+Going to get counter example. (Iteration Number: 480 )
+Max number of tries for this iteration: 48231
+Counter-example found after 8 tries 
+Got counter example
+4980
+Going to get counter example. (Iteration Number: 481 )
+Max number of tries for this iteration: 48331
+Counter-example found after 8 tries 
+Got counter example
+5869
+Going to get counter example. (Iteration Number: 482 )
+Max number of tries for this iteration: 48431
+Counter-example found after 25 tries 
+Got counter example
+13636
+Going to get counter example. (Iteration Number: 483 )
+Max number of tries for this iteration: 48531
+Counter-example found after 178 tries 
+Got counter example
+105928
+Going to get counter example. (Iteration Number: 484 )
+Max number of tries for this iteration: 48631
+Counter-example found after 1754 tries 
+Got counter example
+1153301
+Going to get counter example. (Iteration Number: 485 )
+Max number of tries for this iteration: 48731
+Counter-example found after 198 tries 
+Got counter example
+123307
+Going to get counter example. (Iteration Number: 486 )
+Max number of tries for this iteration: 48831
+Counter-example found after 948 tries 
+Got counter example
+574047
+Going to get counter example. (Iteration Number: 487 )
+Max number of tries for this iteration: 48931
+Counter-example found after 1331 tries 
+Got counter example
+860854
+Going to get counter example. (Iteration Number: 488 )
+Max number of tries for this iteration: 49031
+Counter-example found after 15 tries 
+Got counter example
+9554
+Going to get counter example. (Iteration Number: 489 )
+Max number of tries for this iteration: 49131
+Counter-example found after 395 tries 
+Got counter example
+243231
+Going to get counter example. (Iteration Number: 490 )
+Max number of tries for this iteration: 49231
+Counter-example found after 1912 tries 
+Got counter example
+1254521
+Going to get counter example. (Iteration Number: 491 )
+Max number of tries for this iteration: 49331
+Counter-example found after 8 tries 
+Got counter example
+45431
+Going to get counter example. (Iteration Number: 492 )
+Max number of tries for this iteration: 49431
+Counter-example found after 88 tries 
+Got counter example
+49202
+Going to get counter example. (Iteration Number: 493 )
+Max number of tries for this iteration: 49531
+Counter-example found after 8 tries 
+Got counter example
+6007
+Going to get counter example. (Iteration Number: 494 )
+Max number of tries for this iteration: 49631
+Counter-example found after 8 tries 
+Got counter example
+4538
+Going to get counter example. (Iteration Number: 495 )
+Max number of tries for this iteration: 49731
+Counter-example found after 1738 tries 
+Got counter example
+1183132
+Going to get counter example. (Iteration Number: 496 )
+Max number of tries for this iteration: 49831
+Counter-example found after 1321 tries 
+Got counter example
+1029515
+Going to get counter example. (Iteration Number: 497 )
+Max number of tries for this iteration: 49931
+Counter-example found after 719 tries 
+Got counter example
+477306
+Going to get counter example. (Iteration Number: 498 )
+Max number of tries for this iteration: 50031
+Counter-example found after 1416 tries 
+Got counter example
+1018069
+Going to get counter example. (Iteration Number: 499 )
+Max number of tries for this iteration: 50131
+Counter-example found after 1440 tries 
+Got counter example
+1111017
+Going to get counter example. (Iteration Number: 500 )
+Max number of tries for this iteration: 50231
+Counter-example found after 200 tries 
+Got counter example
+119771
+Going to get counter example. (Iteration Number: 501 )
+Max number of tries for this iteration: 50331
+Counter-example found after 1084 tries 
+Got counter example
+791575
+Going to get counter example. (Iteration Number: 502 )
+Max number of tries for this iteration: 50431
+Counter-example found after 8 tries 
+Got counter example
+4525
+Going to get counter example. (Iteration Number: 503 )
+Max number of tries for this iteration: 50531
+Counter-example found after 7 tries 
+Got counter example
+5887
+Going to get counter example. (Iteration Number: 504 )
+Max number of tries for this iteration: 50631
+Counter-example found after 7 tries 
+Got counter example
+5432
+Going to get counter example. (Iteration Number: 505 )
+Max number of tries for this iteration: 50731
+Counter-example found after 8 tries 
+Got counter example
+5749
+Going to get counter example. (Iteration Number: 506 )
+Max number of tries for this iteration: 50831
+Counter-example found after 24 tries 
+Got counter example
+14793
+Going to get counter example. (Iteration Number: 507 )
+Max number of tries for this iteration: 50931
+Counter-example found after 36 tries 
+Got counter example
+21295
+Going to get counter example. (Iteration Number: 508 )
+Max number of tries for this iteration: 51031
+Counter-example found after 35 tries 
+Got counter example
+22293
+Going to get counter example. (Iteration Number: 509 )
+Max number of tries for this iteration: 51131
+Counter-example found after 8 tries 
+Got counter example
+5557
+Going to get counter example. (Iteration Number: 510 )
+Max number of tries for this iteration: 51231
+Counter-example found after 8 tries 
+Got counter example
+5026
+Going to get counter example. (Iteration Number: 511 )
+Max number of tries for this iteration: 51331
+Counter-example found after 8 tries 
+Got counter example
+5194
+Going to get counter example. (Iteration Number: 512 )
+Max number of tries for this iteration: 51431
+Counter-example found after 8 tries 
+Got counter example
+6037
+Going to get counter example. (Iteration Number: 513 )
+Max number of tries for this iteration: 51531
+Counter-example found after 31 tries 
+Got counter example
+18892
+Going to get counter example. (Iteration Number: 514 )
+Max number of tries for this iteration: 51631
+Counter-example found after 18 tries 
+Got counter example
+11722
+Going to get counter example. (Iteration Number: 515 )
+Max number of tries for this iteration: 51731
+Counter-example found after 8 tries 
+Got counter example
+5856
+Going to get counter example. (Iteration Number: 516 )
+Max number of tries for this iteration: 51831
+Counter-example found after 62 tries 
+Got counter example
+37091
+Going to get counter example. (Iteration Number: 517 )
+Max number of tries for this iteration: 51931
+Counter-example found after 1438 tries 
+Got counter example
+928262
+Going to get counter example. (Iteration Number: 518 )
+Max number of tries for this iteration: 52031
+Counter-example found after 987 tries 
+Got counter example
+632621
+Going to get counter example. (Iteration Number: 519 )
+Max number of tries for this iteration: 52131
+Counter-example found after 1392 tries 
+Got counter example
+912105
+Going to get counter example. (Iteration Number: 520 )
+Max number of tries for this iteration: 52231
+Counter-example found after 571 tries 
+Got counter example
+366934
+Going to get counter example. (Iteration Number: 521 )
+Max number of tries for this iteration: 52331
+Counter-example found after 24 tries 
+Got counter example
+14424
+Going to get counter example. (Iteration Number: 522 )
+Max number of tries for this iteration: 52431
+Counter-example found after 25 tries 
+Got counter example
+16367
+Going to get counter example. (Iteration Number: 523 )
+Max number of tries for this iteration: 52531
+Counter-example found after 27 tries 
+Got counter example
+17156
+Going to get counter example. (Iteration Number: 524 )
+Max number of tries for this iteration: 52631
+Counter-example found after 7 tries 
+Got counter example
+45401
+Going to get counter example. (Iteration Number: 525 )
+Max number of tries for this iteration: 52731
+Counter-example found after 8 tries 
+Got counter example
+6113
+Going to get counter example. (Iteration Number: 526 )
+Max number of tries for this iteration: 52831
+Counter-example found after 9 tries 
+Got counter example
+6557
+Going to get counter example. (Iteration Number: 527 )
+Max number of tries for this iteration: 52931
+Counter-example found after 63 tries 
+Got counter example
+40176
+Going to get counter example. (Iteration Number: 528 )
+Max number of tries for this iteration: 53031
+Counter-example found after 145 tries 
+Got counter example
+91043
+Going to get counter example. (Iteration Number: 529 )
+Max number of tries for this iteration: 53131
+Counter-example found after 781 tries 
+Got counter example
+541167
+Going to get counter example. (Iteration Number: 530 )
+Max number of tries for this iteration: 53231
+Counter-example found after 350 tries 
+Got counter example
+237123
+Going to get counter example. (Iteration Number: 531 )
+Max number of tries for this iteration: 53331
+Counter-example found after 2324 tries 
+Got counter example
+1852277
+Going to get counter example. (Iteration Number: 532 )
+Max number of tries for this iteration: 53431
+Counter-example found after 342 tries 
+Got counter example
+226280
+Going to get counter example. (Iteration Number: 533 )
+Max number of tries for this iteration: 53531
+Counter-example found after 295 tries 
+Got counter example
+211756
+Going to get counter example. (Iteration Number: 534 )
+Max number of tries for this iteration: 53631
+Counter-example found after 47 tries 
+Got counter example
+31035
+Going to get counter example. (Iteration Number: 535 )
+Max number of tries for this iteration: 53731
+Counter-example found after 1619 tries 
+Got counter example
+1238943
+Going to get counter example. (Iteration Number: 536 )
+Max number of tries for this iteration: 53831
+Counter-example found after 519 tries 
+Got counter example
+350000
+Going to get counter example. (Iteration Number: 537 )
+Max number of tries for this iteration: 53931
+Counter-example found after 16 tries 
+Got counter example
+11508
+Going to get counter example. (Iteration Number: 538 )
+Max number of tries for this iteration: 54031
+Counter-example found after 2043 tries 
+Got counter example
+1498447
+Going to get counter example. (Iteration Number: 539 )
+Max number of tries for this iteration: 54131
+Counter-example found after 1240 tries 
+Got counter example
+948504
+Going to get counter example. (Iteration Number: 540 )
+Max number of tries for this iteration: 54231
+Counter-example found after 177 tries 
+Got counter example
+116673
+Going to get counter example. (Iteration Number: 541 )
+Max number of tries for this iteration: 54331
+Counter-example found after 235 tries 
+Got counter example
+154878
+Going to get counter example. (Iteration Number: 542 )
+Max number of tries for this iteration: 54431
+Counter-example found after 9 tries 
+Got counter example
+7059
+Going to get counter example. (Iteration Number: 543 )
+Max number of tries for this iteration: 54531
+Counter-example found after 7 tries 
+Got counter example
+6056
+Going to get counter example. (Iteration Number: 544 )
+Max number of tries for this iteration: 54631
+Counter-example found after 16 tries 
+Got counter example
+10359
+Going to get counter example. (Iteration Number: 545 )
+Max number of tries for this iteration: 54731
+Counter-example found after 28 tries 
+Got counter example
+18837
+Going to get counter example. (Iteration Number: 546 )
+Max number of tries for this iteration: 54831
+Counter-example found after 8 tries 
+Got counter example
+5616
+Going to get counter example. (Iteration Number: 547 )
+Max number of tries for this iteration: 54931
+Counter-example found after 22 tries 
+Got counter example
+16535
+Going to get counter example. (Iteration Number: 548 )
+Max number of tries for this iteration: 55031
+Counter-example found after 24 tries 
+Got counter example
+14385
+Going to get counter example. (Iteration Number: 549 )
+Max number of tries for this iteration: 55131
+Counter-example found after 45 tries 
+Got counter example
+28924
+Going to get counter example. (Iteration Number: 550 )
+Max number of tries for this iteration: 55231
+Counter-example found after 33 tries 
+Got counter example
+22032
+Going to get counter example. (Iteration Number: 551 )
+Max number of tries for this iteration: 55331
+Counter-example found after 43 tries 
+Got counter example
+27634
+Going to get counter example. (Iteration Number: 552 )
+Max number of tries for this iteration: 55431
+Counter-example found after 25 tries 
+Got counter example
+17049
+Going to get counter example. (Iteration Number: 553 )
+Max number of tries for this iteration: 55531
+Counter-example found after 25 tries 
+Got counter example
+16790
+Going to get counter example. (Iteration Number: 554 )
+Max number of tries for this iteration: 55631
+Counter-example found after 15 tries 
+Got counter example
+10461
+Going to get counter example. (Iteration Number: 555 )
+Max number of tries for this iteration: 55731
+Counter-example found after 95 tries 
+Got counter example
+60872
+Going to get counter example. (Iteration Number: 556 )
+Max number of tries for this iteration: 55831
+Counter-example found after 134 tries 
+Got counter example
+85537
+Going to get counter example. (Iteration Number: 557 )
+Max number of tries for this iteration: 55931
+Counter-example found after 300 tries 
+Got counter example
+196522
+Going to get counter example. (Iteration Number: 558 )
+Max number of tries for this iteration: 56031
+Counter-example found after 14 tries 
+Got counter example
+9451
+Going to get counter example. (Iteration Number: 559 )
+Max number of tries for this iteration: 56131
+Counter-example found after 57 tries 
+Got counter example
+35442
+Going to get counter example. (Iteration Number: 560 )
+Max number of tries for this iteration: 56231
+Counter-example found after 33 tries 
+Got counter example
+21604
+Going to get counter example. (Iteration Number: 561 )
+Max number of tries for this iteration: 56331
+Counter-example found after 66 tries 
+Got counter example
+45312
+Going to get counter example. (Iteration Number: 562 )
+Max number of tries for this iteration: 56431
+Counter-example found after 338 tries 
+Got counter example
+229151
+Going to get counter example. (Iteration Number: 563 )
+Max number of tries for this iteration: 56531
+Counter-example found after 752 tries 
+Got counter example
+513875
+Going to get counter example. (Iteration Number: 564 )
+Max number of tries for this iteration: 56631
+Counter-example found after 1745 tries 
+Got counter example
+1250938
+Going to get counter example. (Iteration Number: 565 )
+Max number of tries for this iteration: 56731
+Counter-example found after 249 tries 
+Got counter example
+173356
+Going to get counter example. (Iteration Number: 566 )
+Max number of tries for this iteration: 56831
+Counter-example found after 3385 tries 
+Got counter example
+2464168
+Going to get counter example. (Iteration Number: 567 )
+Max number of tries for this iteration: 56931
+Counter-example found after 1165 tries 
+Got counter example
+912785
+Going to get counter example. (Iteration Number: 568 )
+Max number of tries for this iteration: 57031
+Counter-example found after 223 tries 
+Got counter example
+157537
+Going to get counter example. (Iteration Number: 569 )
+Max number of tries for this iteration: 57131
+Counter-example found after 1101 tries 
+Got counter example
+830842
+Going to get counter example. (Iteration Number: 570 )
+Max number of tries for this iteration: 57231
+Counter-example found after 771 tries 
+Got counter example
+566262
+Going to get counter example. (Iteration Number: 571 )
+Max number of tries for this iteration: 57331
+Counter-example found after 671 tries 
+Got counter example
+479961
+Going to get counter example. (Iteration Number: 572 )
+Max number of tries for this iteration: 57431
+Counter-example found after 1624 tries 
+Got counter example
+1295277
+Going to get counter example. (Iteration Number: 573 )
+Max number of tries for this iteration: 57531
+Counter-example found after 407 tries 
+Got counter example
+311536
+Going to get counter example. (Iteration Number: 574 )
+Max number of tries for this iteration: 57631
+Counter-example found after 537 tries 
+Got counter example
+385197
+Going to get counter example. (Iteration Number: 575 )
+Max number of tries for this iteration: 57731
+Counter-example found after 1905 tries 
+Got counter example
+1555721
+Going to get counter example. (Iteration Number: 576 )
+Max number of tries for this iteration: 57831
+Counter-example found after 1741 tries 
+Got counter example
+1403298
+Going to get counter example. (Iteration Number: 577 )
+Max number of tries for this iteration: 57931
+Counter-example found after 399 tries 
+Got counter example
+288459
+Going to get counter example. (Iteration Number: 578 )
+Max number of tries for this iteration: 58031
+Counter-example found after 738 tries 
+Got counter example
+551535
+Going to get counter example. (Iteration Number: 579 )
+Max number of tries for this iteration: 58131
+Counter-example found after 1244 tries 
+Got counter example
+974134
+Going to get counter example. (Iteration Number: 580 )
+Max number of tries for this iteration: 58231
+Counter-example found after 193 tries 
+Got counter example
+133445
+Going to get counter example. (Iteration Number: 581 )
+Max number of tries for this iteration: 58331
+Counter-example found after 4482 tries 
+Got counter example
+3801676
+Going to get counter example. (Iteration Number: 582 )
+Max number of tries for this iteration: 58431
+Counter-example found after 373 tries 
+Got counter example
+265341
+Going to get counter example. (Iteration Number: 583 )
+Max number of tries for this iteration: 58531
+Counter-example found after 360 tries 
+Got counter example
+261699
+Going to get counter example. (Iteration Number: 584 )
+Max number of tries for this iteration: 58631
+Counter-example found after 1393 tries 
+Got counter example
+1104187
+Going to get counter example. (Iteration Number: 585 )
+Max number of tries for this iteration: 58731
+Counter-example found after 593 tries 
+Got counter example
+433175
+Going to get counter example. (Iteration Number: 586 )
+Max number of tries for this iteration: 58831
+Counter-example found after 1198 tries 
+Got counter example
+956810
+Going to get counter example. (Iteration Number: 587 )
+Max number of tries for this iteration: 58931
+Counter-example found after 2943 tries 
+Got counter example
+2447664
+Going to get counter example. (Iteration Number: 588 )
+Max number of tries for this iteration: 59031
+Counter-example found after 247 tries 
+Got counter example
+168765
+Going to get counter example. (Iteration Number: 589 )
+Max number of tries for this iteration: 59131
+Counter-example found after 2340 tries 
+Got counter example
+1902730
+Going to get counter example. (Iteration Number: 590 )
+Max number of tries for this iteration: 59231
+Counter-example found after 307 tries 
+Got counter example
+216220
+Going to get counter example. (Iteration Number: 591 )
+Max number of tries for this iteration: 59331
+Counter-example found after 302 tries 
+Got counter example
+219671
+Going to get counter example. (Iteration Number: 592 )
+Max number of tries for this iteration: 59431
+Counter-example found after 253 tries 
+Got counter example
+178534
+Going to get counter example. (Iteration Number: 593 )
+Max number of tries for this iteration: 59531
+Counter-example found after 2486 tries 
+Got counter example
+2036357
+Going to get counter example. (Iteration Number: 594 )
+Max number of tries for this iteration: 59631
+Counter-example found after 87 tries 
+Got counter example
+60025
+Going to get counter example. (Iteration Number: 595 )
+Max number of tries for this iteration: 59731
+Counter-example found after 7 tries 
+Got counter example
+5436
+Going to get counter example. (Iteration Number: 596 )
+Max number of tries for this iteration: 59831
+Counter-example found after 1176 tries 
+Got counter example
+919287
+Going to get counter example. (Iteration Number: 597 )
+Max number of tries for this iteration: 59931
+Counter-example found after 4499 tries 
+Got counter example
+3856974
+Going to get counter example. (Iteration Number: 598 )
+Max number of tries for this iteration: 60031
+Counter-example found after 3330 tries 
+Got counter example
+2725987
+Going to get counter example. (Iteration Number: 599 )
+Max number of tries for this iteration: 60131
+Counter-example found after 8 tries 
+Got counter example
+45375
+Going to get counter example. (Iteration Number: 600 )
+Max number of tries for this iteration: 60231
+Counter-example found after 7 tries 
+Got counter example
+5875
+Going to get counter example. (Iteration Number: 601 )
+Max number of tries for this iteration: 60331
+Counter-example found after 18 tries 
+Got counter example
+12957
+Going to get counter example. (Iteration Number: 602 )
+Max number of tries for this iteration: 60431
+Counter-example found after 8 tries 
+Got counter example
+6090
+Going to get counter example. (Iteration Number: 603 )
+Max number of tries for this iteration: 60531
+Counter-example found after 8 tries 
+Got counter example
+6877
+Going to get counter example. (Iteration Number: 604 )
+Max number of tries for this iteration: 60631
+Counter-example found after 8 tries 
+Got counter example
+5287
+Going to get counter example. (Iteration Number: 605 )
+Max number of tries for this iteration: 60731
+Counter-example found after 8 tries 
+Got counter example
+5113
+Going to get counter example. (Iteration Number: 606 )
+Max number of tries for this iteration: 60831
+Counter-example found after 17 tries 
+Got counter example
+13478
+Going to get counter example. (Iteration Number: 607 )
+Max number of tries for this iteration: 60931
+Counter-example found after 53 tries 
+Got counter example
+40904
+Going to get counter example. (Iteration Number: 608 )
+Max number of tries for this iteration: 61031
+Counter-example found after 8 tries 
+Got counter example
+7513
+Going to get counter example. (Iteration Number: 609 )
+Max number of tries for this iteration: 61131
+Counter-example found after 25 tries 
+Got counter example
+16008
+Going to get counter example. (Iteration Number: 610 )
+Max number of tries for this iteration: 61231
+Counter-example found after 8 tries 
+Got counter example
+5979
+Going to get counter example. (Iteration Number: 611 )
+Max number of tries for this iteration: 61331
+Counter-example found after 218 tries 
+Got counter example
+157892
+Going to get counter example. (Iteration Number: 612 )
+Max number of tries for this iteration: 61431
+Counter-example found after 116 tries 
+Got counter example
+84970
+Going to get counter example. (Iteration Number: 613 )
+Max number of tries for this iteration: 61531
+Counter-example found after 391 tries 
+Got counter example
+297624
+Going to get counter example. (Iteration Number: 614 )
+Max number of tries for this iteration: 61631
+Counter-example found after 5240 tries 
+Got counter example
+5019360
+Going to get counter example. (Iteration Number: 615 )
+Max number of tries for this iteration: 61731
+Counter-example found after 338 tries 
+Got counter example
+336162
+Going to get counter example. (Iteration Number: 616 )
+Max number of tries for this iteration: 61831
+Counter-example found after 1162 tries 
+Got counter example
+1232791
+Going to get counter example. (Iteration Number: 617 )
+Max number of tries for this iteration: 61931
+Counter-example found after 3106 tries 
+Got counter example
+3507594
+Going to get counter example. (Iteration Number: 618 )
+Max number of tries for this iteration: 62031
+Counter-example found after 5487 tries 
+Got counter example
+5705051
+Going to get counter example. (Iteration Number: 619 )
+Max number of tries for this iteration: 62131
+Counter-example found after 7926 tries 
+Got counter example
+8151255
+Going to get counter example. (Iteration Number: 620 )
+Max number of tries for this iteration: 62231
+Counter-example found after 1343 tries 
+Got counter example
+1150742
+Going to get counter example. (Iteration Number: 621 )
+Max number of tries for this iteration: 62331
+Counter-example found after 722 tries 
+Got counter example
+545403
+Going to get counter example. (Iteration Number: 622 )
+Max number of tries for this iteration: 62431
+Counter-example found after 5242 tries 
+Got counter example
+4802605
+Going to get counter example. (Iteration Number: 623 )
+Max number of tries for this iteration: 62531
+Counter-example found after 315 tries 
+Got counter example
+213499
+Going to get counter example. (Iteration Number: 624 )
+Max number of tries for this iteration: 62631
+Counter-example found after 5267 tries 
+Got counter example
+4483523
+Going to get counter example. (Iteration Number: 625 )
+Max number of tries for this iteration: 62731
+Counter-example found after 840 tries 
+Got counter example
+648378
+Going to get counter example. (Iteration Number: 626 )
+Max number of tries for this iteration: 62831
+Counter-example found after 6885 tries 
+Got counter example
+7210712
+Going to get counter example. (Iteration Number: 627 )
+Max number of tries for this iteration: 62931
+Counter-example found after 2459 tries 
+Got counter example
+2642991
+Going to get counter example. (Iteration Number: 628 )
+Max number of tries for this iteration: 63031
+Counter-example found after 6424 tries 
+Got counter example
+5672822
+Going to get counter example. (Iteration Number: 629 )
+Max number of tries for this iteration: 63131
+Counter-example found after 1139 tries 
+Got counter example
+939521
+Going to get counter example. (Iteration Number: 630 )
+Max number of tries for this iteration: 63231
+Counter-example found after 17 tries 
+Got counter example
+12355
+Going to get counter example. (Iteration Number: 631 )
+Max number of tries for this iteration: 63331
+Counter-example found after 325 tries 
+Got counter example
+239354
+Going to get counter example. (Iteration Number: 632 )
+Max number of tries for this iteration: 63431
+Counter-example found after 2666 tries 
+Got counter example
+2278004
+Going to get counter example. (Iteration Number: 633 )
+Max number of tries for this iteration: 63531
+Counter-example found after 3691 tries 
+Got counter example
+3645753
+Going to get counter example. (Iteration Number: 634 )
+Max number of tries for this iteration: 63631
+Counter-example found after 5759 tries 
+Got counter example
+5545424
+Going to get counter example. (Iteration Number: 635 )
+Max number of tries for this iteration: 63731
+Counter-example found after 7 tries 
+Got counter example
+7115
+Going to get counter example. (Iteration Number: 636 )
+Max number of tries for this iteration: 63831
+Counter-example found after 8 tries 
+Got counter example
+6799
+Going to get counter example. (Iteration Number: 637 )
+Max number of tries for this iteration: 63931
+Counter-example found after 8 tries 
+Got counter example
+8202
+Going to get counter example. (Iteration Number: 638 )
+Max number of tries for this iteration: 64031
+Counter-example found after 9 tries 
+Got counter example
+7308
+Going to get counter example. (Iteration Number: 639 )
+Max number of tries for this iteration: 64131
+Counter-example found after 23 tries 
+Got counter example
+19327
+Going to get counter example. (Iteration Number: 640 )
+Max number of tries for this iteration: 64231
+Counter-example found after 55 tries 
+Got counter example
+35491
+Going to get counter example. (Iteration Number: 641 )
+Max number of tries for this iteration: 64331
+Counter-example found after 53 tries 
+Got counter example
+34546
+Going to get counter example. (Iteration Number: 642 )
+Max number of tries for this iteration: 64431
+Counter-example found after 178 tries 
+Got counter example
+133799
+Going to get counter example. (Iteration Number: 643 )
+Max number of tries for this iteration: 64531
+Counter-example found after 290 tries 
+Got counter example
+224218
+Going to get counter example. (Iteration Number: 644 )
+Max number of tries for this iteration: 64631
+Counter-example found after 226 tries 
+Got counter example
+174288
+Going to get counter example. (Iteration Number: 645 )
+Max number of tries for this iteration: 64731
+Counter-example found after 84 tries 
+Got counter example
+61055
+Going to get counter example. (Iteration Number: 646 )
+Max number of tries for this iteration: 64831
+Counter-example found after 8 tries 
+Got counter example
+6458
+Going to get counter example. (Iteration Number: 647 )
+Max number of tries for this iteration: 64931
+Counter-example found after 64 tries 
+Got counter example
+44478
+Going to get counter example. (Iteration Number: 648 )
+Max number of tries for this iteration: 65031
+Counter-example found after 175 tries 
+Got counter example
+122122
+Going to get counter example. (Iteration Number: 649 )
+Max number of tries for this iteration: 65131
+Counter-example found after 468 tries 
+Got counter example
+397280
+Going to get counter example. (Iteration Number: 650 )
+Max number of tries for this iteration: 65231
+Counter-example found after 326 tries 
+Got counter example
+268034
+Going to get counter example. (Iteration Number: 651 )
+Max number of tries for this iteration: 65331
+Counter-example found after 46 tries 
+Got counter example
+41341
+Going to get counter example. (Iteration Number: 652 )
+Max number of tries for this iteration: 65431
+Counter-example found after 10228 tries 
+Got counter example
+10104983
+Going to get counter example. (Iteration Number: 653 )
+Max number of tries for this iteration: 65531
+Counter-example found after 1045 tries 
+Got counter example
+901093
+Going to get counter example. (Iteration Number: 654 )
+Max number of tries for this iteration: 65631
+Counter-example found after 4116 tries 
+Got counter example
+4202828
+Going to get counter example. (Iteration Number: 655 )
+Max number of tries for this iteration: 65731
+Counter-example found after 79 tries 
+Got counter example
+62694
+Going to get counter example. (Iteration Number: 656 )
+Max number of tries for this iteration: 65831
+Counter-example found after 8 tries 
+Got counter example
+5672
+Going to get counter example. (Iteration Number: 657 )
+Max number of tries for this iteration: 65931
+Counter-example found after 17 tries 
+Got counter example
+14071
+Going to get counter example. (Iteration Number: 658 )
+Max number of tries for this iteration: 66031
+Counter-example found after 7 tries 
+Got counter example
+6441
+Going to get counter example. (Iteration Number: 659 )
+Max number of tries for this iteration: 66131
+Counter-example found after 51 tries 
+Got counter example
+35634
+Going to get counter example. (Iteration Number: 660 )
+Max number of tries for this iteration: 66231
+Counter-example found after 180 tries 
+Got counter example
+134725
+Going to get counter example. (Iteration Number: 661 )
+Max number of tries for this iteration: 66331
+Counter-example found after 53 tries 
+Got counter example
+39632
+Going to get counter example. (Iteration Number: 662 )
+Max number of tries for this iteration: 66431
+Counter-example found after 18 tries 
+Got counter example
+13386
+Going to get counter example. (Iteration Number: 663 )
+Max number of tries for this iteration: 66531
+Counter-example found after 472 tries 
+Got counter example
+353604
+Going to get counter example. (Iteration Number: 664 )
+Max number of tries for this iteration: 66631
+Counter-example found after 61 tries 
+Got counter example
+49518
+Going to get counter example. (Iteration Number: 665 )
+Max number of tries for this iteration: 66731
+Counter-example found after 4656 tries 
+Got counter example
+4150423
+Going to get counter example. (Iteration Number: 666 )
+Max number of tries for this iteration: 66831
+Counter-example found after 3068 tries 
+Got counter example
+3040336
+Going to get counter example. (Iteration Number: 667 )
+Max number of tries for this iteration: 66931
+Counter-example found after 4616 tries 
+Got counter example
+4672553
+Going to get counter example. (Iteration Number: 668 )
+Max number of tries for this iteration: 67031
+Counter-example found after 4220 tries 
+Got counter example
+4108741
+Going to get counter example. (Iteration Number: 669 )
+Max number of tries for this iteration: 67131
+Counter-example found after 586 tries 
+Got counter example
+483882
+Going to get counter example. (Iteration Number: 670 )
+Max number of tries for this iteration: 67231
+Counter-example found after 11067 tries 
+Got counter example
+10265056
+Going to get counter example. (Iteration Number: 671 )
+Max number of tries for this iteration: 67331
+Counter-example found after 8995 tries 
+Got counter example
+8238095
+Going to get counter example. (Iteration Number: 672 )
+Max number of tries for this iteration: 67431
+Counter-example found after 4936 tries 
+Got counter example
+4455858
+Going to get counter example. (Iteration Number: 673 )
+Max number of tries for this iteration: 67531
+Counter-example found after 1220 tries 
+Got counter example
+1011534
+Going to get counter example. (Iteration Number: 674 )
+Max number of tries for this iteration: 67631
+Counter-example found after 513 tries 
+Got counter example
+394681
+Going to get counter example. (Iteration Number: 675 )
+Max number of tries for this iteration: 67731
+Counter-example found after 8 tries 
+Got counter example
+6198
+Going to get counter example. (Iteration Number: 676 )
+Max number of tries for this iteration: 67831
+Counter-example found after 9 tries 
+Got counter example
+6967
+Going to get counter example. (Iteration Number: 677 )
+Max number of tries for this iteration: 67931
+Counter-example found after 8 tries 
+Got counter example
+6678
+Going to get counter example. (Iteration Number: 678 )
+Max number of tries for this iteration: 68031
+Counter-example found after 17 tries 
+Got counter example
+11899
+Going to get counter example. (Iteration Number: 679 )
+Max number of tries for this iteration: 68131
+Counter-example found after 24 tries 
+Got counter example
+45521
+Going to get counter example. (Iteration Number: 680 )
+Max number of tries for this iteration: 68231
+Counter-example found after 17 tries 
+Got counter example
+12892
+Going to get counter example. (Iteration Number: 681 )
+Max number of tries for this iteration: 68331
+Counter-example found after 8 tries 
+Got counter example
+7072
+Going to get counter example. (Iteration Number: 682 )
+Max number of tries for this iteration: 68431
+Counter-example found after 8 tries 
+Got counter example
+5642
+Going to get counter example. (Iteration Number: 683 )
+Max number of tries for this iteration: 68531
+Counter-example found after 8 tries 
+Got counter example
+6338
+Going to get counter example. (Iteration Number: 684 )
+Max number of tries for this iteration: 68631
+Counter-example found after 8 tries 
+Got counter example
+7051
+Going to get counter example. (Iteration Number: 685 )
+Max number of tries for this iteration: 68731
+Counter-example found after 7 tries 
+Got counter example
+6424
+Going to get counter example. (Iteration Number: 686 )
+Max number of tries for this iteration: 68831
+Counter-example found after 8 tries 
+Got counter example
+5651
+Going to get counter example. (Iteration Number: 687 )
+Max number of tries for this iteration: 68931
+Counter-example found after 8 tries 
+Got counter example
+7018
+Going to get counter example. (Iteration Number: 688 )
+Max number of tries for this iteration: 69031
+Counter-example found after 7 tries 
+Got counter example
+6203
+Going to get counter example. (Iteration Number: 689 )
+Max number of tries for this iteration: 69131
+Counter-example found after 8 tries 
+Got counter example
+8044
+Going to get counter example. (Iteration Number: 690 )
+Max number of tries for this iteration: 69231
+Counter-example found after 7 tries 
+Got counter example
+6634
+Going to get counter example. (Iteration Number: 691 )
+Max number of tries for this iteration: 69331
+Counter-example found after 44 tries 
+Got counter example
+32988
+Going to get counter example. (Iteration Number: 692 )
+Max number of tries for this iteration: 69431
+Counter-example found after 908 tries 
+Got counter example
+717807
+Going to get counter example. (Iteration Number: 693 )
+Max number of tries for this iteration: 69531
+Counter-example found after 1229 tries 
+Got counter example
+971638
+Going to get counter example. (Iteration Number: 694 )
+Max number of tries for this iteration: 69631
+Counter-example found after 14 tries 
+Got counter example
+10751
+Going to get counter example. (Iteration Number: 695 )
+Max number of tries for this iteration: 69731
+Counter-example found after 8 tries 
+Got counter example
+6629
+Going to get counter example. (Iteration Number: 696 )
+Max number of tries for this iteration: 69831
+Counter-example found after 1695 tries 
+Got counter example
+1374453
+Going to get counter example. (Iteration Number: 697 )
+Max number of tries for this iteration: 69931
+Counter-example found after 8 tries 
+Got counter example
+6604
+Going to get counter example. (Iteration Number: 698 )
+Max number of tries for this iteration: 70031
+Counter-example found after 8 tries 
+Got counter example
+6765
+Going to get counter example. (Iteration Number: 699 )
+Max number of tries for this iteration: 70131
+Counter-example found after 10 tries 
+Got counter example
+8985
+Going to get counter example. (Iteration Number: 700 )
+Max number of tries for this iteration: 70231
+Counter-example found after 17 tries 
+Got counter example
+15307
+Going to get counter example. (Iteration Number: 701 )
+Max number of tries for this iteration: 70331
+Counter-example found after 7 tries 
+Got counter example
+7208
+Going to get counter example. (Iteration Number: 702 )
+Max number of tries for this iteration: 70431
+Counter-example found after 15 tries 
+Got counter example
+13460
+Going to get counter example. (Iteration Number: 703 )
+Max number of tries for this iteration: 70531
+Counter-example found after 8 tries 
+Got counter example
+7804
+Going to get counter example. (Iteration Number: 704 )
+Max number of tries for this iteration: 70631
+Counter-example found after 8 tries 
+Got counter example
+9587
+Going to get counter example. (Iteration Number: 705 )
+Max number of tries for this iteration: 70731
+Counter-example found after 26 tries 
+Got counter example
+21755
+Going to get counter example. (Iteration Number: 706 )
+Max number of tries for this iteration: 70831
+Counter-example found after 16 tries 
+Got counter example
+11871
+Going to get counter example. (Iteration Number: 707 )
+Max number of tries for this iteration: 70931
+Counter-example found after 21 tries 
+Got counter example
+15294
+Going to get counter example. (Iteration Number: 708 )
+Max number of tries for this iteration: 71031
+Counter-example found after 89 tries 
+Got counter example
+70361
+Going to get counter example. (Iteration Number: 709 )
+Max number of tries for this iteration: 71131
+Counter-example found after 438 tries 
+Got counter example
+370875
+Going to get counter example. (Iteration Number: 710 )
+Max number of tries for this iteration: 71231
+Counter-example found after 5176 tries 
+Got counter example
+4398764
+Going to get counter example. (Iteration Number: 711 )
+Max number of tries for this iteration: 71331
+Counter-example found after 7778 tries 
+Got counter example
+7581932
+Going to get counter example. (Iteration Number: 712 )
+Max number of tries for this iteration: 71431
+Counter-example found after 2082 tries 
+Got counter example
+1955480
+Going to get counter example. (Iteration Number: 713 )
+Max number of tries for this iteration: 71531
+Counter-example found after 895 tries 
+Got counter example
+768479
+Going to get counter example. (Iteration Number: 714 )
+Max number of tries for this iteration: 71631
+Counter-example found after 1626 tries 
+Got counter example
+1475765
+Going to get counter example. (Iteration Number: 715 )
+Max number of tries for this iteration: 71731
+Counter-example found after 6520 tries 
+Got counter example
+6272908
+Going to get counter example. (Iteration Number: 716 )
+Max number of tries for this iteration: 71831
+Counter-example found after 7288 tries 
+Got counter example
+7142769
+Going to get counter example. (Iteration Number: 717 )
+Max number of tries for this iteration: 71931
+Counter-example found after 2550 tries 
+Got counter example
+2375409
+Going to get counter example. (Iteration Number: 718 )
+Max number of tries for this iteration: 72031
+Counter-example found after 1289 tries 
+Got counter example
+1183550
+Going to get counter example. (Iteration Number: 719 )
+Max number of tries for this iteration: 72131
+Counter-example found after 2895 tries 
+Got counter example
+2751595
+Going to get counter example. (Iteration Number: 720 )
+Max number of tries for this iteration: 72231
+Counter-example found after 4266 tries 
+Got counter example
+4174272
+Going to get counter example. (Iteration Number: 721 )
+Max number of tries for this iteration: 72331
+Counter-example found after 5946 tries 
+Got counter example
+5886711
+Going to get counter example. (Iteration Number: 722 )
+Max number of tries for this iteration: 72431
+Counter-example found after 7086 tries 
+Got counter example
+7110942
+Going to get counter example. (Iteration Number: 723 )
+Max number of tries for this iteration: 72531
+Counter-example found after 12104 tries 
+Got counter example
+13049987
+Going to get counter example. (Iteration Number: 724 )
+Max number of tries for this iteration: 72631
+Counter-example found after 2174 tries 
+Got counter example
+2279418
+Going to get counter example. (Iteration Number: 725 )
+Max number of tries for this iteration: 72731
+Counter-example found after 1985 tries 
+Got counter example
+2150227
+Going to get counter example. (Iteration Number: 726 )
+Max number of tries for this iteration: 72831
+Counter-example found after 2773 tries 
+Got counter example
+2969724
+Going to get counter example. (Iteration Number: 727 )
+Max number of tries for this iteration: 72931
+Counter-example found after 15469 tries 
+Got counter example
+16026663
+Going to get counter example. (Iteration Number: 728 )
+Max number of tries for this iteration: 73031
+Counter-example found after 7043 tries 
+Got counter example
+6984712
+Going to get counter example. (Iteration Number: 729 )
+Max number of tries for this iteration: 73131
+Counter-example found after 17591 tries 
+Got counter example
+17437258
+Going to get counter example. (Iteration Number: 730 )
+Max number of tries for this iteration: 73231
+Counter-example found after 8008 tries 
+Got counter example
+7968719
+Going to get counter example. (Iteration Number: 731 )
+Max number of tries for this iteration: 73331
+Counter-example found after 35667 tries 
+Got counter example
+35557385
+Going to get counter example. (Iteration Number: 732 )
+Max number of tries for this iteration: 73431
+Counter-example found after 18222 tries 
+Got counter example
+18114301
+Going to get counter example. (Iteration Number: 733 )
+Max number of tries for this iteration: 73531
+Counter-example found after 2491 tries 
+Got counter example
+2361337
+Going to get counter example. (Iteration Number: 734 )
+Max number of tries for this iteration: 73631
+Counter-example found after 6768 tries 
+Got counter example
+6637339
+Going to get counter example. (Iteration Number: 735 )
+Max number of tries for this iteration: 73731
+Counter-example found after 11032 tries 
+Got counter example
+11079009
+Going to get counter example. (Iteration Number: 736 )
+Max number of tries for this iteration: 73831
+Counter-example found after 6204 tries 
+Got counter example
+6391021
+Going to get counter example. (Iteration Number: 737 )
+Max number of tries for this iteration: 73931
+Counter-example found after 45303 tries 
+Got counter example
+47587136
+Going to get counter example. (Iteration Number: 738 )
+Max number of tries for this iteration: 74031
+Counter-example found after 139 tries 
+Got counter example
+120533
+Going to get counter example. (Iteration Number: 739 )
+Max number of tries for this iteration: 74131
+Counter-example found after 1859 tries 
+Got counter example
+1781494
+Going to get counter example. (Iteration Number: 740 )
+Max number of tries for this iteration: 74231
+Counter-example found after 2134 tries 
+Got counter example
+2031753
+Going to get counter example. (Iteration Number: 741 )
+Max number of tries for this iteration: 74331
+Counter-example found after 2630 tries 
+Got counter example
+2565301
+Going to get counter example. (Iteration Number: 742 )
+Max number of tries for this iteration: 74431
+Counter-example found after 14807 tries 
+Got counter example
+14760334
+Going to get counter example. (Iteration Number: 743 )
+Max number of tries for this iteration: 74531
+Counter-example found after 12843 tries 
+Got counter example
+12676622
+Going to get counter example. (Iteration Number: 744 )
+Max number of tries for this iteration: 74631
+Counter-example found after 7245 tries 
+Got counter example
+7077813
+Going to get counter example. (Iteration Number: 745 )
+Max number of tries for this iteration: 74731
+Counter-example found after 2694 tries 
+Got counter example
+2586482
+Going to get counter example. (Iteration Number: 746 )
+Max number of tries for this iteration: 74831
+Counter-example found after 8625 tries 
+Got counter example
+8499646
+Going to get counter example. (Iteration Number: 747 )
+Max number of tries for this iteration: 74931
+Counter-example found after 22149 tries 
+Got counter example
+24091585
+Going to get counter example. (Iteration Number: 748 )
+Max number of tries for this iteration: 75031
+Counter-example found after 20131 tries 
+Got counter example
+20541893
+Going to get counter example. (Iteration Number: 749 )
+Max number of tries for this iteration: 75131
+Counter-example found after 18065 tries 
+Got counter example
+18580976
+Going to get counter example. (Iteration Number: 750 )
+Max number of tries for this iteration: 75231
+Counter-example found after 1786 tries 
+Got counter example
+1730341
+Going to get counter example. (Iteration Number: 751 )
+Max number of tries for this iteration: 75331
+Counter-example found after 21191 tries 
+Got counter example
+21984000
+Going to get counter example. (Iteration Number: 752 )
+Max number of tries for this iteration: 75431
+Counter-example found after 9082 tries 
+Got counter example
+9107717
+Going to get counter example. (Iteration Number: 753 )
+Max number of tries for this iteration: 75531
+Counter-example found after 367 tries 
+Got counter example
+318208
+Going to get counter example. (Iteration Number: 754 )
+Max number of tries for this iteration: 75631
+Counter-example found after 139 tries 
+Got counter example
+119692
+Going to get counter example. (Iteration Number: 755 )
+Max number of tries for this iteration: 75731
+Counter-example found after 65 tries 
+Got counter example
+51392
+Going to get counter example. (Iteration Number: 756 )
+Max number of tries for this iteration: 75831
+Counter-example found after 224 tries 
+Got counter example
+185208
+Going to get counter example. (Iteration Number: 757 )
+Max number of tries for this iteration: 75931
+Counter-example found after 316 tries 
+Got counter example
+263455
+Going to get counter example. (Iteration Number: 758 )
+Max number of tries for this iteration: 76031
+Counter-example found after 134 tries 
+Got counter example
+114179
+Going to get counter example. (Iteration Number: 759 )
+Max number of tries for this iteration: 76131
+Counter-example found after 518 tries 
+Got counter example
+444519
+Going to get counter example. (Iteration Number: 760 )
+Max number of tries for this iteration: 76231
+Counter-example found after 81 tries 
+Got counter example
+66055
+Going to get counter example. (Iteration Number: 761 )
+Max number of tries for this iteration: 76331
+Counter-example found after 553 tries 
+Got counter example
+481900
+Going to get counter example. (Iteration Number: 762 )
+Max number of tries for this iteration: 76431
+Counter-example found after 1717 tries 
+Got counter example
+1524158
+Going to get counter example. (Iteration Number: 763 )
+Max number of tries for this iteration: 76531
+Counter-example found after 668 tries 
+Got counter example
+582936
+Going to get counter example. (Iteration Number: 764 )
+Max number of tries for this iteration: 76631
+Counter-example found after 287 tries 
+Got counter example
+246743
+Going to get counter example. (Iteration Number: 765 )
+Max number of tries for this iteration: 76731
+Counter-example found after 63555 tries 
+Got counter example
+65326428
+Going to get counter example. (Iteration Number: 766 )
+Max number of tries for this iteration: 76831
+Counter-example found after 17563 tries 
+Got counter example
+17717562
+Going to get counter example. (Iteration Number: 767 )
+Max number of tries for this iteration: 76931
+Counter-example found after 57709 tries 
+Got counter example
+65118259
+Going to get counter example. (Iteration Number: 768 )
+Max number of tries for this iteration: 77031
+Counter-example found after 4904 tries 
+Got counter example
+5338849
+Going to get counter example. (Iteration Number: 769 )
+Max number of tries for this iteration: 77131
+Counter-example found after 7915 tries 
+Got counter example
+9147467
+Going to get counter example. (Iteration Number: 770 )
+Max number of tries for this iteration: 77231
+Counter-example found after 13200 tries 
+Got counter example
+19312626
+Going to get counter example. (Iteration Number: 771 )
+Max number of tries for this iteration: 77331
+Counter-example found after 13920 tries 
+Got counter example
+14631069
+Going to get counter example. (Iteration Number: 772 )
+Max number of tries for this iteration: 77431
+Counter-example found after 74531 tries 
+Got counter example
+84918172
+Going to get counter example. (Iteration Number: 773 )
+Max number of tries for this iteration: 77531
+Counter-example found after 4273 tries 
+Got counter example
+4862029
+Going to get counter example. (Iteration Number: 774 )
+Max number of tries for this iteration: 77631
+Got counter example
+82668991
+965801485
+Implication
+
+85 
+Implication
+85 112 
+2 35 39 53 75 84 85 89 94 112 
+Implication
+85 95 
+35 85 95 
+Implication
+35 58 85 
+35 58 85 89 
+Implication
+30 85 
+1 24 30 35 36 38 53 56 61 64 75 84 85 89 92 94 
+Implication
+35 85 94 
+35 85 89 94 
+Implication
+84 85 
+35 84 85 89 
+Implication
+31 85 
+2 24 31 35 61 75 84 85 89 92 94 
+Implication
+75 85 
+35 75 85 89 
+Implication
+85 89 94 
+35 85 89 94 
+Implication
+7 85 
+1 7 26 35 37 38 53 85 92 106 111 117 
+Implication
+47 85 
+35 47 85 89 92 
+Implication
+54 85 
+2 10 24 35 36 39 53 54 61 65 75 84 85 89 92 94 
+Implication
+85 102 
+35 85 89 92 102 
+Implication
+51 85 
+2 24 26 35 36 39 51 53 58 61 64 85 89 90 95 106 111 116 
+Implication
+24 85 
+24 35 85 89 
+Implication
+35 53 75 85 89 94 
+35 53 75 84 85 89 94 
+Implication
+40 85 
+35 40 61 85 89 92 113 
+Implication
+82 85 
+1 23 25 35 36 39 53 55 62 66 82 85 89 92 96 101 
+Implication
+2 35 85 89 92 94 
+2 35 61 85 89 92 94 
+Implication
+35 61 85 
+35 61 85 89 
+Implication
+85 92 106 
+35 38 85 92 106 
+Implication
+1 85 94 
+1 35 75 84 85 89 94 
+Implication
+35 36 85 
+35 36 85 89 
+Implication
+85 116 
+2 24 26 35 36 39 53 58 61 64 85 89 90 95 106 111 116 
+Implication
+35 85 89 118 
+24 35 36 39 53 61 64 75 84 85 89 94 118 
+Implication
+24 35 85 89 92 
+24 35 85 89 92 94 
+Implication
+35 53 84 85 89 92 
+35 53 61 75 84 85 89 92 
+Implication
+35 53 61 85 89 92 
+35 53 61 75 85 89 92 
+Implication
+35 39 53 85 
+35 39 53 85 89 
+Implication
+35 53 61 85 89 94 
+35 53 61 75 84 85 89 94 
+Implication
+2 24 35 85 89 
+2 24 35 61 85 89 
+Implication
+26 35 85 89 92 94 
+26 35 61 64 85 89 92 94 
+Implication
+1 85 92 
+1 35 85 92 
+Implication
+35 56 85 89 
+35 56 75 84 85 89 92 
+Implication
+57 85 89 
+36 39 53 57 85 89 
+Implication
+24 35 39 85 89 
+24 35 36 39 85 89 
+Implication
+35 65 85 89 
+35 36 53 65 85 89 
+Implication
+35 53 85 89 92 94 
+35 53 61 75 84 85 89 92 94 
+Implication
+35 38 85 89 
+35 38 85 89 92 
+Implication
+2 35 53 85 89 92 
+2 35 53 75 85 89 92 
+Implication
+27 35 85 89 
+1 10 23 27 35 36 39 53 57 62 65 69 81 85 89 91 93 106 111 113 
+Implication
+35 38 84 85 89 92 94 
+35 38 61 64 75 84 85 89 92 94 
+Implication
+35 76 85 89 
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 
+Implication
+35 85 89 103 
+2 24 35 37 38 52 55 61 64 75 84 85 89 92 94 103 107 113 
+Implication
+35 53 56 61 75 84 85 89 92 
+35 36 38 53 56 61 64 75 84 85 89 92 94 
+Implication
+2 35 36 75 85 89 
+2 35 36 61 75 85 89 
+Implication
+35 36 39 75 85 89 
+24 35 36 39 75 85 89 
+Implication
+35 36 38 61 64 75 84 85 89 92 94 
+35 36 38 53 61 64 75 84 85 89 92 94 
+Implication
+35 36 53 61 75 85 89 92 
+35 36 53 61 75 84 85 89 92 
+Implication
+2 24 35 53 61 75 85 89 
+2 24 35 36 39 53 61 75 85 89 
+Implication
+1 35 53 61 75 85 89 
+1 35 53 61 64 75 84 85 89 94 
+Implication
+35 75 85 89 113 
+35 75 85 89 92 113 
+Implication
+35 73 85 89 
+2 24 26 35 36 39 52 55 61 64 73 85 89 92 94 113 
+Implication
+24 35 36 39 53 61 75 84 85 89 92 94 
+2 24 35 36 39 53 61 75 84 85 89 92 94 
+Implication
+35 85 89 111 
+35 53 85 89 106 111 
+Implication
+24 35 36 39 53 57 61 75 84 85 89 94 
+2 24 35 36 39 53 57 61 64 75 84 85 89 92 94 
+Implication
+35 38 56 61 64 75 84 85 89 92 
+35 36 38 53 56 61 64 75 84 85 89 92 94 
+Implication
+35 36 53 64 85 89 
+35 36 53 61 64 85 89 
+Implication
+35 38 53 85 89 92 
+35 38 53 75 85 89 92 
+Implication
+1 2 35 61 64 75 84 85 89 94 
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 
+Implication
+35 36 53 61 65 75 84 85 89 92 94 
+2 10 24 35 36 39 53 54 61 65 75 84 85 89 92 94 
+Implication
+26 35 53 61 75 84 85 89 92 
+26 35 38 53 61 75 84 85 89 92 
+Implication
+35 61 79 85 89 94 
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 
+Implication
+24 35 36 38 53 61 64 75 84 85 89 92 94 
+1 24 30 35 36 38 53 56 61 64 75 84 85 89 92 94 
+Implication
+2 9 10 12 18 28 34 35 42 45 48 61 80 84 85 89 91 92 117 
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 

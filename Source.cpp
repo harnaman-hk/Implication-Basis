@@ -225,16 +225,31 @@ void getCounterExample(vector<implication> basis, int s) {
 		totTries++;
 		vector<int> X = randomAttrSet();
 		vector<int> cX = up(down(X));
-		if (X.size() == cX.size()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
 		vector<int> cL = closure(basis, X);
-		if (cL.size() == X.size()) {				//Same as above.
-			if (globalFlag) {
+
+		if(cX.size() != cL.size())
+		{
+			if (globalFlag) 
+			{
 				globalFlag = false;
-				counterExample = X;
+				counterExample = cL;
 				cout << "Counter-example found after " << totTries << " tries \n";
 				return;
 			}
 		}
+
+		// vector<int> X = randomAttrSet();
+		// vector<int> cX = up(down(X));
+		// if (X.size() == cX.size()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
+		// vector<int> cL = closure(basis, X);
+		// if (cL.size() == X.size()) {				//Same as above.
+		// 	if (globalFlag) {
+		// 		globalFlag = false;
+		// 		counterExample = X;
+		// 		cout << "Counter-example found after " << totTries << " tries \n";
+		// 		return;
+		// 	}
+		// }
 	}
 }
 
