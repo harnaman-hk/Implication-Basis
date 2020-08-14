@@ -29,6 +29,7 @@ vector<int> counterExample;
 int gCounter = 0;					//For counting how many times the equivalence oracle has been used
 int totTries = 0;					//Stores how many random attribute sets needed to be tested before finding a counter-example. For debugging purposes. 
 
+vector<vector<int>> potentialCounterExamples;
 double epsilon, del; 
 int maxTries;						//Updated by getLoopCount() based on the value of gCounter, epsilon and delta.
 
@@ -253,6 +254,26 @@ void getCounterExample(vector<implication> basis, int s) {
 	}
 }
 
+void tryPotentialCounterExamples(vector<implication> basis)
+{
+	while(!potentialCounterExamples.empty())
+	{
+		vector <int> X = potentialCounterExamples.back();
+		potentialCounterExamples.pop_back();
+		vector<int> cX = up(down(X));
+		vector<int> cL = closure(basis, X);
+		cout <<"Trying a Potential Counter Example: ";
+		printVector(X);
+
+		if(cX.size() != cL.size())
+		{	
+			cout <<"It is a Counter Example!!\n";
+			counterExample = cL;
+			return;
+		}
+	}
+}
+
 vector<implication> generateImplicationBasis() {
 	vector<implication> ans;
 	while (true) {
@@ -264,21 +285,32 @@ vector<implication> generateImplicationBasis() {
 		cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
 		counterExample.clear();
-		vector<thread*> threadVector;
-		for (int i = 1; i < numThreads; i++) {
-			thread* tmp = new thread(getCounterExample, ans, i);
-			threadVector.push_back(tmp);
+
+		if(!potentialCounterExamples.empty())
+		{
+			tryPotentialCounterExamples(ans);
+			gCounter = 0;
 		}
-		//
-		//This is important. If we don't write the next statement,
-		//the main thread will simply keep waiting without doing anything. 
-		//This initially caused quite a bit of confusion, as a program without multi-threading was running faster
-		//due to the main thread sitting idle.
-		//
-		getCounterExample(ans, 0);
-		for (int i = 0; i < threadVector.size(); i++) {
-			threadVector[i]->join();
+
+		if(counterExample.size() == 0)
+		{
+			vector<thread*> threadVector;
+			for (int i = 1; i < numThreads; i++) {
+				thread* tmp = new thread(getCounterExample, ans, i);
+				threadVector.push_back(tmp);
+			}
+			//
+			//This is important. If we don't write the next statement,
+			//the main thread will simply keep waiting without doing anything. 
+			//This initially caused quite a bit of confusion, as a program without multi-threading was running faster
+			//due to the main thread sitting idle.
+			//
+			getCounterExample(ans, 0);
+			for (int i = 0; i < threadVector.size(); i++) {
+				threadVector[i]->join();
+			}
 		}
+		
 		vector<int> X = counterExample;
 		cout << "Got counter example" << endl;
 		auto end = std::chrono::high_resolution_clock::now();
@@ -312,6 +344,22 @@ void printUsageAndExit() {
 	exit(0);
 }
 
+void fillPotentialCounterExamples()
+{	
+	// for(int i = 0; i < attrInp.size(); i++)
+	// {
+	// 	for(int j = (i + 1); j < attrInp.size(); j++)
+	// 	{
+	// 		potentialCounterExamples.push_back({i, j});
+	// 	}
+	// }
+
+	for(int i = 0; i < attrInp.size(); i++)
+	{
+		potentialCounterExamples.push_back({i});
+	}
+}
+
 int main(int argc, char** argv) {
 	srand(time(NULL));
 	cout << argc << "\n";
@@ -322,6 +370,7 @@ int main(int argc, char** argv) {
 	epsilon = atof(argv[2]);
 	del = atof(argv[3]);
 	if(argc == 5) numThreads = atoi(argv[4]);
+	fillPotentialCounterExamples();
 	vector<implication> ans = generateImplicationBasis();
 	cout << totalTime << "\n";
 	for (auto x : ans) {
