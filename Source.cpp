@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <chrono>
 #include <cmath>
+#include <random>
 
 using namespace std;
 
@@ -32,6 +33,24 @@ int totTries = 0;					//Stores how many random attribute sets needed to be teste
 vector<vector<int>> potentialCounterExamples;
 double epsilon, del; 
 int maxTries;						//Updated by getLoopCount() based on the value of gCounter, epsilon and delta.
+
+std::random_device rd;
+std::uniform_real_distribution<long double> unif;
+std::default_random_engine re(rd());
+
+vector<long double> attrSetWeight;
+
+void initializeRandSetGen()
+{
+	attrSetWeight.resize(objInp.size());
+
+	for(int i = 0; i < objInp.size(); i++)
+	{
+		attrSetWeight[i] = (long double)pow((long double) 2, (long double) objInp[i].size());
+	}
+
+	unif = std::uniform_real_distribution<long double> (0, accumulate(attrSetWeight.begin(), attrSetWeight.end(), (long double) 0));
+}
 
 void getLoopCount() {
 	// double loopCount = 1.0 / epsilon;
@@ -215,13 +234,56 @@ vector<int> closure(vector<implication> basis, vector<int> X) {
 	return X;
 }
 
+vector<int> getRandomSubset(vector<int> st)
+{
+	if(st.empty())
+		return st;
+
+	int numElems = st.size(), processedElems = 0;
+	vector<int> ansSet;
+
+	while(processedElems < numElems)
+	{
+		int bset = rand();
+
+		for(int i = 0; i < 30; i++)
+		{
+			if(bset & (1 << i))
+			{
+				ansSet.push_back(st[processedElems]);
+			}
+
+			processedElems++;
+
+			if(processedElems >= numElems)
+				break;
+		}
+	}	
+
+	return ansSet;	
+}
+
 vector<int> randomAttrSet() {
-	vector<int> ans;
-	for (int i = 0; i < attrInp.size(); i++) {
-		int x = rand();
-		if (x % 2 == 0) ans.push_back(i);
+	// vector<int> ans;
+	// for (int i = 0; i < attrInp.size(); i++) {
+	// 	int x = rand();
+	// 	if (x % 2 == 0) ans.push_back(i);
+	// }
+	// return ans;
+	int numSets = objInp.size();
+	long double numRand = unif(re);
+	int currSet = 0;
+
+	while(currSet < numSets)
+	{
+		if(numRand <= attrSetWeight[currSet])
+			break;
+
+		numRand -= 	attrSetWeight[currSet];
+		currSet++;
 	}
-	return ans;
+
+	return getRandomSubset(objInp[currSet]);
 }
 
 void getCounterExample(vector<implication> basis, int s) {
@@ -379,6 +441,7 @@ int main(int argc, char** argv) {
 	del = atof(argv[3]);
 	if(argc == 5) numThreads = atoi(argv[4]);
 	fillPotentialCounterExamples();
+	initializeRandSetGen();
 	vector<implication> ans = generateImplicationBasis();
 	cout << totalTime << "\n";
 	for (auto x : ans) {
