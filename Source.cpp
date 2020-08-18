@@ -34,8 +34,11 @@ double epsilon, del;
 int maxTries;						//Updated by getLoopCount() based on the value of gCounter, epsilon and delta.
 
 void getLoopCount() {
-	double loopCount = 1.0 / epsilon;
-	loopCount *= (gCounter + log(1.0 / del));
+	// double loopCount = 1.0 / epsilon;
+	// loopCount *= (gCounter + log(1.0 / del));
+	// New formula to calculate maxTries
+	double loopCount = log(del / ((double)(gCounter * (gCounter + 1))));
+	loopCount = loopCount / log(1 - epsilon);
 	maxTries = (int)ceil(loopCount);
 }
 
@@ -224,6 +227,8 @@ vector<int> randomAttrSet() {
 void getCounterExample(vector<implication> basis, int s) {
 	for (int i = s; i < maxTries && globalFlag; i += numThreads) {	//Each thread handles an equal number of iterations. 
 		totTries++;
+
+		//For Epsilon strong Horn Approximation
 		vector<int> X = randomAttrSet();
 		vector<int> cX = up(down(X));
 		vector<int> cL = closure(basis, X);
@@ -239,6 +244,7 @@ void getCounterExample(vector<implication> basis, int s) {
 			}
 		}
 
+		// For Epsilon Horn approximations uncomment the code below and comment the code above
 		// vector<int> X = randomAttrSet();
 		// vector<int> cX = up(down(X));
 		// if (X.size() == cX.size()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
@@ -346,6 +352,7 @@ void printUsageAndExit() {
 
 void fillPotentialCounterExamples()
 {	
+	// Two attribute sets 
 	// for(int i = 0; i < attrInp.size(); i++)
 	// {
 	// 	for(int j = (i + 1); j < attrInp.size(); j++)
@@ -354,6 +361,7 @@ void fillPotentialCounterExamples()
 	// 	}
 	// }
 
+	// Singleton
 	for(int i = 0; i < attrInp.size(); i++)
 	{
 		potentialCounterExamples.push_back({i});
