@@ -35,7 +35,8 @@ double epsilon, del;
 int maxTries;						//Updated by getLoopCount() based on the value of gCounter, epsilon and delta.
 
 std::random_device rd;
-std::uniform_real_distribution<long double> unif;
+// std::uniform_real_distribution unif;
+std::discrete_distribution<long double> discreteDistribution;
 std::default_random_engine re(rd());
 
 vector<long double> attrSetWeight;
@@ -49,7 +50,7 @@ void initializeRandSetGen()
 		attrSetWeight[i] = (long double)pow((long double) 2, (long double) objInp[i].size());
 	}
 
-	unif = std::uniform_real_distribution<long double> (0, accumulate(attrSetWeight.begin(), attrSetWeight.end(), (long double) 0));
+	discreteDistribution = std::discrete_distribution<long double> (attrSetWeight.begin(), attrSetWeight.end());
 }
 
 void getLoopCount() {
@@ -270,20 +271,21 @@ vector<int> randomAttrSet() {
 	// 	if (x % 2 == 0) ans.push_back(i);
 	// }
 	// return ans;
-	int numSets = objInp.size();
-	long double numRand = unif(re);
-	int currSet = 0;
+	// int numSets = objInp.size();
+	// long double numRand = unif(re);
+	// int currSet = 0;
 
-	while(currSet < numSets)
-	{
-		if(numRand <= attrSetWeight[currSet])
-			break;
+	// while(currSet < numSets)
+	// {
+	// 	if(numRand <= attrSetWeight[currSet])
+	// 		break;
 
-		numRand -= 	attrSetWeight[currSet];
-		currSet++;
-	}
+	// 	numRand -= 	attrSetWeight[currSet];
+	// 	currSet++;
+	// }
 
-	return getRandomSubset(objInp[currSet]);
+	// return getRandomSubset(objInp[currSet]);
+	return getRandomSubset(objInp[discreteDistribution(re)]);
 }
 
 void getCounterExample(vector<implication> basis, int s) {
@@ -293,6 +295,7 @@ void getCounterExample(vector<implication> basis, int s) {
 		//For Epsilon strong Horn Approximation
 		vector<int> X = randomAttrSet();
 		vector<int> cX = up(down(X));
+		if (X.size() == cX.size()) continue;
 		vector<int> cL = closure(basis, X);
 
 		if(cX.size() != cL.size())
@@ -327,11 +330,12 @@ void tryPotentialCounterExamples(vector<implication> basis)
 	while(!potentialCounterExamples.empty())
 	{
 		vector <int> X = potentialCounterExamples.back();
-		potentialCounterExamples.pop_back();
-		vector<int> cX = up(down(X));
-		vector<int> cL = closure(basis, X);
 		cout <<"Trying a Potential Counter Example: ";
 		printVector(X);
+		potentialCounterExamples.pop_back();
+		vector<int> cX = up(down(X));
+		if (X.size() == cX.size()) continue;
+		vector<int> cL = closure(basis, X);
 
 		if(cX.size() != cL.size())
 		{	
