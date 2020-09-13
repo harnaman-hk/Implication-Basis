@@ -12,6 +12,7 @@
 #include <chrono>
 #include <cmath>
 #include <random>
+#include <unordered_set>
 
 using namespace std;
 
@@ -22,21 +23,26 @@ typedef struct s {
 
 vector<vector<int>> objInp;			//For storing which attributes are associated with which objects
 vector<vector<int>> attrInp;		//For storing which objects are associated with which attributes
-long long totalTime = 0;			//Stores total time spent generating counter examples
-
+double totalTime = 0;	
+double totalExecTime2 = 0;		//Stores total time spent generating counter examples
+double totalClosureTime = 0;
+double intersectionTime = 0;
+double updownTime = 0;
 int numThreads = 1;
 bool globalFlag;					//For terminating other threads in case one thread found a counter-example
 vector<int> counterExample;
 int gCounter = 0;					//For counting how many times the equivalence oracle has been used
-int totTries = 0;					//Stores how many random attribute sets needed to be tested before finding a counter-example. For debugging purposes. 
+int totTries = 0;	
+long long totClosureComputations = 0;
+long long totUpDownComputes = 0;				//Stores how many random attribute sets needed to be tested before finding a counter-example. For debugging purposes. 
 
 vector<vector<int>> potentialCounterExamples;
 double epsilon, del; 
+bool epsilonStrong = false, frequentCounterExamples = false;
 int maxTries;						//Updated by getLoopCount() based on the value of gCounter, epsilon and delta.
 
 std::random_device rd;
-// std::uniform_real_distribution unif;
-std::discrete_distribution<long double> discreteDistribution;
+std::discrete_distribution<int> discreteDistribution;
 std::default_random_engine re(rd());
 
 vector<long double> attrSetWeight;
@@ -50,37 +56,41 @@ void initializeRandSetGen()
 		attrSetWeight[i] = (long double)pow((long double) 2, (long double) objInp[i].size());
 	}
 
-	discreteDistribution = std::discrete_distribution<long double> (attrSetWeight.begin(), attrSetWeight.end());
+	discreteDistribution = std::discrete_distribution<int> (attrSetWeight.begin(), attrSetWeight.end());
 }
 
-void getLoopCount() {
-	// double loopCount = 1.0 / epsilon;
-	// loopCount *= (gCounter + log(1.0 / del));
-	// New formula to calculate maxTries
+void getLoopCount()
+{
 	double loopCount = log(del / ((double)(gCounter * (gCounter + 1))));
 	loopCount = loopCount / log(1 - epsilon);
 	maxTries = (int)ceil(loopCount);
 }
 
-void printVector(vector<int> A) {
-	for (auto x : A) {
+void printVector(vector<int> &A) 
+{
+	for (auto x : A) 
+	{
 		cout << x << " ";
 	}
+
 	cout << "\n";
 }
 
-vector<int> intersection(vector<int> A, vector<int> B) {
-	sort(B.begin(), B.end());
+vector<int> intersection(vector<int> &A, vector<int> &B) 
+{
+	unordered_set <int> Bset(B.begin(), B.end());
 	vector<int> ans;
-	for (int i = 0; i < A.size(); i++) {
-		if (binary_search(B.begin(), B.end(), A[i])) {
+
+	for (int i = 0; i < A.size(); i++) 
+	{
+		if (Bset.find(A[i]) != Bset.end()) 
 			ans.push_back(A[i]);
-		}
 	}
+	
 	return ans;
 }
 
-vector<int> vunion(vector<int> A, vector<int> B) {
+vector<int> vunion(vector<int> &A, vector<int> &B) {
 	vector<int> ans;
 	set<int> tmp;
 	for (auto x : A) tmp.insert(x);
@@ -89,7 +99,7 @@ vector<int> vunion(vector<int> A, vector<int> B) {
 	return ans;
 }
 
-bool subvector(vector<int> A, vector<int> B) {
+bool subvector(vector<int> &A, vector<int> &B) {
 	sort(B.begin(), B.end());
 	for (int i = 0; i < A.size(); i++) {
 		if (!binary_search(B.begin(), B.end(), A[i])) return false;
@@ -97,7 +107,7 @@ bool subvector(vector<int> A, vector<int> B) {
 	return true;
 }
 
-bool verifyImplication(implication A) {
+bool verifyImplication(implication &A) {
 	for (auto x : objInp) {
 		if (subvector(A.lhs, x) && !subvector(A.rhs, x)) {
 			return false;
@@ -106,7 +116,56 @@ bool verifyImplication(implication A) {
 	return true;
 }
 
-vector<int> down(vector<int> aset) {
+bool isAaSubsetOfB(vector<int> &A, vector<int> &B)
+{
+	unordered_set<int> Bset(B.begin(), B.end());
+	int Asz = A.size();
+
+	for(int i = 0; i < Asz; i++)
+		if(Bset.find(A[i]) == Bset.end())
+			return false;
+
+	return true;		
+}
+
+// vector<int> contextClosure(vector<int> &aset) 
+// {
+// 	vector<int> ans;
+	
+// 	for (int i = 0; i < objInp.size(); i++) 
+// 		ans.push_back(i);
+
+// 	unordered_set<int> setAns(ans.begin(), ans.end());	
+	
+// 	int aid = -1;
+// 	int osize = objInp.size() + 1;
+	
+// 	for (int i = 0; i < aset.size(); i++) 
+// 	{
+// 		if (attrInp[aset[i]].size() < osize) 
+// 		{
+// 			osize = attrInp[aset[i]].size();
+// 			aid = aset[i];
+// 		}
+// 	}
+
+// 	for (int i = 0; i < attrInp[aid].size(); i++) 
+// 	{	
+// 		int cobj = attrInp[aid][i];
+
+// 		if(isAaSubsetOfB(aset, objInp[cobj]))
+// 		{
+// 			unordered_set<int> tempSet(objInp[cobj].begin(), objInp[cobj].end());
+
+
+// 		}	
+// 	}
+
+// 	return ans;
+// }
+
+vector<int> down(vector<int> &aset) {
+	totUpDownComputes++;
 	vector<int> ans;
 	if (aset.size() == 0) {
 		for (int i = 0; i < objInp.size(); i++) ans.push_back(i);
@@ -212,7 +271,10 @@ void readFormalContext2(string fileName) {
 
 //Given L and X, find L(X).
 
-vector<int> closure(vector<implication> basis, vector<int> X) {
+vector<int> closure(vector<implication> &basis, vector<int> X) 
+{	
+	auto start = chrono::high_resolution_clock::now();
+	totClosureComputations++;
 	if (basis.size() == 0) return X;
 	vector<bool> cons;
 	for (int i = 0; i <= basis.size(); i++) cons.push_back(false);
@@ -232,10 +294,13 @@ vector<int> closure(vector<implication> basis, vector<int> X) {
 			}
 		}
 	}
+	
+	auto end = chrono::high_resolution_clock::now();
+	totalClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 	return X;
 }
 
-vector<int> getRandomSubset(vector<int> st)
+vector<int> getRandomSubset(vector<int> &st)
 {
 	if(st.empty())
 		return st;
@@ -264,68 +329,70 @@ vector<int> getRandomSubset(vector<int> st)
 	return ansSet;	
 }
 
-vector<int> randomAttrSet() {
-	// vector<int> ans;
-	// for (int i = 0; i < attrInp.size(); i++) {
-	// 	int x = rand();
-	// 	if (x % 2 == 0) ans.push_back(i);
-	// }
-	// return ans;
-	// int numSets = objInp.size();
-	// long double numRand = unif(re);
-	// int currSet = 0;
-
-	// while(currSet < numSets)
-	// {
-	// 	if(numRand <= attrSetWeight[currSet])
-	// 		break;
-
-	// 	numRand -= 	attrSetWeight[currSet];
-	// 	currSet++;
-	// }
-
-	// return getRandomSubset(objInp[currSet]);
+vector<int> getFrequentAttrSet() 
+{
 	return getRandomSubset(objInp[discreteDistribution(re)]);
 }
 
-void getCounterExample(vector<implication> basis, int s) {
-	for (int i = s; i < maxTries && globalFlag; i += numThreads) {	//Each thread handles an equal number of iterations. 
-		totTries++;
+vector<int> getRandomAttrSet() 
+{
+	vector<int> ans;
 
-		//For Epsilon strong Horn Approximation
-		vector<int> X = randomAttrSet();
+	for (int i = 0; i < attrInp.size(); i++) 
+	{
+		ans.push_back(i);
+	}
+
+	return getRandomSubset(ans);
+}
+
+void getCounterExample(vector<implication> &basis, int s) 
+{
+	for (int i = s; i < maxTries && globalFlag; i += numThreads) 
+	{	//Each thread handles an equal number of iterations. 
+		totTries++;
+		vector<int> X;
+
+		if(frequentCounterExamples)
+			X = getFrequentAttrSet();
+		else
+			X = getRandomAttrSet();
+
 		vector<int> cX = up(down(X));
-		if (X.size() == cX.size()) continue;
+		if (X.size() == cX.size()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
 		vector<int> cL = closure(basis, X);
 
-		if(cX.size() != cL.size())
+		if(epsilonStrong)
 		{
-			if (globalFlag) 
+			if(cX.size() != cL.size())
 			{
-				globalFlag = false;
-				counterExample = cL;
-				cout << "Counter-example found after " << totTries << " tries \n";
-				return;
+				if (globalFlag) 
+				{
+					globalFlag = false;
+					counterExample = cL;
+					cout << "Counter-example found after " << totTries << " tries \n";
+					return;
+				}
 			}
 		}
 
-		// For Epsilon Horn approximations uncomment the code below and comment the code above
-		// vector<int> X = randomAttrSet();
-		// vector<int> cX = up(down(X));
-		// if (X.size() == cX.size()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
-		// vector<int> cL = closure(basis, X);
-		// if (cL.size() == X.size()) {				//Same as above.
-		// 	if (globalFlag) {
-		// 		globalFlag = false;
-		// 		counterExample = X;
-		// 		cout << "Counter-example found after " << totTries << " tries \n";
-		// 		return;
-		// 	}
-		// }
+		else
+		{
+			if (cL.size() == X.size()) 
+			{				//Same as above.
+				if (globalFlag) 
+				{
+					globalFlag = false;
+					counterExample = X;
+					cout << "Counter-example found after " << totTries << " tries \n";
+					return;
+				}
+			}
+		}	
 	}
 }
 
-void tryPotentialCounterExamples(vector<implication> basis)
+void tryPotentialCounterExamples(vector<implication> &basis)
 {
 	while(!potentialCounterExamples.empty())
 	{
@@ -337,18 +404,33 @@ void tryPotentialCounterExamples(vector<implication> basis)
 		if (X.size() == cX.size()) continue;
 		vector<int> cL = closure(basis, X);
 
-		if(cX.size() != cL.size())
-		{	
-			cout <<"It is a Counter Example!!\n";
-			counterExample = cL;
-			return;
+		if(epsilonStrong)
+		{
+			if(cL.size() != cX.size())
+			{
+				cout <<"It is a Counter Example!!\n";
+				counterExample = cL;
+				return;
+			}
+		}
+
+		else
+		{ 
+			if(cL.size() == X.size())
+			{	
+				cout <<"It is a Counter Example!!\n";
+				counterExample = cL;
+				return;
+			}
 		}
 	}
 }
 
-vector<implication> generateImplicationBasis() {
+vector<implication> generateImplicationBasis() 
+{
 	vector<implication> ans;
-	while (true) {
+	while (true) 
+	{
 		auto start = chrono::high_resolution_clock::now();
 		gCounter++;
 		totTries = 0;
@@ -368,7 +450,7 @@ vector<implication> generateImplicationBasis() {
 		{
 			vector<thread*> threadVector;
 			for (int i = 1; i < numThreads; i++) {
-				thread* tmp = new thread(getCounterExample, ans, i);
+				thread* tmp = new thread(getCounterExample, ref(ans), i);
 				threadVector.push_back(tmp);
 			}
 			//
@@ -391,12 +473,22 @@ vector<implication> generateImplicationBasis() {
 		totalTime += duration.count();
 		if (X.size() == 0) break;
 		bool found = false;
+		start = chrono::high_resolution_clock::now();
+		
 		//The algorithm implemented as-is.
-		for (int i = 0; i < ans.size(); i++) {
+		for (int i = 0; i < ans.size(); i++) 
+		{
 			vector<int> A = ans[i].lhs;
 			vector<int> B = ans[i].rhs;
+			auto durBegin = chrono::high_resolution_clock::now();
 			vector<int> C = intersection(A, X);
+			auto durEnd = chrono::high_resolution_clock::now();
+			intersectionTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
+			durBegin = chrono::high_resolution_clock::now();
 			vector<int> cC = up(down(C));
+			durEnd = chrono::high_resolution_clock::now();
+			updownTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
+
 			if ((A.size() != C.size()) && (C.size() != cC.size())) {
 				ans[i].lhs = C;
 				ans[i].rhs = cC;
@@ -407,12 +499,16 @@ vector<implication> generateImplicationBasis() {
 		if (!found) {
 			ans.push_back(implication{ X, up(down(X)) });
 		}
+
+		end = std::chrono::high_resolution_clock::now();
+		totalExecTime2 += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 	}
 	return ans;
 }
 
-void printUsageAndExit() {
-	cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> [<numThreads>](Default = 1)\n";
+void printUsageAndExit() 
+{
+	cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> <strong/weak> <uniform/frequent> [<numThreads>](Default = 1)\n";
 	exit(0);
 }
 
@@ -434,20 +530,40 @@ void fillPotentialCounterExamples()
 	}
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
+	auto startTime = chrono::high_resolution_clock::now();
 	srand(time(NULL));
-	cout << argc << "\n";
-	if (argc != 4 && argc != 5) {
+	cout <<"argc = "<< argc << "\n";
+
+	if (argc != 6 && argc != 7) 
+	{
 		printUsageAndExit();
 	}
+
 	readFormalContext1(argv[1]);
 	epsilon = atof(argv[2]);
 	del = atof(argv[3]);
-	if(argc == 5) numThreads = atoi(argv[4]);
+	if(string(argv[4]) == string("strong")) epsilonStrong = true;
+	if(string(argv[5]) == string("frequent")) frequentCounterExamples = true;
+	if(argc == 7) numThreads = atoi(argv[6]);
+
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
 	vector<implication> ans = generateImplicationBasis();
 	cout << totalTime << "\n";
+	cout <<"Total closure computations: "<< totClosureComputations <<"\n";
+	cout <<"Total Closure Time: "<< totalClosureTime <<"\n";
+	
+	auto endTime = chrono::high_resolution_clock::now();
+	double TotalExecTime = 0;
+	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
+	cout<<"Total execution time = "<< TotalExecTime <<"\n";
+	cout<<"totalExecTime2 = "<< totalExecTime2 <<"\n";
+	cout<<"Intersection Time = "<< intersectionTime <<"\n";
+	cout<<"UpDown Time = "<< updownTime <<"\n";
+	cout<<"totUpDowncomputes = "<< totUpDownComputes <<"\n";
+
 	for (auto x : ans) {
 		cout << "Implication\n";
 		printVector(x.lhs);
