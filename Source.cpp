@@ -13,16 +13,19 @@
 #include <cmath>
 #include <random>
 #include <unordered_set>
+#include <boost/dynamic_bitset.hpp>
 
 using namespace std;
 
-typedef struct s {
+typedef struct s 
+{
 	vector<int> lhs;
 	vector<int> rhs;
 }implication;
 
 vector<vector<int>> objInp;			//For storing which attributes are associated with which objects
 vector<vector<int>> attrInp;		//For storing which objects are associated with which attributes
+vector<boost::dynamic_bitset<unsigned long> > objInpBS;
 double totalTime = 0;	
 double totalExecTime2 = 0;		//Stores total time spent generating counter examples
 double totalClosureTime = 0;
@@ -90,7 +93,8 @@ vector<int> intersection(vector<int> &A, vector<int> &B)
 	return ans;
 }
 
-vector<int> vunion(vector<int> &A, vector<int> &B) {
+vector<int> vunion(vector<int> &A, vector<int> &B) 
+{
 	vector<int> ans;
 	set<int> tmp;
 	for (auto x : A) tmp.insert(x);
@@ -99,7 +103,8 @@ vector<int> vunion(vector<int> &A, vector<int> &B) {
 	return ans;
 }
 
-bool subvector(vector<int> &A, vector<int> &B) {
+bool subvector(vector<int> &A, vector<int> &B) 
+{
 	sort(B.begin(), B.end());
 	for (int i = 0; i < A.size(); i++) {
 		if (!binary_search(B.begin(), B.end(), A[i])) return false;
@@ -107,7 +112,8 @@ bool subvector(vector<int> &A, vector<int> &B) {
 	return true;
 }
 
-bool verifyImplication(implication &A) {
+bool verifyImplication(implication &A) 
+{
 	for (auto x : objInp) {
 		if (subvector(A.lhs, x) && !subvector(A.rhs, x)) {
 			return false;
@@ -128,44 +134,77 @@ bool isAaSubsetOfB(vector<int> &A, vector<int> &B)
 	return true;		
 }
 
-// vector<int> contextClosure(vector<int> &aset) 
-// {
-// 	vector<int> ans;
+vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
+{	
+	vector<int> ans;
+	// cout <<"BS = "<< attrBS <<"\n";
+
+	for(int i = 0; i < attrBS.size(); i++)
+	{
+		if(attrBS[i])
+			ans.push_back(i);
+	}
+
+	return ans;
+}
+
+boost::dynamic_bitset<unsigned long> attrVectorToAttrBS(vector<int> &attrVec)
+{
+	boost::dynamic_bitset<unsigned long> ans(attrInp.size());
+
+	for(int i = 0; i < attrVec.size(); i++)
+	{
+		ans[attrVec[i]] = true;
+	}
 	
-// 	for (int i = 0; i < objInp.size(); i++) 
-// 		ans.push_back(i);
+	// cout<<"BS = "<< ans <<"\n";
+	return ans;
+}
 
-// 	unordered_set<int> setAns(ans.begin(), ans.end());	
+
+vector<int> contextClosureBS(vector<int> &aset) 
+{	
+	boost::dynamic_bitset<unsigned long> aBS = attrVectorToAttrBS(aset), ansBS(attrInp.size());
+	ansBS.set();
+
+	int aid = -1;
+	int osize = objInp.size() + 1;
 	
-// 	int aid = -1;
-// 	int osize = objInp.size() + 1;
-	
-// 	for (int i = 0; i < aset.size(); i++) 
-// 	{
-// 		if (attrInp[aset[i]].size() < osize) 
-// 		{
-// 			osize = attrInp[aset[i]].size();
-// 			aid = aset[i];
-// 		}
-// 	}
+	for (int i = 0; i < aset.size(); i++) 
+	{
+		if (attrInp[aset[i]].size() < osize) 
+		{
+			osize = attrInp[aset[i]].size();
+			aid = aset[i];
+		}
+	}
+			
+	if(aid != -1)		
+	{
+		for (int i = 0; i < attrInp[aid].size(); i++) 
+		{	
+			int cObj = attrInp[aid][i];
 
-// 	for (int i = 0; i < attrInp[aid].size(); i++) 
-// 	{	
-// 		int cobj = attrInp[aid][i];
+			if(aBS.is_subset_of(objInpBS[cObj]))
+			{
+				ansBS &= objInpBS[cObj];
+			}
+		}
+	}	
 
-// 		if(isAaSubsetOfB(aset, objInp[cobj]))
-// 		{
-// 			unordered_set<int> tempSet(objInp[cobj].begin(), objInp[cobj].end());
+	else
+	{
+		for (int i = 0; i < objInp.size(); i++) 
+		{	
+			int cObj = i;
+			ansBS &= objInpBS[cObj];
+		}
+	}
 
-
-// 		}	
-// 	}
-
-// 	return ans;
-// }
+	return attrBSToAttrVector(ansBS);
+}
 
 vector<int> down(vector<int> &aset) {
-	totUpDownComputes++;
 	vector<int> ans;
 	if (aset.size() == 0) {
 		for (int i = 0; i < objInp.size(); i++) ans.push_back(i);
@@ -485,7 +524,8 @@ vector<implication> generateImplicationBasis()
 			auto durEnd = chrono::high_resolution_clock::now();
 			intersectionTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
 			durBegin = chrono::high_resolution_clock::now();
-			vector<int> cC = up(down(C));
+			totUpDownComputes++;
+			vector<int> cC = contextClosureBS(C);
 			durEnd = chrono::high_resolution_clock::now();
 			updownTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
 
@@ -530,6 +570,16 @@ void fillPotentialCounterExamples()
 	}
 }
 
+void initializeObjInpBS()
+{
+	objInpBS.resize(objInp.size());
+
+	for(int i = 0; i < objInp.size(); i++)
+	{
+		objInpBS[i] = attrVectorToAttrBS(objInp[i]);
+	}				
+}
+
 int main(int argc, char** argv) 
 {
 	auto startTime = chrono::high_resolution_clock::now();
@@ -542,6 +592,7 @@ int main(int argc, char** argv)
 	}
 
 	readFormalContext1(argv[1]);
+	initializeObjInpBS();
 	epsilon = atof(argv[2]);
 	del = atof(argv[3]);
 	if(string(argv[4]) == string("strong")) epsilonStrong = true;
@@ -559,8 +610,8 @@ int main(int argc, char** argv)
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 	cout<<"Total execution time = "<< TotalExecTime <<"\n";
-	cout<<"totalExecTime2 = "<< totalExecTime2 <<"\n";
-	cout<<"Intersection Time = "<< intersectionTime <<"\n";
+	cout<<"totalExecTime(after finding counterexamples) = "<< totalExecTime2 <<"\n";
+	// cout<<"Intersection Time = "<< intersectionTime <<"\n";
 	cout<<"UpDown Time = "<< updownTime <<"\n";
 	cout<<"totUpDowncomputes = "<< totUpDownComputes <<"\n";
 

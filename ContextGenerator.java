@@ -38,13 +38,13 @@ public class ContextGenerator {
         pattern = new int[n];
         int nPowN = (int)Math.pow(n, n);
         
-        int[][] ar = new int[nPowN + 1][n * n + 1];
+        int[][] ar = new int[nPowN + 1][n * n];
         for (int i = 1; i < ar.length; i++) {
             for (int j = 1; j <= n; j++) {
                 int patternId = (i % (j*n))/j;
                 int []tmp = generatePattern(patternId, n);
                 for (int k = 0; k < n; k++) {
-                    ar[i][(j-1)*n+k+1] = tmp[k];
+                    ar[i][(j-1)*n+k] = tmp[k];
                 }
             }
         }
@@ -78,7 +78,7 @@ public class ContextGenerator {
     }
 
     private static void printContextFormat(int[][] ar) {
-        // printHumanReadableFormat(n, ar);
+        printHumanReadableFormat(ar);
         int rows = ar.length;
         int cols = ar[0].length;
         for (int i = 1; i < rows; i++) {
@@ -96,7 +96,7 @@ public class ContextGenerator {
         int cols = ar[0].length;
         for (int i = 1; i < rows; i++) {
             System.out.println();
-            for (int j = 1; j < cols; j++) {
+            for (int j = 0; j < cols; j++) {
                 System.out.print(ar[i][j] + " ");
             }
         }
