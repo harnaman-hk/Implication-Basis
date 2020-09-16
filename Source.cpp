@@ -30,8 +30,11 @@ double totalTime = 0;
 double totalExecTime2 = 0;		//Stores total time spent generating counter examples
 double totalClosureTime = 0;
 double intersectionTime = 0;
+double thisIterMaxImplicationClosureTime = 0;
+double thisIterMaxContextClosureTime = 0;
 double updownTime = 0;
 int numThreads = 1;
+long long totCounterExamples = 0;
 bool globalFlag;					//For terminating other threads in case one thread found a counter-example
 vector<int> counterExample;
 int gCounter = 0;					//For counting how many times the equivalence oracle has been used
@@ -164,6 +167,7 @@ boost::dynamic_bitset<unsigned long> attrVectorToAttrBS(vector<int> &attrVec)
 
 vector<int> contextClosureBS(vector<int> &aset) 
 {	
+	totUpDownComputes++;
 	boost::dynamic_bitset<unsigned long> aBS = attrVectorToAttrBS(aset), ansBS(attrInp.size());
 	ansBS.set();
 
@@ -312,7 +316,7 @@ void readFormalContext2(string fileName) {
 
 vector<int> closure(vector<implication> &basis, vector<int> X) 
 {	
-	auto start = chrono::high_resolution_clock::now();
+	// auto start = chrono::high_resolution_clock::now();
 	totClosureComputations++;
 	if (basis.size() == 0) return X;
 	vector<bool> cons;
@@ -334,8 +338,8 @@ vector<int> closure(vector<implication> &basis, vector<int> X)
 		}
 	}
 	
-	auto end = chrono::high_resolution_clock::now();
-	totalClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
+	// auto end = chrono::high_resolution_clock::now();
+	// totalClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 	return X;
 }
 
@@ -386,7 +390,9 @@ vector<int> getRandomAttrSet()
 }
 
 void getCounterExample(vector<implication> &basis, int s) 
-{
+{	
+	double threadContextClosureTime = 0, threadImplicationClosureTime = 0;
+
 	for (int i = s; i < maxTries && globalFlag; i += numThreads) 
 	{	//Each thread handles an equal number of iterations. 
 		totTries++;
@@ -397,9 +403,23 @@ void getCounterExample(vector<implication> &basis, int s)
 		else
 			X = getRandomAttrSet();
 
-		vector<int> cX = up(down(X));
+		auto start = chrono::high_resolution_clock::now();
+		vector<int> cX = contextClosureBS(X);
+		auto end = chrono::high_resolution_clock::now();
+		threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
+		
 		if (X.size() == cX.size()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
+		
+		start = chrono::high_resolution_clock::now();
 		vector<int> cL = closure(basis, X);
+		end = chrono::high_resolution_clock::now();
+		threadImplicationClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();	
+
+		if(threadContextClosureTime > thisIterMaxContextClosureTime)
+			thisIterMaxContextClosureTime = threadContextClosureTime;
+
+		if(threadImplicationClosureTime > thisIterMaxImplicationClosureTime)
+			thisIterMaxImplicationClosureTime = threadImplicationClosureTime;
 
 		if(epsilonStrong)
 		{
@@ -439,7 +459,7 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 		cout <<"Trying a Potential Counter Example: ";
 		printVector(X);
 		potentialCounterExamples.pop_back();
-		vector<int> cX = up(down(X));
+		vector<int> cX = contextClosureBS(X);
 		if (X.size() == cX.size()) continue;
 		vector<int> cL = closure(basis, X);
 
@@ -478,6 +498,8 @@ vector<implication> generateImplicationBasis()
 		cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
 		counterExample.clear();
+		thisIterMaxContextClosureTime = 0;
+		thisIterMaxImplicationClosureTime = 0;
 
 		if(!potentialCounterExamples.empty())
 		{
@@ -505,6 +527,9 @@ vector<implication> generateImplicationBasis()
 		}
 		
 		vector<int> X = counterExample;
+		totCounterExamples++;
+		updownTime += thisIterMaxContextClosureTime;
+		totalClosureTime += thisIterMaxImplicationClosureTime;
 		cout << "Got counter example" << endl;
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
@@ -524,7 +549,6 @@ vector<implication> generateImplicationBasis()
 			auto durEnd = chrono::high_resolution_clock::now();
 			intersectionTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
 			durBegin = chrono::high_resolution_clock::now();
-			totUpDownComputes++;
 			vector<int> cC = contextClosureBS(C);
 			durEnd = chrono::high_resolution_clock::now();
 			updownTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
@@ -537,7 +561,7 @@ vector<implication> generateImplicationBasis()
 			}
 		}
 		if (!found) {
-			ans.push_back(implication{ X, up(down(X)) });
+			ans.push_back(implication{ X, contextClosureBS(X) });
 		}
 
 		end = std::chrono::high_resolution_clock::now();
@@ -603,17 +627,18 @@ int main(int argc, char** argv)
 	initializeRandSetGen();
 	vector<implication> ans = generateImplicationBasis();
 	cout << totalTime << "\n";
-	cout <<"Total closure computations: "<< totClosureComputations <<"\n";
-	cout <<"Total Closure Time: "<< totalClosureTime <<"\n";
-	
+
 	auto endTime = chrono::high_resolution_clock::now();
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 	cout<<"Total execution time = "<< TotalExecTime <<"\n";
 	cout<<"totalExecTime(after finding counterexamples) = "<< totalExecTime2 <<"\n";
-	// cout<<"Intersection Time = "<< intersectionTime <<"\n";
-	cout<<"UpDown Time = "<< updownTime <<"\n";
-	cout<<"totUpDowncomputes = "<< totUpDownComputes <<"\n";
+	cout <<"Total Implication Closure Time: "<< totalClosureTime <<"\n";
+	cout<<"Total Context Closure Time = "<< updownTime <<"\n";
+	cout <<"Total Implication closure computations: "<< totClosureComputations <<"\n";
+	cout<<"Total Context Closure computes = "<< totUpDownComputes <<"\n";
+	cout<<"Total no. of Implications = "<< ans.size() <<"\n";
+	cout<<"Total Counter Examples = "<< totCounterExamples <<"\n";
 
 	for (auto x : ans) {
 		cout << "Implication\n";
