@@ -76,10 +76,10 @@ void printVector(vector<int> &A)
 {
 	for (auto x : A) 
 	{
-		cout << x << " ";
+		//cout << x << " ";
 	}
 
-	cout << "\n";
+	//cout << "\n";
 }
 
 vector<int> intersection(vector<int> &A, vector<int> &B) 
@@ -140,7 +140,7 @@ bool isAaSubsetOfB(vector<int> &A, vector<int> &B)
 vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
 {	
 	vector<int> ans;
-	// cout <<"BS = "<< attrBS <<"\n";
+	// //cout <<"BS = "<< attrBS <<"\n";
 
 	for(int i = 0; i < attrBS.size(); i++)
 	{
@@ -160,7 +160,7 @@ boost::dynamic_bitset<unsigned long> attrVectorToAttrBS(vector<int> &attrVec)
 		ans[attrVec[i]] = true;
 	}
 	
-	// cout<<"BS = "<< ans <<"\n";
+	// //cout<<"BS = "<< ans <<"\n";
 	return ans;
 }
 
@@ -281,8 +281,8 @@ void readFormalContext1(string fileName) {
 		}
 		if (cur.size() != 0) objInp.push_back(cur);
 	}
-	cout << "Done reading context\n";
-	cout << objInp.size() << " " << attrInp.size() << "\n";
+	//cout << "Done reading context\n";
+	//cout << objInp.size() << " " << attrInp.size() << "\n";
 	inFile.close();
 }
 
@@ -307,8 +307,8 @@ void readFormalContext2(string fileName) {
 			}
 		}
 	}
-	cout << "Done reading formal context\n";
-	cout << objInp.size() << " " << attrInp.size() << "\n";
+	//cout << "Done reading formal context\n";
+	//cout << objInp.size() << " " << attrInp.size() << "\n";
 	inFile.close();
 }
 
@@ -429,7 +429,7 @@ void getCounterExample(vector<implication> &basis, int s)
 				{
 					globalFlag = false;
 					counterExample = cL;
-					cout << "Counter-example found after " << totTries << " tries \n";
+					//cout << "Counter-example found after " << totTries << " tries \n";
 					return;
 				}
 			}
@@ -443,7 +443,7 @@ void getCounterExample(vector<implication> &basis, int s)
 				{
 					globalFlag = false;
 					counterExample = X;
-					cout << "Counter-example found after " << totTries << " tries \n";
+					//cout << "Counter-example found after " << totTries << " tries \n";
 					return;
 				}
 			}
@@ -456,7 +456,7 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 	while(!potentialCounterExamples.empty())
 	{
 		vector <int> X = potentialCounterExamples.back();
-		cout <<"Trying a Potential Counter Example: ";
+		//cout <<"Trying a Potential Counter Example: ";
 		printVector(X);
 		potentialCounterExamples.pop_back();
 		vector<int> cX = contextClosureBS(X);
@@ -467,7 +467,7 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 		{
 			if(cL.size() != cX.size())
 			{
-				cout <<"It is a Counter Example!!\n";
+				//cout <<"It is a Counter Example!!\n";
 				counterExample = cL;
 				return;
 			}
@@ -477,7 +477,7 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 		{ 
 			if(cL.size() == X.size())
 			{	
-				cout <<"It is a Counter Example!!\n";
+				//cout <<"It is a Counter Example!!\n";
 				counterExample = cL;
 				return;
 			}
@@ -493,9 +493,9 @@ vector<implication> generateImplicationBasis()
 		auto start = chrono::high_resolution_clock::now();
 		gCounter++;
 		totTries = 0;
-		cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
+		//cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
 		getLoopCount();
-		cout << "Max number of tries for this iteration: " << maxTries << "\n";
+		//cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
 		counterExample.clear();
 		thisIterMaxContextClosureTime = 0;
@@ -530,10 +530,10 @@ vector<implication> generateImplicationBasis()
 		totCounterExamples++;
 		updownTime += thisIterMaxContextClosureTime;
 		totalClosureTime += thisIterMaxImplicationClosureTime;
-		cout << "Got counter example" << endl;
+		//cout << "Got counter example" << endl;
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
-		cout << duration.count() << "\n";
+		//cout << duration.count() << "\n";
 		totalTime += duration.count();
 		if (X.size() == 0) break;
 		bool found = false;
@@ -572,7 +572,7 @@ vector<implication> generateImplicationBasis()
 
 void printUsageAndExit() 
 {
-	cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> <strong/weak> <uniform/frequent> [<numThreads>](Default = 1)\n";
+	//cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> <strong/weak> <uniform/frequent> [<numThreads>](Default = 1)\n";
 	exit(0);
 }
 
@@ -608,7 +608,7 @@ int main(int argc, char** argv)
 {
 	auto startTime = chrono::high_resolution_clock::now();
 	srand(time(NULL));
-	cout <<"argc = "<< argc << "\n";
+	//cout <<"argc = "<< argc << "\n";
 
 	if (argc != 6 && argc != 7) 
 	{
@@ -626,7 +626,7 @@ int main(int argc, char** argv)
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
 	vector<implication> ans = generateImplicationBasis();
-	cout << totalTime << "\n";
+	//cout << totalTime << "\n";
 
 	auto endTime = chrono::high_resolution_clock::now();
 	double TotalExecTime = 0;
@@ -641,7 +641,7 @@ int main(int argc, char** argv)
 	cout<<"Total Counter Examples = "<< totCounterExamples <<"\n";
 
 	for (auto x : ans) {
-		cout << "Implication\n";
+		//cout << "Implication\n";
 		printVector(x.lhs);
 		printVector(x.rhs);
 	}

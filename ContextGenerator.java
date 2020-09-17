@@ -78,7 +78,7 @@ public class ContextGenerator {
     }
 
     private static void printContextFormat(int[][] ar) {
-        printHumanReadableFormat(ar);
+        // printHumanReadableFormat(ar);
         int rows = ar.length;
         int cols = ar[0].length;
         for (int i = 1; i < rows; i++) {
@@ -95,10 +95,10 @@ public class ContextGenerator {
         int rows = ar.length;
         int cols = ar[0].length;
         for (int i = 1; i < rows; i++) {
-            System.out.println();
             for (int j = 0; j < cols; j++) {
                 System.out.print(ar[i][j] + " ");
             }
+            System.out.println();
         }
     }
 }
