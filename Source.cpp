@@ -631,14 +631,14 @@ int main(int argc, char** argv)
 	auto endTime = chrono::high_resolution_clock::now();
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
-	cout<<"Total execution time = "<< TotalExecTime <<"\n";
-	cout<<"totalExecTime(after finding counterexamples) = "<< totalExecTime2 <<"\n";
-	cout <<"Total Implication Closure Time: "<< totalClosureTime <<"\n";
-	cout<<"Total Context Closure Time = "<< updownTime <<"\n";
-	cout <<"Total Implication closure computations: "<< totClosureComputations <<"\n";
-	cout<<"Total Context Closure computes = "<< totUpDownComputes <<"\n";
-	cout<<"Total no. of Implications = "<< ans.size() <<"\n";
-	cout<<"Total Counter Examples = "<< totCounterExamples <<"\n";
+	cout << TotalExecTime <<",";
+	cout << totalExecTime2 <<",";
+	cout << totalClosureTime <<",";
+	cout<< updownTime <<",";
+	cout << totClosureComputations <<",";
+	cout<< totUpDownComputes <<",";
+	cout<< ans.size() <<",";
+	cout<< totCounterExamples <<"\n";
 
 	for (auto x : ans) {
 		//cout << "Implication\n";

@@ -1,1 +1,12 @@
 Results/
+fcai/
+Inputs/
+Outputs/
+a.out
+exact
+cxtInputs/
+inputsCreator.cpp
+res.txt
+server
+serverScript.cpp
+test.cxt
