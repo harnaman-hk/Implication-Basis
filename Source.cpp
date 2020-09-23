@@ -6,6 +6,7 @@
 #include <map>
 #include <algorithm>
 #include <thread>
+#include <mutex>          // std::mutex, std::unique_lock, std::defer_lock
 #include <set>
 #include <time.h>
 #include <stdlib.h>
@@ -41,7 +42,11 @@ int gCounter = 0;					//For counting how many times the equivalence oracle has b
 int totTries = 0;	
 long long totClosureComputations = 0;
 long long totUpDownComputes = 0;				//Stores how many random attribute sets needed to be tested before finding a counter-example. For debugging purposes. 
-
+bool basisUpdate = false;
+implication updatedImplication;
+int indexOfUpdatedImplication;
+int implicationsSeen;
+std::mutex mtx;           // mutex for critical section
 vector<vector<int>> potentialCounterExamples;
 double epsilon, del; 
 bool epsilonStrong = false, frequentCounterExamples = false;
@@ -393,10 +398,13 @@ vector<int> getRandomAttrSet()
 void getCounterExample(vector<implication> &basis, int s) 
 {	
 	double threadContextClosureTime = 0, threadImplicationClosureTime = 0;
+	std::unique_lock<std::mutex> lck (mtx,std::defer_lock);
 
 	for (int i = s; i < maxTries && globalFlag; i += numThreads) 
 	{	//Each thread handles an equal number of iterations. 
+		lck.lock();
 		totTries++;
+  		lck.unlock();
 		vector<int> X;
 
 		if(frequentCounterExamples)
@@ -416,12 +424,16 @@ void getCounterExample(vector<implication> &basis, int s)
 		end = chrono::high_resolution_clock::now();
 		threadImplicationClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();	
 
+		lck.lock();
+		
 		if(threadContextClosureTime > thisIterMaxContextClosureTime)
 			thisIterMaxContextClosureTime = threadContextClosureTime;
 
 		if(threadImplicationClosureTime > thisIterMaxImplicationClosureTime)
 			thisIterMaxImplicationClosureTime = threadImplicationClosureTime;
-
+		
+		lck.unlock();
+		
 		if(epsilonStrong)
 		{
 			if(cX.size() != cL.size())
@@ -488,6 +500,56 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 	}
 }
 
+void tryToUpdateImplicationBasis(vector<implication> &basis)
+{	
+	std::unique_lock<std::mutex> lck (mtx,std::defer_lock);
+	double threadContextClosureTime = 0;
+	lck.lock();
+
+	while((implicationsSeen < basis.size()) && (!basisUpdate))
+	{
+		vector<int> A = basis[implicationsSeen].lhs;
+		vector<int> B = basis[implicationsSeen].rhs;
+		int curIndex = implicationsSeen;
+		implicationsSeen++;
+		lck.unlock();
+		vector<int> C = intersection(A, counterExample);
+		auto durBegin = chrono::high_resolution_clock::now();
+		vector<int> cC = contextClosureBS(C);
+		auto durEnd = chrono::high_resolution_clock::now();
+		threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
+
+		if ((A.size() != C.size()) && (C.size() != cC.size())) 
+		{	
+			lck.lock();
+
+			if(!basisUpdate)
+			{
+				basisUpdate = true;
+				indexOfUpdatedImplication = curIndex;
+				updatedImplication.lhs = C;
+				updatedImplication.rhs = cC;
+			}	
+
+			else if(basisUpdate && (curIndex < indexOfUpdatedImplication))
+			{
+				indexOfUpdatedImplication = curIndex;
+				updatedImplication.lhs = C;
+				updatedImplication.rhs = cC;
+			}
+
+			lck.unlock();
+		}
+
+		lck.lock();
+	}
+
+	if(threadContextClosureTime > thisIterMaxContextClosureTime)
+		thisIterMaxContextClosureTime = threadContextClosureTime;
+	
+	lck.unlock();
+}
+
 vector<implication> generateImplicationBasis() 
 {
 	vector<implication> ans;
@@ -541,31 +603,25 @@ vector<implication> generateImplicationBasis()
 		if (globalFlag) break;
 		bool found = false;
 		start = chrono::high_resolution_clock::now();
+		basisUpdate = false;
+		implicationsSeen = 0;
+		thisIterMaxContextClosureTime = 0;
 		
 		//The algorithm implemented as-is.
-		for (int i = 0; i < ans.size(); i++) 
-		{
-			vector<int> A = ans[i].lhs;
-			vector<int> B = ans[i].rhs;
-			auto durBegin = chrono::high_resolution_clock::now();
-			vector<int> C = intersection(A, X);
-			auto durEnd = chrono::high_resolution_clock::now();
-			intersectionTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
-			durBegin = chrono::high_resolution_clock::now();
-			vector<int> cC = contextClosureBS(C);
-			durEnd = chrono::high_resolution_clock::now();
-			updownTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
+		vector<thread*> threads(numThreads);
 
-			if ((A.size() != C.size()) && (C.size() != cC.size())) {
-				ans[i].lhs = C;
-				ans[i].rhs = cC;
-				found = true;
-				break;
-			}
-		}
-		if (!found) {
+		for(int i = 0; i < numThreads; i++)
+			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ans));
+
+		tryToUpdateImplicationBasis(ans);
+
+		for(int i = 0; i < numThreads; i++)
+			threads[i]->join();	
+
+		if (!basisUpdate) 
 			ans.push_back(implication{ X, contextClosureBS(X) });
-		}
+		else
+			ans[indexOfUpdatedImplication] = updatedImplication;
 
 		end = std::chrono::high_resolution_clock::now();
 		totalExecTime2 += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
