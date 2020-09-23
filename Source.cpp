@@ -140,7 +140,7 @@ bool isAaSubsetOfB(vector<int> &A, vector<int> &B)
 vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
 {	
 	vector<int> ans;
-	// //cout <<"BS = "<< attrBS <<"\n";
+	// cout <<"BS = "<< attrBS <<"\n";
 
 	for(int i = 0; i < attrBS.size(); i++)
 	{
@@ -160,7 +160,7 @@ boost::dynamic_bitset<unsigned long> attrVectorToAttrBS(vector<int> &attrVec)
 		ans[attrVec[i]] = true;
 	}
 	
-	// //cout<<"BS = "<< ans <<"\n";
+	//cout<<"BS = "<< ans <<"\n";
 	return ans;
 }
 
@@ -170,6 +170,7 @@ vector<int> contextClosureBS(vector<int> &aset)
 	totUpDownComputes++;
 	boost::dynamic_bitset<unsigned long> aBS = attrVectorToAttrBS(aset), ansBS(attrInp.size());
 	ansBS.set();
+	ansBS[0] = false;
 
 	int aid = -1;
 	int osize = objInp.size() + 1;
@@ -469,6 +470,7 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 			{
 				//cout <<"It is a Counter Example!!\n";
 				counterExample = cL;
+				globalFlag = false;
 				return;
 			}
 		}
@@ -479,6 +481,7 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 			{	
 				//cout <<"It is a Counter Example!!\n";
 				counterExample = cL;
+				globalFlag = false;
 				return;
 			}
 		}
@@ -535,7 +538,7 @@ vector<implication> generateImplicationBasis()
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 		//cout << duration.count() << "\n";
 		totalTime += duration.count();
-		if (X.size() == 0) break;
+		if (globalFlag) break;
 		bool found = false;
 		start = chrono::high_resolution_clock::now();
 		
@@ -588,7 +591,7 @@ void fillPotentialCounterExamples()
 	// }
 
 	// Singleton
-	for(int i = 0; i < attrInp.size(); i++)
+	for(int i = 1; i < attrInp.size(); i++)
 	{
 		potentialCounterExamples.push_back({i});
 	}
@@ -641,7 +644,7 @@ int main(int argc, char** argv)
 	cout<< totCounterExamples <<"\n";
 
 	for (auto x : ans) {
-		//cout << "Implication\n";
+		// cout << "Implication\n";
 		printVector(x.lhs);
 		printVector(x.rhs);
 	}

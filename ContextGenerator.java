@@ -1,7 +1,3 @@
-/**
- *
- * @author sriramk
- */
 public class ContextGenerator {
     private int[] pattern = null;
        
@@ -40,12 +36,12 @@ public class ContextGenerator {
         
         int[][] ar = new int[nPowN + 1][n * n];
         for (int i = 1; i < ar.length; i++) {
-            for (int j = 1; j <= n; j++) {
-                int patternId = (i % (j*n))/j;
-                int []tmp = generatePattern(patternId, n);
-                for (int k = 0; k < n; k++) {
-                    ar[i][(j-1)*n+k] = tmp[k];
-                }
+            int tmp = i-1;
+            for (int j = 0; j < n ; j++) {
+                int patternId = tmp%n;
+                int []tmpPattern = generatePattern(patternId, n);
+                System.arraycopy(tmpPattern, 0, ar[i], j*n, n);
+                tmp = tmp/n;
             }
         }
         return ar;
@@ -78,7 +74,7 @@ public class ContextGenerator {
     }
 
     private static void printContextFormat(int[][] ar) {
-        // printHumanReadableFormat(ar);
+       // printHumanReadableFormat(ar);
         int rows = ar.length;
         int cols = ar[0].length;
         for (int i = 1; i < rows; i++) {
@@ -95,10 +91,10 @@ public class ContextGenerator {
         int rows = ar.length;
         int cols = ar[0].length;
         for (int i = 1; i < rows; i++) {
+            System.out.println();
             for (int j = 0; j < cols; j++) {
                 System.out.print(ar[i][j] + " ");
             }
-            System.out.println();
         }
     }
 }
