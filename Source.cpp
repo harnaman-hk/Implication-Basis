@@ -614,6 +614,7 @@ vector<implication> generateImplicationBasis()
 			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ans));
 
 		tryToUpdateImplicationBasis(ans);
+		updownTime += thisIterMaxContextClosureTime;
 
 		for(int i = 0; i < numThreads; i++)
 			threads[i]->join();	
