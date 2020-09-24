@@ -1,0 +1,10 @@
+Epsilon = 0.01,Delta = 0.1
+Horn Type,Counterexample Type,Thread(s),Total TIme,Time Except C.Ex.,ImpClosure TIme,Context Closures Time,Implication Closures,Context Closures,No. of Implications,No. of C. Ex.
+weak,uniform,1,3.0174e+06,244732,2.13455e+06,286387,7118,7666,13,78
+weak,uniform,40,730292,218232,274306,168797,10007,10741,14,88
+weak,frequent,1,9.43644e+07,3.76274e+07,5.13826e+07,4.07171e+07,92396,167067,232,707
+weak,frequent,40,1.09117e+07,4.49796e+06,5.28793e+06,4.63195e+06,133519,225591,262,765
+strong,uniform,1,1.65285e+07,3.33481e+06,7.25415e+06,3.26102e+06,2074,8821,95,119
+strong,uniform,40,1.66396e+06,470785,738959,377466,2823,9084,95,114
+strong,frequent,40,1.10374e+08,5.31775e+07,5.35505e+07,5.24131e+07,334980,2254556,1139,3425
+strong,frequent,1,1.54366e+09,8.20433e+08,7.05075e+08,8.15503e+08,275009,2248237,1146,3734

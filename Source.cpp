@@ -145,7 +145,7 @@ bool isAaSubsetOfB(vector<int> &A, vector<int> &B)
 vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
 {	
 	vector<int> ans;
-	// cout <<"BS = "<< attrBS <<"\n";
+	// //cout <<"BS = "<< attrBS <<"\n";
 
 	for(int i = 0; i < attrBS.size(); i++)
 	{
@@ -165,7 +165,7 @@ boost::dynamic_bitset<unsigned long> attrVectorToAttrBS(vector<int> &attrVec)
 		ans[attrVec[i]] = true;
 	}
 	
-	//cout<<"BS = "<< ans <<"\n";
+	// //cout<<"BS = "<< ans <<"\n";
 	return ans;
 }
 
@@ -387,7 +387,7 @@ vector<int> getRandomAttrSet()
 {
 	vector<int> ans;
 
-	for (int i = 0; i < attrInp.size(); i++) 
+	for (int i = 1; i < attrInp.size(); i++) 
 	{
 		ans.push_back(i);
 	}
@@ -572,7 +572,7 @@ vector<implication> generateImplicationBasis()
 			gCounter = 0;
 		}
 
-		if(counterExample.size() == 0)
+		if(globalFlag)
 		{
 			vector<thread*> threadVector;
 			for (int i = 1; i < numThreads; i++) {
@@ -591,7 +591,10 @@ vector<implication> generateImplicationBasis()
 			}
 		}
 		
+		if (globalFlag) break;
+
 		vector<int> X = counterExample;
+		printVector(X);
 		totCounterExamples++;
 		updownTime += thisIterMaxContextClosureTime;
 		totalClosureTime += thisIterMaxImplicationClosureTime;
@@ -600,7 +603,6 @@ vector<implication> generateImplicationBasis()
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 		//cout << duration.count() << "\n";
 		totalTime += duration.count();
-		if (globalFlag) break;
 		bool found = false;
 		start = chrono::high_resolution_clock::now();
 		basisUpdate = false;
@@ -610,17 +612,18 @@ vector<implication> generateImplicationBasis()
 		//The algorithm implemented as-is.
 		vector<thread*> threads(numThreads);
 
-		for(int i = 0; i < numThreads; i++)
+		for(int i = 1; i < numThreads; i++)
 			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ans));
 
 		tryToUpdateImplicationBasis(ans);
+
+		for(int i = 1; i < numThreads; i++)
+			threads[i]->join();	
+		
 		updownTime += thisIterMaxContextClosureTime;
 
-		for(int i = 0; i < numThreads; i++)
-			threads[i]->join();	
-
 		if (!basisUpdate) 
-			ans.push_back(implication{ X, contextClosureBS(X) });
+			ans.push_back(implication{ X, contextClosureBS(X)});
 		else
 			ans[indexOfUpdatedImplication] = updatedImplication;
 
@@ -691,6 +694,10 @@ int main(int argc, char** argv)
 	auto endTime = chrono::high_resolution_clock::now();
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
+	
+	// for(int i = 2; i < 7; i++)
+	// 	cout << argv[i] <<",";
+
 	cout << TotalExecTime <<",";
 	cout << totalExecTime2 <<",";
 	cout << totalClosureTime <<",";
@@ -701,7 +708,7 @@ int main(int argc, char** argv)
 	cout<< totCounterExamples <<"\n";
 
 	for (auto x : ans) {
-		// cout << "Implication\n";
+		// //cout << "Implication\n";
 		printVector(x.lhs);
 		printVector(x.rhs);
 	}
