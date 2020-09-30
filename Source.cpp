@@ -45,7 +45,6 @@ long long totUpDownComputes = 0;				//Stores how many random attribute sets need
 bool basisUpdate = false;
 implication updatedImplication;
 int indexOfUpdatedImplication;
-int implicationsSeen;
 std::mutex mtx;           // mutex for critical section
 vector<vector<int>> potentialCounterExamples;
 double epsilon, del; 
@@ -500,19 +499,15 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 	}
 }
 
-void tryToUpdateImplicationBasis(vector<implication> &basis)
+void tryToUpdateImplicationBasis(vector<implication> &basis, int threadID)
 {	
 	std::unique_lock<std::mutex> lck (mtx,std::defer_lock);
 	double threadContextClosureTime = 0;
-	lck.lock();
 
-	while((implicationsSeen < basis.size()) && (!basisUpdate))
+	for(int implicationNo = threadID; implicationNo < indexOfUpdatedImplication; implicationNo += numThreads)
 	{
-		vector<int> A = basis[implicationsSeen].lhs;
-		vector<int> B = basis[implicationsSeen].rhs;
-		int curIndex = implicationsSeen;
-		implicationsSeen++;
-		lck.unlock();
+		vector<int> A = basis[implicationNo].lhs;
+		vector<int> B = basis[implicationNo].rhs;
 		vector<int> C = intersection(A, counterExample);
 		auto durBegin = chrono::high_resolution_clock::now();
 		vector<int> cC = contextClosureBS(C);
@@ -526,24 +521,24 @@ void tryToUpdateImplicationBasis(vector<implication> &basis)
 			if(!basisUpdate)
 			{
 				basisUpdate = true;
-				indexOfUpdatedImplication = curIndex;
+				indexOfUpdatedImplication = implicationNo;
 				updatedImplication.lhs = C;
 				updatedImplication.rhs = cC;
 			}	
 
-			else if(basisUpdate && (curIndex < indexOfUpdatedImplication))
+			else if(basisUpdate && (implicationNo < indexOfUpdatedImplication))
 			{
-				indexOfUpdatedImplication = curIndex;
+				indexOfUpdatedImplication = implicationNo;
 				updatedImplication.lhs = C;
 				updatedImplication.rhs = cC;
 			}
 
 			lck.unlock();
 		}
-
-		lck.lock();
 	}
 
+	lck.lock();
+	
 	if(threadContextClosureTime > thisIterMaxContextClosureTime)
 		thisIterMaxContextClosureTime = threadContextClosureTime;
 	
@@ -606,16 +601,16 @@ vector<implication> generateImplicationBasis()
 		bool found = false;
 		start = chrono::high_resolution_clock::now();
 		basisUpdate = false;
-		implicationsSeen = 0;
+		indexOfUpdatedImplication = ans.size();
 		thisIterMaxContextClosureTime = 0;
 		
 		//The algorithm implemented as-is.
 		vector<thread*> threads(numThreads);
 
 		for(int i = 1; i < numThreads; i++)
-			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ans));
+			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ans), i);
 
-		tryToUpdateImplicationBasis(ans);
+		tryToUpdateImplicationBasis(ans, 0);
 
 		for(int i = 1; i < numThreads; i++)
 			threads[i]->join();	
