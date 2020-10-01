@@ -63,6 +63,7 @@ std::discrete_distribution<int> discreteDistribution;
 std::default_random_engine re(rd());
 
 vector<long double> attrSetWeight;
+vector<implicationBS> ansBasisBS;
 
 //Can be used in case the input format is:
 //Each line has the attribute numbers of attributes associated with the object represented by the line number.
@@ -129,9 +130,6 @@ void getLoopCount()
 	double loopCount = log(del / ((double)(gCounter * (gCounter + 1))));
 	loopCount = loopCount / log(1 - epsilon);
 	maxTries =  (int)ceil(loopCount);
-
-	if(bothCounterExamples)
-		maxTries *= 2;
 }
 
 void printVector(vector<int> &A) 
@@ -460,7 +458,7 @@ vector<implication> generateImplicationBasis()
 	vector<implicationBS> ansBS;
 
 	while (true) 
-	{
+	{	
 		auto start = chrono::high_resolution_clock::now();
 		gCounter++;
 		totTries = 0;
@@ -496,14 +494,23 @@ vector<implication> generateImplicationBasis()
 				threadVector[i]->join();
 			}
 		}
-		
+
+		updownTime += thisIterMaxContextClosureTime;
+		totalClosureTime += thisIterMaxImplicationClosureTime;
+
+		if(globalFlag && bothCounterExamples)
+		{
+			bothCounterExamples = false;
+			frequentCounterExamples = false;
+			gCounter = max(0, gCounter - 1);
+			continue;
+		}
+
 		if (globalFlag) break;
 
 		boost::dynamic_bitset<unsigned long> X = counterExampleBS;
 		//printVector(X);
 		totCounterExamples++;
-		updownTime += thisIterMaxContextClosureTime;
-		totalClosureTime += thisIterMaxImplicationClosureTime;
 		//cout << "Got counter example" << endl;
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
@@ -537,6 +544,7 @@ vector<implication> generateImplicationBasis()
 		totalExecTime2 += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 	}
 
+	ansBasisBS = ansBS;
 	return BSBasisToVectorBasis(ansBS);
 }
 
@@ -575,6 +583,106 @@ void initializeObjInpBS()
 	}				
 }
 
+boost::dynamic_bitset<unsigned long> nextContextClosure(boost::dynamic_bitset<unsigned long> A, boost::dynamic_bitset<unsigned long> finalClosedSet)
+{
+	int nAttr = attrInp.size() - 1;
+
+	for(int i = nAttr; i > 0; i--)
+	{
+		if(A[i])
+			A[i] = false;
+		else
+		{
+			boost::dynamic_bitset<unsigned long> B, temp = A;
+			temp[i] = true;
+			B = contextClosureBS(temp);
+
+			bool flag = true;
+
+			for(int j = 1; j < i; j++)
+			{
+				if(B[j] & (!A[j]))
+				{
+					flag = false;
+					break;
+				}
+			}
+
+			if(flag)
+				return B;
+		}	
+	}
+
+	return finalClosedSet;
+}
+
+int allContextClosures()
+{
+	int totalClosedSets = 1;
+	boost::dynamic_bitset<unsigned long> currentClosedSet, finalClosedSet(attrInp.size()), emptySet(attrInp.size());
+	currentClosedSet = contextClosureBS(emptySet);
+	finalClosedSet.set();
+	finalClosedSet[0] = false;
+
+	while(currentClosedSet != finalClosedSet)
+	{
+		currentClosedSet = nextContextClosure(currentClosedSet, finalClosedSet);
+		totalClosedSets++;
+	}
+
+	return totalClosedSets;
+}
+
+boost::dynamic_bitset<unsigned long> nextImplicationClosure(boost::dynamic_bitset<unsigned long> A, boost::dynamic_bitset<unsigned long> finalClosedSet)
+{
+	int nAttr = attrInp.size() - 1;
+
+	for(int i = nAttr; i > 0; i--)
+	{
+		if(A[i])
+			A[i] = false;
+		else
+		{
+			boost::dynamic_bitset<unsigned long> B, temp = A;
+			temp[i] = true;
+			B = closureBS(ansBasisBS, temp);
+
+			bool flag = true;
+
+			for(int j = 1; j < i; j++)
+			{
+				if(B[j] & (!A[j]))
+				{
+					flag = false;
+					break;
+				}
+			}
+
+			if(flag)
+				return B;
+		}	
+	}
+
+	return finalClosedSet;
+}
+
+int allImplicationClosures()
+{
+	int totalClosedSets = 1;
+	boost::dynamic_bitset<unsigned long> currentClosedSet, finalClosedSet(attrInp.size()), emptySet(attrInp.size());
+	currentClosedSet = closureBS(ansBasisBS, emptySet);
+	finalClosedSet.set();
+	finalClosedSet[0] = false;
+
+	while(currentClosedSet != finalClosedSet)
+	{
+		currentClosedSet = nextImplicationClosure(currentClosedSet, finalClosedSet);
+		totalClosedSets++;
+	}
+
+	return totalClosedSets;
+}
+
 int main(int argc, char** argv) 
 {
 	auto startTime = chrono::high_resolution_clock::now();
@@ -593,6 +701,7 @@ int main(int argc, char** argv)
 	if(string(argv[4]) == string("strong")) epsilonStrong = true;
 	if(string(argv[5]) == string("frequent")) frequentCounterExamples = true;
 	if(string(argv[5]) == string("both")) bothCounterExamples = true;
+	if(bothCounterExamples) frequentCounterExamples = true;
 	if(argc == 7) numThreads = atoi(argv[6]);
 
 	fillPotentialCounterExamples();
@@ -604,8 +713,8 @@ int main(int argc, char** argv)
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 	
-	// for(int i = 2; i < 7; i++)
-	// 	cout << argv[i] <<",";
+	for(int i = 2; i < 7; i++)
+		cout << argv[i] <<",";
 
 	cout << TotalExecTime <<",";
 	cout << totalExecTime2 <<",";
@@ -615,6 +724,8 @@ int main(int argc, char** argv)
 	cout<< totUpDownComputes <<",";
 	cout<< ans.size() <<",";
 	cout<< totCounterExamples <<"\n";
+	// cout<< allContextClosures() <<"\n"; 
+	// cout<< allImplicationClosures()<<"\n";
 
 	for (auto x : ans) {
 		// //cout << "Implication\n";
