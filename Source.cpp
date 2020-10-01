@@ -24,6 +24,12 @@ typedef struct s
 	vector<int> rhs;
 }implication;
 
+typedef struct 
+{
+	boost::dynamic_bitset<unsigned long> lhs;
+	boost::dynamic_bitset<unsigned long> rhs;
+}implicationBS;
+
 vector<vector<int>> objInp;			//For storing which attributes are associated with which objects
 vector<vector<int>> attrInp;		//For storing which objects are associated with which attributes
 vector<boost::dynamic_bitset<unsigned long> > objInpBS;
@@ -37,19 +43,19 @@ double updownTime = 0;
 int numThreads = 1;
 long long totCounterExamples = 0;
 bool globalFlag;					//For terminating other threads in case one thread found a counter-example
-vector<int> counterExample;
+boost::dynamic_bitset<unsigned long> counterExampleBS;
 int gCounter = 0;					//For counting how many times the equivalence oracle has been used
 int totTries = 0;	
 long long totClosureComputations = 0;
 long long totUpDownComputes = 0;				//Stores how many random attribute sets needed to be tested before finding a counter-example. For debugging purposes. 
 bool basisUpdate = false;
-implication updatedImplication;
+implicationBS updatedImplication;
 int indexOfUpdatedImplication;
 int implicationsSeen;
 std::mutex mtx;           // mutex for critical section
-vector<vector<int>> potentialCounterExamples;
+vector<boost::dynamic_bitset<unsigned long> > potentialCounterExamplesBS;
 double epsilon, del; 
-bool epsilonStrong = false, frequentCounterExamples = false;
+bool epsilonStrong = false, frequentCounterExamples = false, bothCounterExamples = false;
 int maxTries;						//Updated by getLoopCount() based on the value of gCounter, epsilon and delta.
 
 std::random_device rd;
@@ -57,218 +63,6 @@ std::discrete_distribution<int> discreteDistribution;
 std::default_random_engine re(rd());
 
 vector<long double> attrSetWeight;
-
-void initializeRandSetGen()
-{
-	attrSetWeight.resize(objInp.size());
-
-	for(int i = 0; i < objInp.size(); i++)
-	{
-		attrSetWeight[i] = (long double)pow((long double) 2, (long double) objInp[i].size());
-	}
-
-	discreteDistribution = std::discrete_distribution<int> (attrSetWeight.begin(), attrSetWeight.end());
-}
-
-void getLoopCount()
-{
-	double loopCount = log(del / ((double)(gCounter * (gCounter + 1))));
-	loopCount = loopCount / log(1 - epsilon);
-	maxTries = (int)ceil(loopCount);
-}
-
-void printVector(vector<int> &A) 
-{
-	for (auto x : A) 
-	{
-		//cout << x << " ";
-	}
-
-	//cout << "\n";
-}
-
-vector<int> intersection(vector<int> &A, vector<int> &B) 
-{
-	unordered_set <int> Bset(B.begin(), B.end());
-	vector<int> ans;
-
-	for (int i = 0; i < A.size(); i++) 
-	{
-		if (Bset.find(A[i]) != Bset.end()) 
-			ans.push_back(A[i]);
-	}
-	
-	return ans;
-}
-
-vector<int> vunion(vector<int> &A, vector<int> &B) 
-{
-	vector<int> ans;
-	set<int> tmp;
-	for (auto x : A) tmp.insert(x);
-	for (auto x : B) tmp.insert(x);
-	for (auto x : tmp) ans.push_back(x);
-	return ans;
-}
-
-bool subvector(vector<int> &A, vector<int> &B) 
-{
-	sort(B.begin(), B.end());
-	for (int i = 0; i < A.size(); i++) {
-		if (!binary_search(B.begin(), B.end(), A[i])) return false;
-	}
-	return true;
-}
-
-bool verifyImplication(implication &A) 
-{
-	for (auto x : objInp) {
-		if (subvector(A.lhs, x) && !subvector(A.rhs, x)) {
-			return false;
-		}
-	}
-	return true;
-}
-
-bool isAaSubsetOfB(vector<int> &A, vector<int> &B)
-{
-	unordered_set<int> Bset(B.begin(), B.end());
-	int Asz = A.size();
-
-	for(int i = 0; i < Asz; i++)
-		if(Bset.find(A[i]) == Bset.end())
-			return false;
-
-	return true;		
-}
-
-vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
-{	
-	vector<int> ans;
-	// //cout <<"BS = "<< attrBS <<"\n";
-
-	for(int i = 0; i < attrBS.size(); i++)
-	{
-		if(attrBS[i])
-			ans.push_back(i);
-	}
-
-	return ans;
-}
-
-boost::dynamic_bitset<unsigned long> attrVectorToAttrBS(vector<int> &attrVec)
-{
-	boost::dynamic_bitset<unsigned long> ans(attrInp.size());
-
-	for(int i = 0; i < attrVec.size(); i++)
-	{
-		ans[attrVec[i]] = true;
-	}
-	
-	// //cout<<"BS = "<< ans <<"\n";
-	return ans;
-}
-
-
-vector<int> contextClosureBS(vector<int> &aset) 
-{	
-	totUpDownComputes++;
-	boost::dynamic_bitset<unsigned long> aBS = attrVectorToAttrBS(aset), ansBS(attrInp.size());
-	ansBS.set();
-	ansBS[0] = false;
-
-	int aid = -1;
-	int osize = objInp.size() + 1;
-	
-	for (int i = 0; i < aset.size(); i++) 
-	{
-		if (attrInp[aset[i]].size() < osize) 
-		{
-			osize = attrInp[aset[i]].size();
-			aid = aset[i];
-		}
-	}
-			
-	if(aid != -1)		
-	{
-		for (int i = 0; i < attrInp[aid].size(); i++) 
-		{	
-			int cObj = attrInp[aid][i];
-
-			if(aBS.is_subset_of(objInpBS[cObj]))
-			{
-				ansBS &= objInpBS[cObj];
-			}
-		}
-	}	
-
-	else
-	{
-		for (int i = 0; i < objInp.size(); i++) 
-		{	
-			int cObj = i;
-			ansBS &= objInpBS[cObj];
-		}
-	}
-
-	return attrBSToAttrVector(ansBS);
-}
-
-vector<int> down(vector<int> &aset) {
-	vector<int> ans;
-	if (aset.size() == 0) {
-		for (int i = 0; i < objInp.size(); i++) ans.push_back(i);
-		return ans;
-	}
-	int aid = -1;
-	int osize = objInp.size() + 1;
-	for (int i = 0; i < aset.size(); i++) {
-		if (attrInp[aset[i]].size() < osize) {
-			osize = attrInp[aset[i]].size();
-			aid = aset[i];
-		}
-	}
-	for (int i = 0; i < attrInp[aid].size(); i++) {
-		bool thisObj = true;
-		int cObj = attrInp[aid][i];
-		for (int j = 0; j < aset.size(); j++) {
-			if (!binary_search(attrInp[aset[j]].begin(), attrInp[aset[j]].end(), cObj)) {
-				thisObj = false;
-				break;
-			}
-		}
-		if (thisObj) ans.push_back(cObj);
-	}
-	return ans;
-}
-
-vector<int> up(vector<int> oset) {
-	vector<int> ans;
-	if (oset.size() == 0) {
-		for (int i = 0; i < attrInp.size(); i++) ans.push_back(i);
-		return ans;
-	}
-	int oid = -1;
-	int asize = attrInp.size() + 1;
-	for (int i = 0; i < oset.size(); i++) {
-		if (objInp[oset[i]].size() < asize) {
-			asize = objInp[oset[i]].size();
-			oid = oset[i];
-		}
-	}
-	for (int i = 0; i < objInp[oid].size(); i++) {
-		bool thisAttr = true;
-		int cattr = objInp[oid][i];
-		for (int j = 0; j < oset.size(); j++) {
-			if (!binary_search(objInp[oset[j]].begin(), objInp[oset[j]].end(), cattr)) {
-				thisAttr = false;
-				break;
-			}
-		}
-		if (thisAttr) ans.push_back(cattr);
-	}
-	return ans;
-}
 
 //Can be used in case the input format is:
 //Each line has the attribute numbers of attributes associated with the object represented by the line number.
@@ -318,44 +112,147 @@ void readFormalContext2(string fileName) {
 	inFile.close();
 }
 
-//Given L and X, find L(X).
+void initializeRandSetGen()
+{
+	attrSetWeight.resize(objInp.size());
 
-vector<int> closure(vector<implication> &basis, vector<int> X) 
+	for(int i = 0; i < objInp.size(); i++)
+	{
+		attrSetWeight[i] = (long double)pow((long double) 2, (long double) objInp[i].size());
+	}
+
+	discreteDistribution = std::discrete_distribution<int> (attrSetWeight.begin(), attrSetWeight.end());
+}
+
+void getLoopCount()
+{
+	double loopCount = log(del / ((double)(gCounter * (gCounter + 1))));
+	loopCount = loopCount / log(1 - epsilon);
+	maxTries =  (int)ceil(loopCount);
+
+	if(bothCounterExamples)
+		maxTries *= 2;
+}
+
+void printVector(vector<int> &A) 
+{
+	for (auto x : A) 
+	{
+		// cout << x << " ";
+	}
+
+	// cout << "\n";
+}
+
+vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
 {	
-	// auto start = chrono::high_resolution_clock::now();
+	vector<int> ans;
+	// //cout <<"BS = "<< attrBS <<"\n";
+
+	for(int i = 0; i < attrBS.size(); i++)
+	{
+		if(attrBS[i])
+			ans.push_back(i);
+	}
+
+	return ans;
+}
+
+boost::dynamic_bitset<unsigned long> attrVectorToAttrBS(vector<int> &attrVec)
+{
+	boost::dynamic_bitset<unsigned long> ans(attrInp.size());
+
+	for(int i = 0; i < attrVec.size(); i++)
+	{
+		ans[attrVec[i]] = true;
+	}
+	
+	// //cout<<"BS = "<< ans <<"\n";
+	return ans;
+}
+
+boost::dynamic_bitset<unsigned long> contextClosureBS(boost::dynamic_bitset<unsigned long>  &aset) 
+{	
+	totUpDownComputes++;
+	boost::dynamic_bitset<unsigned long> aBS = aset, ansBS(attrInp.size());
+	ansBS.set();
+	ansBS[0] = false;
+
+	int aid = -1;
+	int osize = objInp.size() + 1;
+	
+	for (int i = 0; i < aset.size(); i++) 
+	{	
+		if(aset[i] && (attrInp[i].size() < osize)) 
+		{
+			osize = attrInp[i].size();
+			aid = i;
+		}
+	}
+			
+	if(aid != -1)		
+	{
+		for (int i = 0; i < attrInp[aid].size(); i++) 
+		{	
+			int cObj = attrInp[aid][i];
+
+			if(aBS.is_subset_of(objInpBS[cObj]))
+			{
+				ansBS &= objInpBS[cObj];
+			}
+		}
+	}	
+
+	else
+	{
+		for (int i = 0; i < objInp.size(); i++) 
+		{	
+			int cObj = i;
+			ansBS &= objInpBS[cObj];
+		}
+	}
+
+	return ansBS;
+}
+
+//Given L and X, find L(X).
+boost::dynamic_bitset<unsigned long> closureBS(vector<implicationBS> &basis, boost::dynamic_bitset<unsigned long> X) 
+{	
 	totClosureComputations++;
 	if (basis.size() == 0) return X;
 	vector<bool> cons;
 	for (int i = 0; i <= basis.size(); i++) cons.push_back(false);
 	bool changed = true;
-	while (changed) {
+	
+	while(changed) 
+	{
 		changed = false;
-		for (int i = 0; i < basis.size(); i++) {
+		
+		for (int i = 0; i < basis.size(); i++) 
+		{
 			if (cons[i] == true) continue;
-			int isize = X.size();
-			if (subvector(basis[i].lhs, X)) {
+			
+			if (basis[i].lhs.is_subset_of(X)) 
+			{
 				cons[i] = true;
-				X = vunion(basis[i].rhs, X);
-			}
-			if (X.size() != isize) {
-				changed = true;
-				break;
+
+				if(!basis[i].rhs.is_subset_of(X))
+				{
+					X |= basis[i].rhs;
+					changed = true;
+					break;
+				}	
 			}
 		}
 	}
 	
-	// auto end = chrono::high_resolution_clock::now();
-	// totalClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 	return X;
 }
 
-vector<int> getRandomSubset(vector<int> &st)
+boost::dynamic_bitset<unsigned long> getRandomSubsetBS(boost::dynamic_bitset<unsigned long> &st)
 {
-	if(st.empty())
-		return st;
-
 	int numElems = st.size(), processedElems = 0;
-	vector<int> ansSet;
+	boost::dynamic_bitset<unsigned long> ansSet(numElems);
 
 	while(processedElems < numElems)
 	{
@@ -363,9 +260,9 @@ vector<int> getRandomSubset(vector<int> &st)
 
 		for(int i = 0; i < 30; i++)
 		{
-			if(bset & (1 << i))
+			if((bset & (1 << i)) && (st[processedElems]))
 			{
-				ansSet.push_back(st[processedElems]);
+				ansSet[processedElems] = true;
 			}
 
 			processedElems++;
@@ -378,24 +275,20 @@ vector<int> getRandomSubset(vector<int> &st)
 	return ansSet;	
 }
 
-vector<int> getFrequentAttrSet() 
+boost::dynamic_bitset<unsigned long> getFrequentAttrSetBS() 
 {
-	return getRandomSubset(objInp[discreteDistribution(re)]);
+	return getRandomSubsetBS(objInpBS[discreteDistribution(re)]);
 }
 
-vector<int> getRandomAttrSet() 
+boost::dynamic_bitset<unsigned long> getRandomAttrSetBS() 
 {
-	vector<int> ans;
-
-	for (int i = 1; i < attrInp.size(); i++) 
-	{
-		ans.push_back(i);
-	}
-
-	return getRandomSubset(ans);
+	boost::dynamic_bitset<unsigned long> ans(attrInp.size());
+	ans.set();
+	ans[0] = false;
+	return getRandomSubsetBS(ans);
 }
 
-void getCounterExample(vector<implication> &basis, int s) 
+void getCounterExample(vector<implicationBS> &basis, int s) 
 {	
 	double threadContextClosureTime = 0, threadImplicationClosureTime = 0;
 	std::unique_lock<std::mutex> lck (mtx,std::defer_lock);
@@ -405,22 +298,22 @@ void getCounterExample(vector<implication> &basis, int s)
 		lck.lock();
 		totTries++;
   		lck.unlock();
-		vector<int> X;
+		boost::dynamic_bitset<unsigned long> X;
 
 		if(frequentCounterExamples)
-			X = getFrequentAttrSet();
+			X = getFrequentAttrSetBS();
 		else
-			X = getRandomAttrSet();
+			X = getRandomAttrSetBS();
 
 		auto start = chrono::high_resolution_clock::now();
-		vector<int> cX = contextClosureBS(X);
+		boost::dynamic_bitset<unsigned long> cX = contextClosureBS(X);
 		auto end = chrono::high_resolution_clock::now();
 		threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 		
-		if (X.size() == cX.size()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
+		if (X.count() == cX.count()) continue;		//It is sufficient to compare sizes since closure does not remove elements.
 		
 		start = chrono::high_resolution_clock::now();
-		vector<int> cL = closure(basis, X);
+		boost::dynamic_bitset<unsigned long> cL = closureBS(basis, X);
 		end = chrono::high_resolution_clock::now();
 		threadImplicationClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();	
 
@@ -436,12 +329,12 @@ void getCounterExample(vector<implication> &basis, int s)
 		
 		if(epsilonStrong)
 		{
-			if(cX.size() != cL.size())
+			if(cX.count() != cL.count())
 			{
 				if (globalFlag) 
 				{
 					globalFlag = false;
-					counterExample = cL;
+					counterExampleBS = cL;
 					//cout << "Counter-example found after " << totTries << " tries \n";
 					return;
 				}
@@ -450,12 +343,12 @@ void getCounterExample(vector<implication> &basis, int s)
 
 		else
 		{
-			if (cL.size() == X.size()) 
+			if (cL.count() == X.count()) 
 			{				//Same as above.
 				if (globalFlag) 
 				{
 					globalFlag = false;
-					counterExample = X;
+					counterExampleBS = X;
 					//cout << "Counter-example found after " << totTries << " tries \n";
 					return;
 				}
@@ -464,24 +357,24 @@ void getCounterExample(vector<implication> &basis, int s)
 	}
 }
 
-void tryPotentialCounterExamples(vector<implication> &basis)
+void tryPotentialCounterExamples(vector<implicationBS> &basis)
 {
-	while(!potentialCounterExamples.empty())
+	while(!potentialCounterExamplesBS.empty())
 	{
-		vector <int> X = potentialCounterExamples.back();
+		boost::dynamic_bitset<unsigned long> X = potentialCounterExamplesBS.back();
 		//cout <<"Trying a Potential Counter Example: ";
-		printVector(X);
-		potentialCounterExamples.pop_back();
-		vector<int> cX = contextClosureBS(X);
-		if (X.size() == cX.size()) continue;
-		vector<int> cL = closure(basis, X);
+		//printVector(X);
+		potentialCounterExamplesBS.pop_back();
+		boost::dynamic_bitset<unsigned long> cX = contextClosureBS(X);
+		if (X.count() == cX.count()) continue;
+		boost::dynamic_bitset<unsigned long> cL = closureBS(basis, X);
 
 		if(epsilonStrong)
 		{
-			if(cL.size() != cX.size())
+			if(cL.count() != cX.count())
 			{
 				//cout <<"It is a Counter Example!!\n";
-				counterExample = cL;
+				counterExampleBS = cL;
 				globalFlag = false;
 				return;
 			}
@@ -489,10 +382,10 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 
 		else
 		{ 
-			if(cL.size() == X.size())
+			if(cL.count() == X.count())
 			{	
 				//cout <<"It is a Counter Example!!\n";
-				counterExample = cL;
+				counterExampleBS = cL;
 				globalFlag = false;
 				return;
 			}
@@ -500,7 +393,7 @@ void tryPotentialCounterExamples(vector<implication> &basis)
 	}
 }
 
-void tryToUpdateImplicationBasis(vector<implication> &basis)
+void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 {	
 	std::unique_lock<std::mutex> lck (mtx,std::defer_lock);
 	double threadContextClosureTime = 0;
@@ -508,18 +401,18 @@ void tryToUpdateImplicationBasis(vector<implication> &basis)
 
 	while((implicationsSeen < basis.size()) && (!basisUpdate))
 	{
-		vector<int> A = basis[implicationsSeen].lhs;
-		vector<int> B = basis[implicationsSeen].rhs;
+		boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
+		boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
 		int curIndex = implicationsSeen;
 		implicationsSeen++;
 		lck.unlock();
-		vector<int> C = intersection(A, counterExample);
+		boost::dynamic_bitset<unsigned long> C = A & counterExampleBS;
 		auto durBegin = chrono::high_resolution_clock::now();
-		vector<int> cC = contextClosureBS(C);
+		boost::dynamic_bitset<unsigned long> cC = contextClosureBS(C);
 		auto durEnd = chrono::high_resolution_clock::now();
 		threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
 
-		if ((A.size() != C.size()) && (C.size() != cC.size())) 
+		if ((A.count() != C.count()) && (C.count() != cC.count())) 
 		{	
 			lck.lock();
 
@@ -550,9 +443,22 @@ void tryToUpdateImplicationBasis(vector<implication> &basis)
 	lck.unlock();
 }
 
-vector<implication> generateImplicationBasis() 
+vector<implication> BSBasisToVectorBasis(vector<implicationBS> ansBS)
 {
 	vector<implication> ans;
+
+	for(int i = 0; i < ansBS.size(); i++)
+	{
+		ans.push_back(implication{attrBSToAttrVector(ansBS[i].lhs), attrBSToAttrVector(ansBS[i].rhs)});
+	}
+
+	return ans;
+}
+
+vector<implication> generateImplicationBasis() 
+{
+	vector<implicationBS> ansBS;
+
 	while (true) 
 	{
 		auto start = chrono::high_resolution_clock::now();
@@ -562,13 +468,13 @@ vector<implication> generateImplicationBasis()
 		getLoopCount();
 		//cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
-		counterExample.clear();
+		counterExampleBS.clear();
 		thisIterMaxContextClosureTime = 0;
 		thisIterMaxImplicationClosureTime = 0;
 
-		if(!potentialCounterExamples.empty())
+		if(!potentialCounterExamplesBS.empty())
 		{
-			tryPotentialCounterExamples(ans);
+			tryPotentialCounterExamples(ansBS);
 			gCounter = 0;
 		}
 
@@ -576,7 +482,7 @@ vector<implication> generateImplicationBasis()
 		{
 			vector<thread*> threadVector;
 			for (int i = 1; i < numThreads; i++) {
-				thread* tmp = new thread(getCounterExample, ref(ans), i);
+				thread* tmp = new thread(getCounterExample, ref(ansBS), i);
 				threadVector.push_back(tmp);
 			}
 			//
@@ -585,7 +491,7 @@ vector<implication> generateImplicationBasis()
 			//This initially caused quite a bit of confusion, as a program without multi-threading was running faster
 			//due to the main thread sitting idle.
 			//
-			getCounterExample(ans, 0);
+			getCounterExample(ansBS, 0);
 			for (int i = 0; i < threadVector.size(); i++) {
 				threadVector[i]->join();
 			}
@@ -593,8 +499,8 @@ vector<implication> generateImplicationBasis()
 		
 		if (globalFlag) break;
 
-		vector<int> X = counterExample;
-		printVector(X);
+		boost::dynamic_bitset<unsigned long> X = counterExampleBS;
+		//printVector(X);
 		totCounterExamples++;
 		updownTime += thisIterMaxContextClosureTime;
 		totalClosureTime += thisIterMaxImplicationClosureTime;
@@ -613,9 +519,9 @@ vector<implication> generateImplicationBasis()
 		vector<thread*> threads(numThreads);
 
 		for(int i = 1; i < numThreads; i++)
-			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ans));
+			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ansBS));
 
-		tryToUpdateImplicationBasis(ans);
+		tryToUpdateImplicationBasis(ansBS);
 
 		for(int i = 1; i < numThreads; i++)
 			threads[i]->join();	
@@ -623,19 +529,20 @@ vector<implication> generateImplicationBasis()
 		updownTime += thisIterMaxContextClosureTime;
 
 		if (!basisUpdate) 
-			ans.push_back(implication{ X, contextClosureBS(X)});
+			ansBS.push_back(implicationBS{ X, contextClosureBS(X)});
 		else
-			ans[indexOfUpdatedImplication] = updatedImplication;
+			ansBS[indexOfUpdatedImplication] = updatedImplication;
 
 		end = std::chrono::high_resolution_clock::now();
 		totalExecTime2 += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 	}
-	return ans;
+
+	return BSBasisToVectorBasis(ansBS);
 }
 
 void printUsageAndExit() 
 {
-	//cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> <strong/weak> <uniform/frequent> [<numThreads>](Default = 1)\n";
+	cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> <strong/weak> <uniform/frequent/both> [<numThreads>](Default = 1)\n";
 	exit(0);
 }
 
@@ -652,8 +559,9 @@ void fillPotentialCounterExamples()
 
 	// Singleton
 	for(int i = 1; i < attrInp.size(); i++)
-	{
-		potentialCounterExamples.push_back({i});
+	{	
+		vector <int> cVec = {i};
+		potentialCounterExamplesBS.push_back(attrVectorToAttrBS(cVec));
 	}
 }
 
@@ -684,6 +592,7 @@ int main(int argc, char** argv)
 	del = atof(argv[3]);
 	if(string(argv[4]) == string("strong")) epsilonStrong = true;
 	if(string(argv[5]) == string("frequent")) frequentCounterExamples = true;
+	if(string(argv[5]) == string("both")) bothCounterExamples = true;
 	if(argc == 7) numThreads = atoi(argv[6]);
 
 	fillPotentialCounterExamples();
