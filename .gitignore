@@ -12,3 +12,9 @@ serverScript.cpp
 test.cxt
 sshInfo
 temp.cpp
+SmallerContexts/
+StandardDS/
+StandardDSCXT/
+ResultsCalculator.cpp
+getResults
+Supports/

@@ -57,6 +57,7 @@ vector<boost::dynamic_bitset<unsigned long> > potentialCounterExamplesBS;
 double epsilon, del; 
 bool epsilonStrong = false, frequentCounterExamples = false, bothCounterExamples = false;
 int maxTries;						//Updated by getLoopCount() based on the value of gCounter, epsilon and delta.
+bool implicationSupport = false;
 
 std::random_device rd;
 std::discrete_distribution<int> discreteDistribution;
@@ -550,7 +551,7 @@ vector<implication> generateImplicationBasis()
 
 void printUsageAndExit() 
 {
-	cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> <strong/weak> <uniform/frequent/both> [<numThreads>](Default = 1)\n";
+	cout << "Usage: ./algo <contextFileFullPath> <epsilon> <delta> <strong/weak> <uniform/frequent/both> <numThreads> <support/none>\n";
 	exit(0);
 }
 
@@ -683,13 +684,38 @@ int allImplicationClosures()
 	return totalClosedSets;
 }
 
+void getSupportOfImplications()
+{	
+	vector<int> supports;
+
+	for(int i = 0; i < ansBasisBS.size(); i++)
+	{
+		int support = 0;
+
+		for(int j = 0; j < objInpBS.size(); j++)
+		{
+			if(ansBasisBS[i].lhs.is_subset_of(objInpBS[j]))
+				support++;
+		}
+
+		supports.push_back(support);
+	}
+
+	sort(supports.rbegin(), supports.rend());
+
+	for(auto it:supports)
+		cout << it <<"\n";
+
+	return;
+}
+
 int main(int argc, char** argv) 
 {
 	auto startTime = chrono::high_resolution_clock::now();
 	srand(time(NULL));
 	//cout <<"argc = "<< argc << "\n";
 
-	if (argc != 6 && argc != 7) 
+	if (argc != 8) 
 	{
 		printUsageAndExit();
 	}
@@ -702,7 +728,8 @@ int main(int argc, char** argv)
 	if(string(argv[5]) == string("frequent")) frequentCounterExamples = true;
 	if(string(argv[5]) == string("both")) bothCounterExamples = true;
 	if(bothCounterExamples) frequentCounterExamples = true;
-	if(argc == 7) numThreads = atoi(argv[6]);
+	numThreads = atoi(argv[6]);
+	if(string(argv[7]) == string("support")) implicationSupport = true;
 
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
@@ -713,6 +740,12 @@ int main(int argc, char** argv)
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 	
+	if(implicationSupport)
+	{
+		getSupportOfImplications();
+		return 0;
+	}
+
 	for(int i = 2; i < 7; i++)
 		cout << argv[i] <<",";
 
@@ -724,8 +757,8 @@ int main(int argc, char** argv)
 	cout<< totUpDownComputes <<",";
 	cout<< ans.size() <<",";
 	cout<< totCounterExamples <<"\n";
-	// cout<< allContextClosures() <<"\n"; 
-	// cout<< allImplicationClosures()<<"\n";
+	cout<< allContextClosures() <<"\n"; 
+	cout<< allImplicationClosures()<<"\n";
 
 	for (auto x : ans) {
 		// //cout << "Implication\n";
