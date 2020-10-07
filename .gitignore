@@ -12,9 +12,10 @@ serverScript.cpp
 test.cxt
 sshInfo
 temp.cpp
-SmallerContexts/
+SmallerContexts*/
 StandardDS/
 StandardDSCXT/
 ResultsCalculator.cpp
 getResults
 Supports/
+hist.py

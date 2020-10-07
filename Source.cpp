@@ -624,13 +624,41 @@ int allContextClosures()
 	currentClosedSet = contextClosureBS(emptySet);
 	finalClosedSet.set();
 	finalClosedSet[0] = false;
+	int nattr = attrInp.size();
+	int lectInd = max(1, nattr - 20), lectLessClosures;
+	bool lectDone = false;
+	auto timeStart = chrono::high_resolution_clock::now();
+	auto timePrev = chrono::high_resolution_clock::now();
 
 	while(currentClosedSet != finalClosedSet)
 	{
 		currentClosedSet = nextContextClosure(currentClosedSet, finalClosedSet);
 		totalClosedSets++;
+		auto timeNow = chrono::high_resolution_clock::now();
+		double duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timePrev)).count();
+
+		if(duration > 60000000)
+		{
+			cout <<"Total Context closures till now: "<< totalClosedSets << endl;
+			timePrev = timeNow;
+		}
+
+		if((!lectDone) && currentClosedSet[lectInd])
+		{
+			lectLessClosures = totalClosedSets;
+			lectDone = true;
+		}
+
+		duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timeStart)).count();
+
+		if(lectDone && (duration > 180000000))
+		{
+			cout <<"Lectically less Context Closures:"<< lectLessClosures << endl;
+			return lectLessClosures;
+		}
 	}
 
+	cout <<"Lectically less Context Closures:"<< lectLessClosures << endl;
 	return totalClosedSets;
 }
 
@@ -674,13 +702,43 @@ int allImplicationClosures()
 	currentClosedSet = closureBS(ansBasisBS, emptySet);
 	finalClosedSet.set();
 	finalClosedSet[0] = false;
+	
+	int nattr = attrInp.size();
+	int lectInd = max(1, nattr - 20), lectLessClosures;
+	bool lectDone = false;
+	auto timeStart = chrono::high_resolution_clock::now();
+	auto timePrev = chrono::high_resolution_clock::now();
 
 	while(currentClosedSet != finalClosedSet)
 	{
 		currentClosedSet = nextImplicationClosure(currentClosedSet, finalClosedSet);
 		totalClosedSets++;
+
+		auto timeNow = chrono::high_resolution_clock::now();
+		double duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timePrev)).count();
+
+		if(duration > 60000000)
+		{
+			cout <<"Total Implication closures till now: "<< totalClosedSets << endl;
+			timePrev = timeNow;
+		}
+
+		if((!lectDone) && currentClosedSet[lectInd])
+		{
+			lectLessClosures = totalClosedSets;
+			lectDone = true;
+		}
+
+		duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timeStart)).count();
+
+		if(lectDone && (duration > 180000000))
+		{
+			cout <<"Lectically less Implication Closures:"<< lectLessClosures << endl;
+			return lectLessClosures;
+		}
 	}
 
+	cout <<"Lectically less Implication Closures:"<< lectLessClosures << endl;
 	return totalClosedSets;
 }
 
@@ -756,8 +814,8 @@ int main(int argc, char** argv)
 	cout << totClosureComputations <<",";
 	cout<< totUpDownComputes <<",";
 	cout<< ans.size() <<",";
-	cout<< totCounterExamples <<"\n";
-	cout<< allContextClosures() <<"\n"; 
+	cout<< totCounterExamples <<",";
+	cout<< allContextClosures() <<","; 
 	cout<< allImplicationClosures()<<"\n";
 
 	for (auto x : ans) {
