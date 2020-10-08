@@ -584,6 +584,15 @@ void initializeObjInpBS()
 	}				
 }
 
+bool isLectGreater(boost::dynamic_bitset<unsigned long> &closedSet, int lectInd)
+{
+	for(int i = 0; i <= lectInd; i++)
+		if(closedSet[i])
+			return true;
+
+	return false;		
+}
+
 boost::dynamic_bitset<unsigned long> nextContextClosure(boost::dynamic_bitset<unsigned long> A, boost::dynamic_bitset<unsigned long> finalClosedSet)
 {
 	int nAttr = attrInp.size() - 1;
@@ -625,7 +634,7 @@ int allContextClosures()
 	finalClosedSet.set();
 	finalClosedSet[0] = false;
 	int nattr = attrInp.size();
-	int lectInd = max(1, nattr - 20), lectLessClosures;
+	int lectInd = max(1, (nattr / 2)), lectLessClosures;
 	bool lectDone = false;
 	auto timeStart = chrono::high_resolution_clock::now();
 	auto timePrev = chrono::high_resolution_clock::now();
@@ -643,7 +652,7 @@ int allContextClosures()
 			timePrev = timeNow;
 		}
 
-		if((!lectDone) && currentClosedSet[lectInd])
+		if((!lectDone) && isLectGreater(currentClosedSet, lectInd))
 		{
 			lectLessClosures = totalClosedSets;
 			lectDone = true;
@@ -651,7 +660,7 @@ int allContextClosures()
 
 		duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timeStart)).count();
 
-		if(lectDone && (duration > 180000000))
+		if(lectDone && (duration > 60000000))
 		{
 			cout <<"Lectically less Context Closures:"<< lectLessClosures << endl;
 			return lectLessClosures;
@@ -704,7 +713,7 @@ int allImplicationClosures()
 	finalClosedSet[0] = false;
 	
 	int nattr = attrInp.size();
-	int lectInd = max(1, nattr - 20), lectLessClosures;
+	int lectInd = max(1, (nattr / 2)), lectLessClosures;
 	bool lectDone = false;
 	auto timeStart = chrono::high_resolution_clock::now();
 	auto timePrev = chrono::high_resolution_clock::now();
@@ -723,7 +732,7 @@ int allImplicationClosures()
 			timePrev = timeNow;
 		}
 
-		if((!lectDone) && currentClosedSet[lectInd])
+		if((!lectDone) && isLectGreater(currentClosedSet, lectInd))
 		{
 			lectLessClosures = totalClosedSets;
 			lectDone = true;
@@ -731,7 +740,7 @@ int allImplicationClosures()
 
 		duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timeStart)).count();
 
-		if(lectDone && (duration > 180000000))
+		if(lectDone && (duration > 60000000))
 		{
 			cout <<"Lectically less Implication Closures:"<< lectLessClosures << endl;
 			return lectLessClosures;
