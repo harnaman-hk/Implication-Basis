@@ -33,6 +33,7 @@ typedef struct
 vector<vector<int>> objInp;			//For storing which attributes are associated with which objects
 vector<vector<int>> attrInp;		//For storing which objects are associated with which attributes
 vector<boost::dynamic_bitset<unsigned long> > objInpBS;
+vector<int> frequencyOrderedAttributes;
 double totalTime = 0;	
 double totalExecTime2 = 0;		//Stores total time spent generating counter examples
 double totalClosureTime = 0;
@@ -46,6 +47,7 @@ bool globalFlag;					//For terminating other threads in case one thread found a 
 boost::dynamic_bitset<unsigned long> counterExampleBS;
 int gCounter = 0;					//For counting how many times the equivalence oracle has been used
 int totTries = 0;	
+long long sumTotTries = 0;
 long long totClosureComputations = 0;
 long long totUpDownComputes = 0;				//Stores how many random attribute sets needed to be tested before finding a counter-example. For debugging purposes. 
 bool basisUpdate = false;
@@ -507,6 +509,7 @@ vector<implication> generateImplicationBasis()
 			continue;
 		}
 
+		sumTotTries += totTries;
 		if (globalFlag) break;
 
 		boost::dynamic_bitset<unsigned long> X = counterExampleBS;
@@ -587,7 +590,7 @@ void initializeObjInpBS()
 bool isLectGreater(boost::dynamic_bitset<unsigned long> &closedSet, int lectInd)
 {
 	for(int i = 0; i <= lectInd; i++)
-		if(closedSet[i])
+		if(closedSet[frequencyOrderedAttributes[i]])
 			return true;
 
 	return false;		
@@ -599,19 +602,19 @@ boost::dynamic_bitset<unsigned long> nextContextClosure(boost::dynamic_bitset<un
 
 	for(int i = nAttr; i > 0; i--)
 	{
-		if(A[i])
-			A[i] = false;
+		if(A[frequencyOrderedAttributes[i]])
+			A[frequencyOrderedAttributes[i]] = false;
 		else
 		{
 			boost::dynamic_bitset<unsigned long> B, temp = A;
-			temp[i] = true;
+			temp[frequencyOrderedAttributes[i]] = true;
 			B = contextClosureBS(temp);
 
 			bool flag = true;
 
 			for(int j = 1; j < i; j++)
 			{
-				if(B[j] & (!A[j]))
+				if(B[frequencyOrderedAttributes[j]] & (!A[frequencyOrderedAttributes[j]]))
 				{
 					flag = false;
 					break;
@@ -634,7 +637,7 @@ int allContextClosures()
 	finalClosedSet.set();
 	finalClosedSet[0] = false;
 	int nattr = attrInp.size();
-	int lectInd = max(1, (nattr / 2)), lectLessClosures;
+	int lectInd = max(1, ((1 * nattr) / 2)), lectLessClosures;
 	bool lectDone = false;
 	auto timeStart = chrono::high_resolution_clock::now();
 	auto timePrev = chrono::high_resolution_clock::now();
@@ -677,19 +680,19 @@ boost::dynamic_bitset<unsigned long> nextImplicationClosure(boost::dynamic_bitse
 
 	for(int i = nAttr; i > 0; i--)
 	{
-		if(A[i])
-			A[i] = false;
+		if(A[frequencyOrderedAttributes[i]])
+			A[frequencyOrderedAttributes[i]] = false;
 		else
 		{
 			boost::dynamic_bitset<unsigned long> B, temp = A;
-			temp[i] = true;
+			temp[frequencyOrderedAttributes[i]] = true;
 			B = closureBS(ansBasisBS, temp);
 
 			bool flag = true;
 
 			for(int j = 1; j < i; j++)
 			{
-				if(B[j] & (!A[j]))
+				if(B[frequencyOrderedAttributes[j]] & (!A[frequencyOrderedAttributes[j]]))
 				{
 					flag = false;
 					break;
@@ -713,7 +716,7 @@ int allImplicationClosures()
 	finalClosedSet[0] = false;
 	
 	int nattr = attrInp.size();
-	int lectInd = max(1, (nattr / 2)), lectLessClosures;
+	int lectInd = max(1, ((1 * nattr) / 2)), lectLessClosures;
 	bool lectDone = false;
 	auto timeStart = chrono::high_resolution_clock::now();
 	auto timePrev = chrono::high_resolution_clock::now();
@@ -776,6 +779,31 @@ void getSupportOfImplications()
 	return;
 }
 
+void initFrequencyOrderedAttributes()
+{
+	vector <int> freqAttr(attrInp.size(), 0);
+
+	for(int i = 0; i < objInp.size(); i++)
+	{
+		for(int j = 0; j < objInp[i].size(); j++)
+			freqAttr[objInp[i][j]]++;
+	}
+
+	vector<pair<int, int> > freqPairs;
+
+	for(int i = 1; i < attrInp.size(); i++)
+	{
+		freqPairs.push_back({freqAttr[i], i});
+	}
+
+	sort(freqPairs.begin(), freqPairs.end());
+	frequencyOrderedAttributes.push_back(0);
+
+	for(int i = 0; i < freqPairs.size(); i++)
+		frequencyOrderedAttributes.push_back(freqPairs[i].second);
+
+}
+
 int main(int argc, char** argv) 
 {
 	auto startTime = chrono::high_resolution_clock::now();
@@ -789,6 +817,7 @@ int main(int argc, char** argv)
 
 	readFormalContext1(argv[1]);
 	initializeObjInpBS();
+	initFrequencyOrderedAttributes();
 	epsilon = atof(argv[2]);
 	del = atof(argv[3]);
 	if(string(argv[4]) == string("strong")) epsilonStrong = true;
@@ -824,6 +853,7 @@ int main(int argc, char** argv)
 	cout<< totUpDownComputes <<",";
 	cout<< ans.size() <<",";
 	cout<< totCounterExamples <<",";
+	cout<< sumTotTries <<",";
 	cout<< allContextClosures() <<","; 
 	cout<< allImplicationClosures()<<"\n";
 
