@@ -139,10 +139,10 @@ void printVector(vector<int> &A)
 {
 	for (auto x : A) 
 	{
-		// cout << x << " ";
+		cout << x << " ";
 	}
 
-	// cout << "\n";
+	cout << "\n";
 }
 
 vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
@@ -630,14 +630,15 @@ boost::dynamic_bitset<unsigned long> nextContextClosure(boost::dynamic_bitset<un
 }
 
 int allContextClosures()
-{
+{	
+	return 50;
 	int totalClosedSets = 1;
 	boost::dynamic_bitset<unsigned long> currentClosedSet, finalClosedSet(attrInp.size()), emptySet(attrInp.size());
 	currentClosedSet = contextClosureBS(emptySet);
 	finalClosedSet.set();
 	finalClosedSet[0] = false;
 	int nattr = attrInp.size();
-	int lectInd = max(1, ((1 * nattr) / 2)), lectLessClosures;
+	int lectInd = max(1, ((3 * nattr) / 4)), lectLessClosures;
 	bool lectDone = false;
 	auto timeStart = chrono::high_resolution_clock::now();
 	auto timePrev = chrono::high_resolution_clock::now();
@@ -651,7 +652,7 @@ int allContextClosures()
 
 		if(duration > 60000000)
 		{
-			cout <<"Total Context closures till now: "<< totalClosedSets << endl;
+			// cout <<"Total Context closures till now: "<< totalClosedSets << endl;
 			timePrev = timeNow;
 		}
 
@@ -663,15 +664,15 @@ int allContextClosures()
 
 		duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timeStart)).count();
 
-		if(lectDone && (duration > 60000000))
+		if(lectDone && (duration > 6000000))
 		{
-			cout <<"Lectically less Context Closures:"<< lectLessClosures << endl;
+			// cout <<"Lectically less Context Closures:"<< lectLessClosures << endl;
 			return lectLessClosures;
 		}
 	}
 
-	cout <<"Lectically less Context Closures:"<< lectLessClosures << endl;
-	return totalClosedSets;
+	// cout <<"Lectically less Context Closures:"<< lectLessClosures << endl;
+	return lectLessClosures;
 }
 
 boost::dynamic_bitset<unsigned long> nextImplicationClosure(boost::dynamic_bitset<unsigned long> A, boost::dynamic_bitset<unsigned long> finalClosedSet)
@@ -731,7 +732,7 @@ int allImplicationClosures()
 
 		if(duration > 60000000)
 		{
-			cout <<"Total Implication closures till now: "<< totalClosedSets << endl;
+			// cout <<"Total Implication closures till now: "<< totalClosedSets << endl;
 			timePrev = timeNow;
 		}
 
@@ -743,15 +744,15 @@ int allImplicationClosures()
 
 		duration = (chrono::duration_cast<chrono::microseconds>(timeNow - timeStart)).count();
 
-		if(lectDone && (duration > 60000000))
+		if(lectDone && (duration > 6000000))
 		{
-			cout <<"Lectically less Implication Closures:"<< lectLessClosures << endl;
+			// cout <<"Lectically less Implication Closures:"<< lectLessClosures << endl;
 			return lectLessClosures;
 		}
 	}
 
-	cout <<"Lectically less Implication Closures:"<< lectLessClosures << endl;
-	return totalClosedSets;
+	// cout <<"Lectically less Implication Closures:"<< lectLessClosures << endl;
+	return lectLessClosures;
 }
 
 void getSupportOfImplications()
@@ -830,7 +831,7 @@ int main(int argc, char** argv)
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
 	vector<implication> ans = generateImplicationBasis();
-	//cout << totalTime << "\n";
+	// cout << totalTime << "\n";
 
 	auto endTime = chrono::high_resolution_clock::now();
 	double TotalExecTime = 0;
@@ -848,7 +849,7 @@ int main(int argc, char** argv)
 	cout << TotalExecTime <<",";
 	cout << totalExecTime2 <<",";
 	cout << totalClosureTime <<",";
-	cout<< updownTime <<",";
+	cout << updownTime <<",";
 	cout << totClosureComputations <<",";
 	cout<< totUpDownComputes <<",";
 	cout<< ans.size() <<",";
