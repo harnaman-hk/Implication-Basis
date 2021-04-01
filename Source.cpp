@@ -15,6 +15,7 @@
 #include <random>
 #include <unordered_set>
 #include <boost/dynamic_bitset.hpp>
+#include "ThreadPool.h"
 
 using namespace std;
 
@@ -30,6 +31,8 @@ typedef struct
 	boost::dynamic_bitset<unsigned long> rhs;
 } implicationBS;
 
+#define TIMEPRINT(X) (((double)X) / ((double)1000000))
+
 vector<vector<int>> objInp;	 //For storing which attributes are associated with which objects
 vector<vector<int>> attrInp; //For storing which objects are associated with which attributes
 vector<boost::dynamic_bitset<unsigned long>> objInpBS;
@@ -41,7 +44,7 @@ double intersectionTime = 0;
 double thisIterMaxImplicationClosureTime = 0;
 double thisIterMaxContextClosureTime = 0;
 double updownTime = 0;
-int numThreads = 1;
+int numThreads = 1, maxThreads;
 long long totCounterExamples = 0;
 bool globalFlag; //For terminating other threads in case one thread found a counter-example
 boost::dynamic_bitset<unsigned long> counterExampleBS;
@@ -63,6 +66,7 @@ bool implicationSupport = false;
 bool emptySetClosureComputed = false;
 boost::dynamic_bitset<unsigned long> emptySetClosure;
 long long emptySetClosureComputes = 0;
+long long aEqualToCCount = 0;
 
 std::random_device rd;
 std::discrete_distribution<int> discreteDistribution;
@@ -71,6 +75,9 @@ std::default_random_engine re(rd());
 vector<long double> attrSetWeight;
 vector<implicationBS> ansBasisBS;
 
+double threadOverheadTime = 6;
+double prevIterTime = 0;
+int prevThreads = 1;
 //Can be used in case the input format is:
 //Each line has the attribute numbers of attributes associated with the object represented by the line number.
 
@@ -442,15 +449,17 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 		implicationsSeen++;
 		lck.unlock();
 		boost::dynamic_bitset<unsigned long> C = A & counterExampleBS;
+		aEqualToCCount++;
 
-		if (A.count() != C.count())
-		{
+		if (A != C)
+		{	
+			aEqualToCCount--;
 			auto durBegin = chrono::high_resolution_clock::now();
 			boost::dynamic_bitset<unsigned long> cC = contextClosureBS(C);
 			auto durEnd = chrono::high_resolution_clock::now();
 			threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
 
-			if (C.count() == cC.count())
+			if (C == cC)
 			{
 				lck.lock();
 				continue;
@@ -497,9 +506,28 @@ vector<implication> BSBasisToVectorBasis(vector<implicationBS> ansBS)
 	return ans;
 }
 
-vector<implication> generateImplicationBasis()
+void setNumThreads() 
+{
+	double temp = (prevThreads * prevIterTime) / threadOverheadTime;
+	temp -= (prevThreads * prevThreads);
+
+	if(temp < 0)
+	{
+		numThreads = 1;
+		return;
+	}
+
+	temp = sqrt(temp);
+	numThreads = max((int)temp, 1);
+	numThreads = min((int)numThreads, maxThreads);
+	// cout << maxThreads <<","<< numThreads << endl ;
+}
+
+vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 {
 	vector<implicationBS> ansBS;
+	double prevIterTime1 = 0, prevIterTime2 = 0;
+	double prevThreads1 = 1, prevThreads2 = 1;
 
 	while (true)
 	{
@@ -521,12 +549,15 @@ vector<implication> generateImplicationBasis()
 		}
 
 		if (globalFlag)
-		{
-			vector<thread *> threadVector;
+		{	
+			prevThreads = prevThreads1;
+			prevIterTime = prevIterTime1;
+			setNumThreads();
+			vector<std::future<void>> taskVector;
+
 			for (int i = 1; i < numThreads; i++)
 			{
-				thread *tmp = new thread(getCounterExample, ref(ansBS), i);
-				threadVector.push_back(tmp);
+				taskVector.emplace_back(threadPool.enqueue(getCounterExample, ref(ansBS), i));
 			}
 			//
 			//This is important. If we don't write the next statement,
@@ -535,9 +566,10 @@ vector<implication> generateImplicationBasis()
 			//due to the main thread sitting idle.
 			//
 			getCounterExample(ansBS, 0);
-			for (int i = 0; i < threadVector.size(); i++)
+
+			for (int i = 0; i < taskVector.size(); i++)
 			{
-				threadVector[i]->join();
+				taskVector[i].get();
 			}
 		}
 
@@ -562,7 +594,9 @@ vector<implication> generateImplicationBasis()
 		//cout << "Got counter example" << endl;
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
-		//cout << duration.count() << "\n";
+		prevThreads1 = numThreads;
+		prevIterTime1 = duration.count();
+		// cout << duration.count() << ",";
 		totalTime += duration.count();
 		bool found = false;
 		start = chrono::high_resolution_clock::now();
@@ -571,15 +605,21 @@ vector<implication> generateImplicationBasis()
 		thisIterMaxContextClosureTime = 0;
 
 		//The algorithm implemented as-is.
-		vector<thread *> threads(numThreads);
+		prevThreads = prevThreads2;
+		prevIterTime = prevIterTime2;
+		setNumThreads();
+
+		vector<std::future<void>> taskVector;
 
 		for (int i = 1; i < numThreads; i++)
-			threads[i] = new thread(tryToUpdateImplicationBasis, ref(ansBS));
+			taskVector.emplace_back(threadPool.enqueue(tryToUpdateImplicationBasis, ref(ansBS)));
 
 		tryToUpdateImplicationBasis(ansBS);
 
-		for (int i = 1; i < numThreads; i++)
-			threads[i]->join();
+		for (int i = 0; i < taskVector.size(); i++)
+		{
+			taskVector[i].get();
+		}
 
 		updownTime += thisIterMaxContextClosureTime;
 
@@ -590,6 +630,10 @@ vector<implication> generateImplicationBasis()
 
 		end = std::chrono::high_resolution_clock::now();
 		totalExecTime2 += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
+		duration = chrono::duration_cast<chrono::microseconds>(end - start);
+		prevThreads2 = numThreads;
+		prevIterTime2 = duration.count();
+		// cout << duration.count() << "\n";
 	}
 
 	ansBasisBS = ansBS;
@@ -816,10 +860,18 @@ void getSupportOfImplications()
 	}
 
 	sort(supports.rbegin(), supports.rend());
-
-	for (auto it : supports)
-		cout << it << "\n";
-
+	double meanSupport = accumulate(supports.begin(), supports.end(), 0);
+	meanSupport /= supports.size();
+	double p10, p50, p90, p95;
+	p10 = supports[0.1 * supports.size()];
+	p50 = supports[0.5 * supports.size()];
+	p90 = supports[0.9 * supports.size()];
+	p95 = supports[0.95 * supports.size()];
+	cout << 100 * meanSupport / objInpBS.size() <<";";
+	cout << 100 * p10 / objInpBS.size() <<";";
+	cout << 100 * p50 / objInpBS.size() <<";";
+	cout << 100 * p90 / objInpBS.size() <<";";
+	cout << 100 * p95 / objInpBS.size() <<"\n";
 	return;
 }
 
@@ -871,13 +923,15 @@ int main(int argc, char **argv)
 		bothCounterExamples = true;
 	if (bothCounterExamples)
 		frequentCounterExamples = true;
-	numThreads = atoi(argv[6]);
+	maxThreads = atoi(argv[6]);
+	numThreads = 1;
 	if (string(argv[7]) == string("support"))
 		implicationSupport = true;
-
+	
+	ThreadPool threadPool(maxThreads - 1);
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
-	vector<implication> ans = generateImplicationBasis();
+	vector<implication> ans = generateImplicationBasis(threadPool);
 	// cout << totalTime << "\n";
 
 	auto endTime = chrono::high_resolution_clock::now();
@@ -890,26 +944,28 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	for (int i = 2; i < 7; i++)
-		cout << argv[i] << ",";
+	// for (int i = 2; i < 7; i++)
+	// 	cout << argv[i] << ",";
 
-	cout << TotalExecTime << ",";
-	cout << totalExecTime2 << ",";
-	cout << totalClosureTime << ",";
-	cout << updownTime << ",";
-	cout << totClosureComputations << ",";
-	cout << totUpDownComputes << ",";
-	cout << ans.size() << ",";
-	cout << totCounterExamples << ",";
-	cout << sumTotTries << ";" << flush;
-	cout << emptySetClosureComputes << "," << flush;
-	cout << allContextClosures() << "," << flush;
-	cout << allImplicationClosures() << endl;
+	// cout << TIMEPRINT(TotalExecTime) << ",";
+	// cout << TIMEPRINT(totalTime) << ",";
+	// cout << TIMEPRINT(totalExecTime2) << ",";
+	// cout << TIMEPRINT(totalClosureTime) << ",";
+	// cout << TIMEPRINT(updownTime) << ",";
+	// cout << totClosureComputations << ",";
+	// cout << totUpDownComputes << ",";
+	// cout << ans.size() << ",";
+	// cout << totCounterExamples << ",";
+	// cout << sumTotTries << ",";
+	// cout << aEqualToCCount << ",";
+	// cout << emptySetClosureComputes << ";" << flush;
+	// cout << allContextClosures() << "," << flush;
+	// cout << allImplicationClosures() << endl;
 
-	for (auto x : ans) {
-		// //cout << "Implication\n";
-		printVector(x.lhs);
-		printVector(x.rhs);
-	}
+	// for (auto x : ans) {
+	// 	// //cout << "Implication\n";
+	// 	printVector(x.lhs);
+	// 	printVector(x.rhs);
+	// }
 	return 0;
 }
