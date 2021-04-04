@@ -366,9 +366,17 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 
 			if (cX.count() != cL.count())
 			{
-				globalFlag = false;
-				counterExampleBS = cL;
-				//cout << "Counter-example found after " << totTries << " tries \n";
+				lck.lock();
+
+				//globalFlag is false until a counterexample has been found
+				// if(globalFlag) // If this line is not commented then quality increases with threads
+				{	
+					globalFlag = false;
+					counterExampleBS = cL;
+					//cout << "Counter-example found after " << totTries << " tries \n";
+				}
+				
+				lck.unlock();
 				break;
 			}
 		}
@@ -376,10 +384,18 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 		else
 		{
 			if (isSetEqualToImpCLosure(basis, X))
-			{
-				globalFlag = false;
-				counterExampleBS = X;
-				//cout << "Counter-example found after " << totTries << " tries \n";
+			{	
+				lck.lock();
+
+				//globalFlag is false until a counterexample has been found
+				// if(globalFlag) // If this line is not commented then quality increases with threads
+				{	
+					globalFlag = false;
+					counterExampleBS = X;
+					//cout << "Counter-example found after " << totTries << " tries \n";
+				}
+
+				lck.unlock();
 				break;
 			}
 		}
@@ -944,23 +960,23 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	// for (int i = 2; i < 7; i++)
-	// 	cout << argv[i] << ",";
+	for (int i = 2; i < 7; i++)
+		cout << argv[i] << ",";
 
-	// cout << TIMEPRINT(TotalExecTime) << ",";
-	// cout << TIMEPRINT(totalTime) << ",";
-	// cout << TIMEPRINT(totalExecTime2) << ",";
-	// cout << TIMEPRINT(totalClosureTime) << ",";
-	// cout << TIMEPRINT(updownTime) << ",";
-	// cout << totClosureComputations << ",";
-	// cout << totUpDownComputes << ",";
-	// cout << ans.size() << ",";
-	// cout << totCounterExamples << ",";
-	// cout << sumTotTries << ",";
-	// cout << aEqualToCCount << ",";
-	// cout << emptySetClosureComputes << ";" << flush;
+	cout << TIMEPRINT(TotalExecTime) << ",";
+	cout << TIMEPRINT(totalTime) << ",";
+	cout << TIMEPRINT(totalExecTime2) << ",";
+	cout << TIMEPRINT(totalClosureTime) << ",";
+	cout << TIMEPRINT(updownTime) << ",";
+	cout << totClosureComputations << ",";
+	cout << totUpDownComputes << ",";
+	cout << ans.size() << ",";
+	cout << totCounterExamples << ",";
+	cout << sumTotTries << ",";
+	cout << aEqualToCCount << ",";
+	cout << emptySetClosureComputes << ";" << flush;
 	// cout << allContextClosures() << "," << flush;
-	// cout << allImplicationClosures() << endl;
+	cout << allImplicationClosures() << endl;
 
 	// for (auto x : ans) {
 	// 	// //cout << "Implication\n";
