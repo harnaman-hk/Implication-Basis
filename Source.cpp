@@ -78,6 +78,7 @@ vector<implicationBS> ansBasisBS;
 double threadOverheadTime = 6;
 double prevIterTime = 0;
 int prevThreads = 1;
+int singletonCounterexamples = 0;
 //Can be used in case the input format is:
 //Each line has the attribute numbers of attributes associated with the object represented by the line number.
 
@@ -561,6 +562,10 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		if (!potentialCounterExamplesBS.empty())
 		{
 			tryPotentialCounterExamples(ansBS);
+
+			if(!globalFlag)
+				singletonCounterexamples++;				
+
 			gCounter = 0;
 		}
 
@@ -974,7 +979,8 @@ int main(int argc, char **argv)
 	cout << totCounterExamples << ",";
 	cout << sumTotTries << ",";
 	cout << aEqualToCCount << ",";
-	cout << emptySetClosureComputes << ";" << flush;
+	cout << emptySetClosureComputes <<"," ;
+	cout << singletonCounterexamples << ";" << flush;
 	// cout << allContextClosures() << "," << flush;
 	cout << allImplicationClosures() << endl;
 
