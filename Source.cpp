@@ -69,8 +69,11 @@ long long emptySetClosureComputes = 0;
 long long aEqualToCCount = 0;
 
 std::random_device rd;
-std::discrete_distribution<int> discreteDistribution;
+std::discrete_distribution<int> discreteDistribution, discreteDistributionArea;
+std::discrete_distribution<long long> discreteDistributionSquared;
 std::default_random_engine re(rd());
+
+vector<std::discrete_distribution<int>> discreteDistributionAttributeSets;
 
 vector<long double> attrSetWeight;
 vector<implicationBS> ansBasisBS;
@@ -81,6 +84,7 @@ int prevThreads = 1;
 int singletonCounterexamples = 0;
 //Can be used in case the input format is:
 //Each line has the attribute numbers of attributes associated with the object represented by the line number.
+int counterexampleType = 1;
 
 void readFormalContext1(string fileName)
 {
@@ -136,6 +140,13 @@ void readFormalContext2(string fileName)
 	inFile.close();
 }
 
+long double nChooseK(long long n, long long k) {
+    long double res = 1;
+    for (long long i = 1; i <= k; ++i)
+        res = res * ((long double)(n - k + i)) / ((long double)i);
+    return res;
+}
+
 void initializeRandSetGen()
 {
 	attrSetWeight.resize(objInp.size());
@@ -146,6 +157,44 @@ void initializeRandSetGen()
 	}
 
 	discreteDistribution = std::discrete_distribution<int>(attrSetWeight.begin(), attrSetWeight.end());
+
+	if(counterexampleType == 2) {
+		for (int i = 0; i < objInp.size(); i++)
+		{
+			attrSetWeight[i] *= ((long double) objInp[i].size()) * ((long double) 0.5);
+		}
+
+		discreteDistributionArea = std::discrete_distribution<int>(attrSetWeight.begin(), attrSetWeight.end());
+
+		discreteDistributionAttributeSets.resize(attrInp.size() + 2);
+
+		for(int i = 0; i < discreteDistributionAttributeSets.size(); i++) {
+			vector<long double> nChooseKWeights(i + 1);
+			
+			for(int j = 0; j <= i; j++) {
+				nChooseKWeights[j] = nChooseK(i, j);
+			}
+
+			discreteDistributionAttributeSets[i] = std::discrete_distribution<int>(nChooseKWeights.begin(), nChooseKWeights.end());
+		}
+	}	
+
+	if(counterexampleType == 3) {
+		long long numObj = objInp.size();
+		vector<long double> weights(numObj * numObj);
+		long long size = 0;
+
+		for(long long i = 0; i < numObj; i++) {
+			for(long long j = 0; j < numObj; j++) {
+				long double power = (objInpBS[i] & objInpBS[j]).count();
+				weights[size] = (long double)pow((long double)2, power);
+				size++;
+			}
+		}
+
+		discreteDistributionSquared = std::discrete_distribution<long long>(weights.begin(), weights.end());
+	}
+
 }
 
 void getLoopCount()
@@ -322,8 +371,38 @@ boost::dynamic_bitset<unsigned long> getRandomSubsetBS(boost::dynamic_bitset<uns
 }
 
 boost::dynamic_bitset<unsigned long> getFrequentAttrSetBS()
-{
-	return getRandomSubsetBS(objInpBS[discreteDistribution(re)]);
+{	
+	if(counterexampleType == 1)
+		return getRandomSubsetBS(objInpBS[discreteDistribution(re)]);
+	if(counterexampleType == 2) {	
+		// cout <<"2--\n";
+		int objId = discreteDistributionArea(re);
+		int objSize = objInp[objId].size();
+		vector<int> object = objInp[objId];
+		int setSize = discreteDistributionAttributeSets[objSize](re);
+		vector<int> indices(objSize);
+
+		for(int i = 0; i < objSize; i++)
+			indices[i] = i;
+
+		shuffle(indices.begin(), indices.end(), re);
+		boost::dynamic_bitset<unsigned long> ans(attrInp.size());
+
+		for(int i = 0; i < setSize; i++) {
+			ans[object[indices[i]]] = true;
+		}
+
+		return ans;
+	}
+
+	if(counterexampleType == 3) {
+		// cout <<"3--\n";
+		long long intersectionId = discreteDistributionSquared(re);
+		long long set1 = intersectionId / (long long) objInp.size();
+		long long set2 = intersectionId % (long long) objInp.size();
+		boost::dynamic_bitset<unsigned long> tempSet = objInpBS[set1] & objInpBS[set2];
+		return getRandomSubsetBS(tempSet);
+	}
 }
 
 boost::dynamic_bitset<unsigned long> getRandomAttrSetBS()
@@ -938,12 +1017,21 @@ int main(int argc, char **argv)
 	del = atof(argv[3]);
 	if (string(argv[4]) == string("strong"))
 		epsilonStrong = true;
-	if (string(argv[5]) == string("frequent"))
+	
+	if (string(argv[5]) != string("uniform"))
+	{
 		frequentCounterExamples = true;
+		string temp = argv[5];
+
+		if(temp == string("area"))
+			counterexampleType = 2;
+		if(temp == string("squared"))
+			counterexampleType = 3;	
+	}
+
 	if (string(argv[5]) == string("both"))
 		bothCounterExamples = true;
-	if (bothCounterExamples)
-		frequentCounterExamples = true;
+	
 	maxThreads = atoi(argv[6]);
 	numThreads = 1;
 	if (string(argv[7]) == string("support"))
@@ -984,10 +1072,10 @@ int main(int argc, char **argv)
 	// cout << allContextClosures() << "," << flush;
 	cout << allImplicationClosures() << endl;
 
-	// for (auto x : ans) {
-	// 	// //cout << "Implication\n";
-	// 	printVector(x.lhs);
-	// 	printVector(x.rhs);
-	// }
+	for (auto x : ans) {
+		// //cout << "Implication\n";
+		printVector(x.lhs);
+		printVector(x.rhs);
+	}
 	return 0;
 }
