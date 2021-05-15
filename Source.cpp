@@ -148,12 +148,18 @@ long double nChooseK(long long n, long long k) {
 }
 
 void initializeRandSetGen()
-{
+{	
+	vector<long double> powersOfTwo(attrInp.size() + 2);
+	powersOfTwo[0] = 1;
+
+	for(int i = 1; i < powersOfTwo.size(); i++)
+		powersOfTwo[i] = ((long double) 2) * powersOfTwo[i - 1];
+
 	attrSetWeight.resize(objInp.size());
 
 	for (int i = 0; i < objInp.size(); i++)
 	{
-		attrSetWeight[i] = (long double)pow((long double)2, (long double)objInp[i].size());
+		attrSetWeight[i] = powersOfTwo[objInp[i].size()];
 	}
 
 	discreteDistribution = std::discrete_distribution<int>(attrSetWeight.begin(), attrSetWeight.end());
@@ -187,7 +193,7 @@ void initializeRandSetGen()
 		for(long long i = 0; i < numObj; i++) {
 			for(long long j = 0; j < numObj; j++) {
 				long double power = (objInpBS[i] & objInpBS[j]).count();
-				weights[size] = (long double)pow((long double)2, power);
+				weights[size] = powersOfTwo[power];
 				size++;
 			}
 		}
@@ -1074,8 +1080,8 @@ int main(int argc, char **argv)
 
 	for (auto x : ans) {
 		// //cout << "Implication\n";
-		printVector(x.lhs);
-		printVector(x.rhs);
+		// printVector(x.lhs);
+		// printVector(x.rhs);
 	}
 	return 0;
 }
