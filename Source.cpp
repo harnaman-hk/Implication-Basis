@@ -377,7 +377,8 @@ boost::dynamic_bitset<unsigned long> getRandomSubsetBS(boost::dynamic_bitset<uns
 }
 
 boost::dynamic_bitset<unsigned long> getFrequentAttrSetBS()
-{	
+{		
+	// cout <<"1\n";
 	if(counterexampleType == 1)
 		return getRandomSubsetBS(objInpBS[discreteDistribution(re)]);
 	if(counterexampleType == 2) {	
@@ -644,15 +645,6 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		thisIterMaxContextClosureTime = 0;
 		thisIterMaxImplicationClosureTime = 0;
 
-		if (!potentialCounterExamplesBS.empty())
-		{
-			tryPotentialCounterExamples(ansBS);
-
-			if(!globalFlag)
-				singletonCounterexamples++;				
-
-			gCounter = 0;
-		}
 
 		if (globalFlag)
 		{	
@@ -948,13 +940,13 @@ int allImplicationClosures()
 	return lectLessClosures;
 }
 
-void getSupportOfImplications()
+void getSupportOfImplicationsFrequent()
 {
-	vector<int> supports;
+	vector<long long> supports;
 
 	for (int i = 0; i < ansBasisBS.size(); i++)
 	{
-		int support = 0;
+		long long support = 0;
 
 		for (int j = 0; j < objInpBS.size(); j++)
 		{
@@ -966,7 +958,7 @@ void getSupportOfImplications()
 	}
 
 	sort(supports.rbegin(), supports.rend());
-	double meanSupport = accumulate(supports.begin(), supports.end(), 0);
+	double meanSupport = accumulate(supports.begin(), supports.end(), (double)0);
 	meanSupport /= supports.size();
 	double p10, p50, p90, p95;
 	p10 = supports[0.1 * supports.size()];
@@ -977,7 +969,75 @@ void getSupportOfImplications()
 	cout << 100 * p10 / objInpBS.size() <<";";
 	cout << 100 * p50 / objInpBS.size() <<";";
 	cout << 100 * p90 / objInpBS.size() <<";";
-	cout << 100 * p95 / objInpBS.size() <<"\n";
+	cout << 100 * p95 / objInpBS.size() <<";";
+	return;
+}
+
+void getSupportOfImplicationsArea()
+{
+	vector<long long> supports;
+
+	for (int i = 0; i < ansBasisBS.size(); i++)
+	{
+		long long support = 0;
+
+		for (int j = 0; j < objInpBS.size(); j++)
+		{
+			if (ansBasisBS[i].lhs.is_subset_of(objInpBS[j]))
+				support++;
+		}
+
+		supports.push_back(support * ansBasisBS[i].lhs.count());
+	}
+
+	sort(supports.rbegin(), supports.rend());
+	double meanSupport = accumulate(supports.begin(), supports.end(), (double)0);
+	meanSupport /= supports.size();
+	double p10, p50, p90, p95;
+	p10 = supports[0.1 * supports.size()];
+	p50 = supports[0.5 * supports.size()];
+	p90 = supports[0.9 * supports.size()];
+	p95 = supports[0.95 * supports.size()];
+	cout << meanSupport <<";";
+	cout << p10  <<";";
+	cout <<  p50 <<";";
+	cout << p90 <<";";
+	cout <<  p95 <<";";
+	return;
+}
+
+void getSupportOfImplicationsSquared()
+{
+	vector<long long> supports;
+
+	for (int i = 0; i < ansBasisBS.size(); i++)
+	{
+		long long support = 0;
+
+		for (int j = 0; j < objInpBS.size(); j++)
+		{
+			if (ansBasisBS[i].lhs.is_subset_of(objInpBS[j]))
+				support++;
+		}
+
+		supports.push_back(support * support);
+	}
+
+	sort(supports.rbegin(), supports.rend());
+	double meanSupport = accumulate(supports.begin(), supports.end(), (double)0);
+	meanSupport /= supports.size();
+	double p10, p50, p90, p95;
+	p10 = supports[0.1 * supports.size()];
+	p50 = supports[0.5 * supports.size()];
+	p90 = supports[0.9 * supports.size()];
+	p95 = supports[0.95 * supports.size()];
+	double numObjSq = objInpBS.size();
+	numObjSq *= numObjSq;
+	cout << 100 * meanSupport / numObjSq <<";";
+	cout << 100 * p10 / numObjSq <<";";
+	cout << 100 * p50 / numObjSq <<";";
+	cout << 100 * p90 / numObjSq <<";";
+	cout << 100 * p95 / numObjSq <<";";
 	return;
 }
 
@@ -1053,12 +1113,6 @@ int main(int argc, char **argv)
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 
-	if (implicationSupport)
-	{
-		getSupportOfImplications();
-		return 0;
-	}
-
 	for (int i = 2; i < 7; i++)
 		cout << argv[i] << ",";
 
@@ -1076,6 +1130,13 @@ int main(int argc, char **argv)
 	cout << emptySetClosureComputes <<"," ;
 	cout << singletonCounterexamples << ";" << flush;
 	// cout << allContextClosures() << "," << flush;
+	if (implicationSupport)
+	{
+		getSupportOfImplicationsFrequent();
+		getSupportOfImplicationsArea();
+		getSupportOfImplicationsSquared();
+	}
+
 	cout << allImplicationClosures() << endl;
 
 	for (auto x : ans) {
