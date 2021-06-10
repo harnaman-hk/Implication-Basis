@@ -71,10 +71,11 @@ long long aEqualToCCount = 0;
 std::random_device rd;
 std::discrete_distribution<int> discreteDistribution, discreteDistributionArea;
 std::discrete_distribution<long long> discreteDistributionSquared;
+std::discrete_distribution<long long> discreteDistributionDiscriminativity;
 std::default_random_engine re(rd());
 
 vector<std::discrete_distribution<int>> discreteDistributionAttributeSets;
-
+vector<int> objectLabels, positiveObjects, negativeObjects;
 vector<long double> attrSetWeight;
 vector<implicationBS> ansBasisBS;
 
@@ -140,6 +141,25 @@ void readFormalContext2(string fileName)
 	inFile.close();
 }
 
+void readLabels(string labelFile) {
+	ifstream labelInput(labelFile);
+	int temp;
+	int oID = 0;
+
+	while(labelInput >> temp) {
+		objectLabels.push_back(temp);
+
+		if(temp == 0)
+			negativeObjects.push_back(oID);
+		else
+			positiveObjects.push_back(oID);
+
+		oID++;		
+	}
+
+	labelInput.close();
+}
+
 long double nChooseK(long long n, long long k) {
     long double res = 1;
     for (long long i = 1; i <= k; ++i)
@@ -201,6 +221,27 @@ void initializeRandSetGen()
 		discreteDistributionSquared = std::discrete_distribution<long long>(weights.begin(), weights.end());
 	}
 
+	if(counterexampleType == 4) {
+		long long numObj = objInp.size();
+		vector<long double> weights(numObj * numObj);
+		long long size = 0;
+
+		for(long long i = 0; i < numObj; i++) {
+			for(long long j = 0; j < numObj; j++) {
+				long double power = 0;
+
+				if((objectLabels[i] == 0) && (objectLabels[j] == 1)) {
+					power = powersOfTwo[(objInpBS[i] - objInpBS[j]).count()];
+					power = (power - 1) * powersOfTwo[(objInpBS[i] & objInpBS[j]).count()];
+				}
+
+				weights[size] = power;
+				size++;
+			}
+		}
+
+		discreteDistributionDiscriminativity = std::discrete_distribution<long long>(weights.begin(), weights.end());
+	}
 }
 
 void getLoopCount()
@@ -216,8 +257,6 @@ void printVector(vector<int> &A)
 	{
 		cout << x << " ";
 	}
-
-	cout << "\n";
 }
 
 vector<int> attrBSToAttrVector(boost::dynamic_bitset<unsigned long> &attrBS)
@@ -409,6 +448,17 @@ boost::dynamic_bitset<unsigned long> getFrequentAttrSetBS()
 		long long set2 = intersectionId % (long long) objInp.size();
 		boost::dynamic_bitset<unsigned long> tempSet = objInpBS[set1] & objInpBS[set2];
 		return getRandomSubsetBS(tempSet);
+	}
+
+	if(counterexampleType == 4) {
+		long long intersectionId = discreteDistributionDiscriminativity(re);
+		long long set1 = intersectionId / (long long) objInp.size();
+		long long set2 = intersectionId % (long long) objInp.size();
+		boost::dynamic_bitset<unsigned long> tempSet1 = objInpBS[set1] - objInpBS[set2], 
+		tempSet2 = objInpBS[set1] & objInpBS[set2];
+		boost::dynamic_bitset<unsigned long> setF = getRandomSubsetBS(tempSet1),
+		setFp = getRandomSubsetBS(tempSet2);
+		return (setF | setFp);
 	}
 }
 
@@ -644,7 +694,16 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		counterExampleBS.clear();
 		thisIterMaxContextClosureTime = 0;
 		thisIterMaxImplicationClosureTime = 0;
+		
+		// if (!potentialCounterExamplesBS.empty())
+		// {
+		// 	tryPotentialCounterExamples(ansBS);
 
+		// 	if(!globalFlag)
+		// 		singletonCounterexamples++;				
+
+		// 	gCounter = 0;
+		// }
 
 		if (globalFlag)
 		{	
@@ -1071,7 +1130,7 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 	//cout <<"argc = "<< argc << "\n";
 
-	if (argc != 8)
+	if (argc < 8)
 	{
 		printUsageAndExit();
 	}
@@ -1093,6 +1152,11 @@ int main(int argc, char **argv)
 			counterexampleType = 2;
 		if(temp == string("squared"))
 			counterexampleType = 3;	
+		if(temp == string("discriminativity"))	
+		{
+			counterexampleType = 4;
+			readLabels(argv[8]);
+		}	
 	}
 
 	if (string(argv[5]) == string("both"))
@@ -1141,8 +1205,10 @@ int main(int argc, char **argv)
 
 	for (auto x : ans) {
 		// //cout << "Implication\n";
-		// printVector(x.lhs);
-		// printVector(x.rhs);
+		printVector(x.lhs);
+		cout <<"==> ";
+		printVector(x.rhs);
+		cout <<"\n";
 	}
 	return 0;
 }
