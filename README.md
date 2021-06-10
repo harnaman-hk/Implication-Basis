@@ -12,7 +12,7 @@
 
 ### Source.cpp
 - Compilation - `g++ -O3 -o algo -m64 Source.cpp -lpthread`
-- Running - `./algo <Context> <Epsilon> <Delta> <strong/weak> <uniform/frequent/both> <number of threads> none`
+- Running - `./algo <Context> <Epsilon> <Delta> <strong/weak> <uniform/frequent/area/discriminativity/both> <number of threads> none`
 
 ### toCXT.cpp
 - Compilation - `g++ -o toCXT toCXT.cpp`
