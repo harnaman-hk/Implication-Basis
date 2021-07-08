@@ -72,6 +72,7 @@ std::random_device rd;
 std::discrete_distribution<int> discreteDistribution, discreteDistributionArea;
 std::discrete_distribution<long long> discreteDistributionSquared;
 std::discrete_distribution<long long> discreteDistributionDiscriminativity;
+std::binomial_distribution<int> binomialDistribution;
 std::default_random_engine re(rd());
 
 vector<std::discrete_distribution<int>> discreteDistributionAttributeSets;
@@ -241,6 +242,13 @@ void initializeRandSetGen()
 		}
 
 		discreteDistributionDiscriminativity = std::discrete_distribution<long long>(weights.begin(), weights.end());
+	}
+
+	if(counterexampleType == 5) {
+		int n = objInp.size();
+		float p = 0.2;
+		binomialDistribution = std::binomial_distribution<int>(n, p);
+		// cout << "\nGenerated binomial dist with n = " << n << ", p = " << p << "\n";
 	}
 }
 
@@ -459,6 +467,10 @@ boost::dynamic_bitset<unsigned long> getFrequentAttrSetBS()
 		boost::dynamic_bitset<unsigned long> setF = getRandomSubsetBS(tempSet1),
 		setFp = getRandomSubsetBS(tempSet2);
 		return (setF | setFp);
+	}
+
+	if(counterexampleType == 5){
+		return getRandomSubsetBS(objInpBS[binomialDistribution(re)]);
 	}
 }
 
@@ -1156,7 +1168,9 @@ int main(int argc, char **argv)
 		{
 			counterexampleType = 4;
 			readLabels(argv[8]);
-		}	
+		}
+		if(temp == "binomial")
+			counterexampleType = 5;
 	}
 
 	if (string(argv[5]) == string("both"))
@@ -1178,7 +1192,7 @@ int main(int argc, char **argv)
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 
 	for (int i = 2; i < 7; i++)
-		cout << argv[i] << ",";
+		cout << argv[i] << ", ";
 
 	cout << TIMEPRINT(TotalExecTime) << ",";
 	cout << TIMEPRINT(totalTime) << ",";
@@ -1186,7 +1200,7 @@ int main(int argc, char **argv)
 	cout << TIMEPRINT(totalClosureTime) << ",";
 	cout << TIMEPRINT(updownTime) << ",";
 	cout << totClosureComputations << ",";
-	cout << totUpDownComputes << ",";
+	cout << totUpDownComputes << ", ";
 	cout << ans.size() << ",";
 	cout << totCounterExamples << ",";
 	cout << sumTotTries << ",";
@@ -1201,7 +1215,7 @@ int main(int argc, char **argv)
 		getSupportOfImplicationsSquared();
 	}
 
-	cout << allImplicationClosures() << endl;
+	// cout << allImplicationClosures() << endl;
 
 	for (auto x : ans) {
 		// //cout << "Implication\n";
