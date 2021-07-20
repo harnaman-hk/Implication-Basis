@@ -48,6 +48,7 @@ int numThreads = 1, maxThreads;
 long long totCounterExamples = 0;
 bool globalFlag; //For terminating other threads in case one thread found a counter-example
 boost::dynamic_bitset<unsigned long> counterExampleBS;
+bool isPositiveCounterExample = false;
 int gCounter = 0; //For counting how many times the equivalence oracle has been used
 int totTries = 0;
 long long sumTotTries = 0;
@@ -503,49 +504,64 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 		auto end = chrono::high_resolution_clock::now();
 		threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 
-		if (X.count() == cX.count())
-			continue; //It is sufficient to compare sizes since closure does not remove elements.
+		start = chrono::high_resolution_clock::now();
+		boost::dynamic_bitset<unsigned long> cL = closureBS(basis, X);
+		end = chrono::high_resolution_clock::now();
+		threadImplicationClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 
-		if (epsilonStrong)
+		if(epsilonStrong)
 		{
-			start = chrono::high_resolution_clock::now();
-			boost::dynamic_bitset<unsigned long> cL = closureBS(basis, X);
-			end = chrono::high_resolution_clock::now();
-			threadImplicationClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
-
-			if (cX.count() != cL.count())
+			if(!cL.is_subset_of(cX))
 			{
 				lck.lock();
-
-				//globalFlag is false until a counterexample has been found
-				// if(globalFlag) // If this line is not commented then quality increases with threads
-				{	
-					globalFlag = false;
-					counterExampleBS = cL;
-					//cout << "Counter-example found after " << totTries << " tries \n";
-				}
-				
+				globalFlag = false;
+				counterExampleBS = cX;
+				isPositiveCounterExample = true;
+				//cout << "Counter-example found after " << totTries << " tries \n";
 				lck.unlock();
 				break;
+			}
+
+			if(!cX.is_subset_of(cL))
+			{
+				lck.lock();
+				globalFlag = false;
+				counterExampleBS = cL;
+				isPositiveCounterExample = false;
+				//cout << "Counter-example found after " << totTries << " tries \n";
+				lck.unlock();
+				break;
+
 			}
 		}
 
 		else
 		{
-			if (isSetEqualToImpCLosure(basis, X))
-			{	
-				lck.lock();
-
-				//globalFlag is false until a counterexample has been found
-				// if(globalFlag) // If this line is not commented then quality increases with threads
-				{	
+			if(X.count() == cX.count())
+			{
+				if(!isSetEqualToImpCLosure(basis, X))
+				{
+					lck.lock();
 					globalFlag = false;
 					counterExampleBS = X;
+					isPositiveCounterExample = true;
 					//cout << "Counter-example found after " << totTries << " tries \n";
+					lck.unlock();
+					break;
 				}
-
-				lck.unlock();
-				break;
+			}
+			else
+			{
+				if(isSetEqualToImpCLosure(basis, X))
+				{
+					lck.lock();
+					globalFlag = false;
+					counterExampleBS = X;
+					isPositiveCounterExample = false;
+					//cout << "Counter-example found after " << totTries << " tries \n";
+					lck.unlock();
+					break;
+				}
 			}
 		}
 	}
