@@ -580,6 +580,7 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 }
 
 void tryPotentialCounterExamples(vector<implicationBS> &basis)
+
 {
 	while (!potentialCounterExamplesBS.empty())
 	{
@@ -622,57 +623,75 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 	double threadContextClosureTime = 0;
 	lck.lock();
 
-	while ((implicationsSeen < basis.size()) && (!basisUpdate))
-	{
-		boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
-		boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
-		int curIndex = implicationsSeen;
-		implicationsSeen++;
-		lck.unlock();
-		boost::dynamic_bitset<unsigned long> C = A & counterExampleBS;
-		aEqualToCCount++;
-
-		if (A != C)
-		{	
-			aEqualToCCount--;
-			auto durBegin = chrono::high_resolution_clock::now();
-			boost::dynamic_bitset<unsigned long> cC = contextClosureBS(C);
-			auto durEnd = chrono::high_resolution_clock::now();
-			threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
-
-			if (C == cC)
-			{
+	if(isPositiveCounterExample){
+		cout<<"**********"<<endl;
+		for(int i=0;i<basis.size();i++){
+			if(basis[i].lhs.is_subset_of(counterExampleBS) & !basis[i].rhs.is_subset_of(counterExampleBS)){
+				
 				lck.lock();
+				basis[i].rhs=basis[i].rhs & counterExampleBS;
+				lck.unlock();
+
+			}
+
+		}
+
+	}
+
+	else{
+		while ((implicationsSeen < basis.size()) && (!basisUpdate))
+		{
+			boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
+			boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
+			int curIndex = implicationsSeen;
+			implicationsSeen++;
+			lck.unlock();
+			boost::dynamic_bitset<unsigned long> C = A & counterExampleBS;
+			aEqualToCCount++;
+
+			if (A != C)
+			{	
+				aEqualToCCount--;
+				auto durBegin = chrono::high_resolution_clock::now();
+				boost::dynamic_bitset<unsigned long> cC = contextClosureBS(C);
+				auto durEnd = chrono::high_resolution_clock::now();
+				threadContextClosureTime += (chrono::duration_cast<chrono::microseconds>(durEnd - durBegin)).count();
+
+				if (C == cC)
+				{
+					lck.lock();
+					continue;
+				}
+
+				lck.lock();
+
+				if (!basisUpdate)
+				{
+					basisUpdate = true;
+					indexOfUpdatedImplication = curIndex;
+					updatedImplication.lhs = C;
+					updatedImplication.rhs = B;
+				}
+
+				else if (basisUpdate && (curIndex < indexOfUpdatedImplication))
+				{
+					indexOfUpdatedImplication = curIndex;
+					updatedImplication.lhs = C;
+					updatedImplication.rhs = B;
+				}
+
 				continue;
 			}
 
 			lck.lock();
-
-			if (!basisUpdate)
-			{
-				basisUpdate = true;
-				indexOfUpdatedImplication = curIndex;
-				updatedImplication.lhs = C;
-				updatedImplication.rhs = cC;
-			}
-
-			else if (basisUpdate && (curIndex < indexOfUpdatedImplication))
-			{
-				indexOfUpdatedImplication = curIndex;
-				updatedImplication.lhs = C;
-				updatedImplication.rhs = cC;
-			}
-
-			continue;
 		}
-
-		lck.lock();
 	}
 
 	if (threadContextClosureTime > thisIterMaxContextClosureTime)
 		thisIterMaxContextClosureTime = threadContextClosureTime;
 
 	lck.unlock();
+
 }
 
 vector<implication> BSBasisToVectorBasis(vector<implicationBS> ansBS)
@@ -808,8 +827,12 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 		updownTime += thisIterMaxContextClosureTime;
 
-		if (!basisUpdate)
-			ansBS.push_back(implicationBS{X, contextClosureBS(X)});
+		if (!basisUpdate){
+			boost::dynamic_bitset<unsigned long> allattribute(attrInp.size());
+			allattribute.set();
+			allattribute[0] = false;
+			ansBS.push_back(implicationBS{X,allattribute});
+		}
 		else
 			ansBS[indexOfUpdatedImplication] = updatedImplication;
 
