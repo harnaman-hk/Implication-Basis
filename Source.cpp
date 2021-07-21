@@ -827,7 +827,7 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 		updownTime += thisIterMaxContextClosureTime;
 
-		if (!basisUpdate){
+		if (!basisUpdate && !isPositiveCounterExample){
 			boost::dynamic_bitset<unsigned long> allattribute(attrInp.size());
 			allattribute.set();
 			allattribute[0] = false;
