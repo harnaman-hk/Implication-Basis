@@ -48,7 +48,7 @@ int numThreads = 1, maxThreads;
 long long totCounterExamples = 0;
 bool globalFlag; //For terminating other threads in case one thread found a counter-example
 boost::dynamic_bitset<unsigned long> counterExampleBS;
-bool isPositiveCounterExample = false;
+bool isPositiveCounterExample = true;
 int gCounter = 0; //For counting how many times the equivalence oracle has been used
 int totTries = 0;
 long long sumTotTries = 0;
@@ -143,39 +143,42 @@ void readFormalContext2(string fileName)
 	inFile.close();
 }
 
-void readLabels(string labelFile) {
+void readLabels(string labelFile)
+{
 	ifstream labelInput(labelFile);
 	int temp;
 	int oID = 0;
 
-	while(labelInput >> temp) {
+	while (labelInput >> temp)
+	{
 		objectLabels.push_back(temp);
 
-		if(temp == 0)
+		if (temp == 0)
 			negativeObjects.push_back(oID);
 		else
 			positiveObjects.push_back(oID);
 
-		oID++;		
+		oID++;
 	}
 
 	labelInput.close();
 }
 
-long double nChooseK(long long n, long long k) {
-    long double res = 1;
-    for (long long i = 1; i <= k; ++i)
-        res = res * ((long double)(n - k + i)) / ((long double)i);
-    return res;
+long double nChooseK(long long n, long long k)
+{
+	long double res = 1;
+	for (long long i = 1; i <= k; ++i)
+		res = res * ((long double)(n - k + i)) / ((long double)i);
+	return res;
 }
 
 void initializeRandSetGen()
-{	
+{
 	vector<long double> powersOfTwo(attrInp.size() + 2);
 	powersOfTwo[0] = 1;
 
-	for(int i = 1; i < powersOfTwo.size(); i++)
-		powersOfTwo[i] = ((long double) 2) * powersOfTwo[i - 1];
+	for (int i = 1; i < powersOfTwo.size(); i++)
+		powersOfTwo[i] = ((long double)2) * powersOfTwo[i - 1];
 
 	attrSetWeight.resize(objInp.size());
 
@@ -186,34 +189,40 @@ void initializeRandSetGen()
 
 	discreteDistribution = std::discrete_distribution<int>(attrSetWeight.begin(), attrSetWeight.end());
 
-	if(counterexampleType == 2) {
+	if (counterexampleType == 2)
+	{
 		for (int i = 0; i < objInp.size(); i++)
 		{
-			attrSetWeight[i] *= ((long double) objInp[i].size()) * ((long double) 0.5);
+			attrSetWeight[i] *= ((long double)objInp[i].size()) * ((long double)0.5);
 		}
 
 		discreteDistributionArea = std::discrete_distribution<int>(attrSetWeight.begin(), attrSetWeight.end());
 
 		discreteDistributionAttributeSets.resize(attrInp.size() + 2);
 
-		for(int i = 0; i < discreteDistributionAttributeSets.size(); i++) {
+		for (int i = 0; i < discreteDistributionAttributeSets.size(); i++)
+		{
 			vector<long double> nChooseKWeights(i + 1);
-			
-			for(int j = 0; j <= i; j++) {
+
+			for (int j = 0; j <= i; j++)
+			{
 				nChooseKWeights[j] = nChooseK(i, j);
 			}
 
 			discreteDistributionAttributeSets[i] = std::discrete_distribution<int>(nChooseKWeights.begin(), nChooseKWeights.end());
 		}
-	}	
+	}
 
-	if(counterexampleType == 3) {
+	if (counterexampleType == 3)
+	{
 		long long numObj = objInp.size();
 		vector<long double> weights(numObj * numObj);
 		long long size = 0;
 
-		for(long long i = 0; i < numObj; i++) {
-			for(long long j = 0; j < numObj; j++) {
+		for (long long i = 0; i < numObj; i++)
+		{
+			for (long long j = 0; j < numObj; j++)
+			{
 				long double power = (objInpBS[i] & objInpBS[j]).count();
 				weights[size] = powersOfTwo[power];
 				size++;
@@ -223,16 +232,20 @@ void initializeRandSetGen()
 		discreteDistributionSquared = std::discrete_distribution<long long>(weights.begin(), weights.end());
 	}
 
-	if(counterexampleType == 4) {
+	if (counterexampleType == 4)
+	{
 		long long numObj = objInp.size();
 		vector<long double> weights(numObj * numObj);
 		long long size = 0;
 
-		for(long long i = 0; i < numObj; i++) {
-			for(long long j = 0; j < numObj; j++) {
+		for (long long i = 0; i < numObj; i++)
+		{
+			for (long long j = 0; j < numObj; j++)
+			{
 				long double power = 0;
 
-				if((objectLabels[i] == 0) && (objectLabels[j] == 1)) {
+				if ((objectLabels[i] == 0) && (objectLabels[j] == 1))
+				{
 					power = powersOfTwo[(objInpBS[i] - objInpBS[j]).count()];
 					power = (power - 1) * powersOfTwo[(objInpBS[i] & objInpBS[j]).count()];
 				}
@@ -245,7 +258,8 @@ void initializeRandSetGen()
 		discreteDistributionDiscriminativity = std::discrete_distribution<long long>(weights.begin(), weights.end());
 	}
 
-	if(counterexampleType == 5) {
+	if (counterexampleType == 5)
+	{
 		int n = objInp.size();
 		float p = 0.2;
 		binomialDistribution = std::binomial_distribution<int>(n, p);
@@ -425,11 +439,12 @@ boost::dynamic_bitset<unsigned long> getRandomSubsetBS(boost::dynamic_bitset<uns
 }
 
 boost::dynamic_bitset<unsigned long> getFrequentAttrSetBS()
-{		
+{
 	// cout <<"1\n";
-	if(counterexampleType == 1)
+	if (counterexampleType == 1)
 		return getRandomSubsetBS(objInpBS[discreteDistribution(re)]);
-	if(counterexampleType == 2) {	
+	if (counterexampleType == 2)
+	{
 		// cout <<"2--\n";
 		int objId = discreteDistributionArea(re);
 		int objSize = objInp[objId].size();
@@ -437,40 +452,44 @@ boost::dynamic_bitset<unsigned long> getFrequentAttrSetBS()
 		int setSize = discreteDistributionAttributeSets[objSize](re);
 		vector<int> indices(objSize);
 
-		for(int i = 0; i < objSize; i++)
+		for (int i = 0; i < objSize; i++)
 			indices[i] = i;
 
 		shuffle(indices.begin(), indices.end(), re);
 		boost::dynamic_bitset<unsigned long> ans(attrInp.size());
 
-		for(int i = 0; i < setSize; i++) {
+		for (int i = 0; i < setSize; i++)
+		{
 			ans[object[indices[i]]] = true;
 		}
 
 		return ans;
 	}
 
-	if(counterexampleType == 3) {
+	if (counterexampleType == 3)
+	{
 		// cout <<"3--\n";
 		long long intersectionId = discreteDistributionSquared(re);
-		long long set1 = intersectionId / (long long) objInp.size();
-		long long set2 = intersectionId % (long long) objInp.size();
+		long long set1 = intersectionId / (long long)objInp.size();
+		long long set2 = intersectionId % (long long)objInp.size();
 		boost::dynamic_bitset<unsigned long> tempSet = objInpBS[set1] & objInpBS[set2];
 		return getRandomSubsetBS(tempSet);
 	}
 
-	if(counterexampleType == 4) {
+	if (counterexampleType == 4)
+	{
 		long long intersectionId = discreteDistributionDiscriminativity(re);
-		long long set1 = intersectionId / (long long) objInp.size();
-		long long set2 = intersectionId % (long long) objInp.size();
-		boost::dynamic_bitset<unsigned long> tempSet1 = objInpBS[set1] - objInpBS[set2], 
-		tempSet2 = objInpBS[set1] & objInpBS[set2];
+		long long set1 = intersectionId / (long long)objInp.size();
+		long long set2 = intersectionId % (long long)objInp.size();
+		boost::dynamic_bitset<unsigned long> tempSet1 = objInpBS[set1] - objInpBS[set2],
+											 tempSet2 = objInpBS[set1] & objInpBS[set2];
 		boost::dynamic_bitset<unsigned long> setF = getRandomSubsetBS(tempSet1),
-		setFp = getRandomSubsetBS(tempSet2);
+											 setFp = getRandomSubsetBS(tempSet2);
 		return (setF | setFp);
 	}
 
-	if(counterexampleType == 5){
+	if (counterexampleType == 5)
+	{
 		return getRandomSubsetBS(objInpBS[binomialDistribution(re)]);
 	}
 }
@@ -509,9 +528,9 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 		end = chrono::high_resolution_clock::now();
 		threadImplicationClosureTime += (chrono::duration_cast<chrono::microseconds>(end - start)).count();
 
-		if(epsilonStrong)
+		if (epsilonStrong)
 		{
-			if(!cL.is_subset_of(cX))
+			if (!cL.is_subset_of(cX))
 			{
 				lck.lock();
 				globalFlag = false;
@@ -522,7 +541,7 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 				break;
 			}
 
-			if(!cX.is_subset_of(cL))
+			if (!cX.is_subset_of(cL))
 			{
 				lck.lock();
 				globalFlag = false;
@@ -531,15 +550,14 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 				//cout << "Counter-example found after " << totTries << " tries \n";
 				lck.unlock();
 				break;
-
 			}
 		}
 
 		else
 		{
-			if(X.count() == cX.count())
+			if (X.count() == cX.count())
 			{
-				if(!isSetEqualToImpCLosure(basis, X))
+				if (!isSetEqualToImpCLosure(basis, X))
 				{
 					lck.lock();
 					globalFlag = false;
@@ -552,7 +570,7 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 			}
 			else
 			{
-				if(isSetEqualToImpCLosure(basis, X))
+				if (isSetEqualToImpCLosure(basis, X))
 				{
 					lck.lock();
 					globalFlag = false;
@@ -580,7 +598,6 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 }
 
 void tryPotentialCounterExamples(vector<implicationBS> &basis)
-
 {
 	while (!potentialCounterExamplesBS.empty())
 	{
@@ -623,34 +640,33 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 	double threadContextClosureTime = 0;
 	lck.lock();
 
-	if(isPositiveCounterExample){
-		cout<<"**********"<<endl;
-		for(int i=0;i<basis.size();i++){
-			if(basis[i].lhs.is_subset_of(counterExampleBS) & !basis[i].rhs.is_subset_of(counterExampleBS)){
-				
-				lck.lock();
-				basis[i].rhs=basis[i].rhs & counterExampleBS;
-				lck.unlock();
+	while ((implicationsSeen < basis.size()) && (!basisUpdate))
+	{
+		boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
+		boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
+		int curIndex = implicationsSeen;
+		implicationsSeen++;
+		boost::dynamic_bitset<unsigned long> C = A & counterExampleBS, counterEx = counterExampleBS;
+		bool isPos = isPositiveCounterExample;
+		lck.unlock();
+		aEqualToCCount++;
 
-			}
-
-		}
-
-	}
-
-	else{
-		while ((implicationsSeen < basis.size()) && (!basisUpdate))
+		if (isPos)
 		{
-			boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
-			boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
-			int curIndex = implicationsSeen;
-			implicationsSeen++;
-			lck.unlock();
-			boost::dynamic_bitset<unsigned long> C = A & counterExampleBS;
-			aEqualToCCount++;
+			lck.lock();
+			if (A.is_subset_of(counterEx) & !B.is_subset_of(counterEx))
+			{
 
+				basisUpdate = true;
+				indexOfUpdatedImplication = curIndex;
+				updatedImplication.lhs = A;
+				updatedImplication.rhs = B & counterEx;
+			}
+		}
+		else
+		{
 			if (A != C)
-			{	
+			{
 				aEqualToCCount--;
 				auto durBegin = chrono::high_resolution_clock::now();
 				boost::dynamic_bitset<unsigned long> cC = contextClosureBS(C);
@@ -670,28 +686,27 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 					basisUpdate = true;
 					indexOfUpdatedImplication = curIndex;
 					updatedImplication.lhs = C;
-					updatedImplication.rhs = B;
+					updatedImplication.rhs = cC;
 				}
 
 				else if (basisUpdate && (curIndex < indexOfUpdatedImplication))
 				{
 					indexOfUpdatedImplication = curIndex;
 					updatedImplication.lhs = C;
-					updatedImplication.rhs = B;
+					updatedImplication.rhs = cC;
 				}
 
 				continue;
 			}
-
-			lck.lock();
 		}
+
+		lck.lock();
 	}
 
 	if (threadContextClosureTime > thisIterMaxContextClosureTime)
 		thisIterMaxContextClosureTime = threadContextClosureTime;
 
 	lck.unlock();
-
 }
 
 vector<implication> BSBasisToVectorBasis(vector<implicationBS> ansBS)
@@ -706,12 +721,12 @@ vector<implication> BSBasisToVectorBasis(vector<implicationBS> ansBS)
 	return ans;
 }
 
-void setNumThreads() 
+void setNumThreads()
 {
 	double temp = (prevThreads * prevIterTime) / threadOverheadTime;
 	temp -= (prevThreads * prevThreads);
 
-	if(temp < 0)
+	if (temp < 0)
 	{
 		numThreads = 1;
 		return;
@@ -741,19 +756,19 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		counterExampleBS.clear();
 		thisIterMaxContextClosureTime = 0;
 		thisIterMaxImplicationClosureTime = 0;
-		
+
 		// if (!potentialCounterExamplesBS.empty())
 		// {
 		// 	tryPotentialCounterExamples(ansBS);
 
 		// 	if(!globalFlag)
-		// 		singletonCounterexamples++;				
+		// 		singletonCounterexamples++;
 
 		// 	gCounter = 0;
 		// }
 
 		if (globalFlag)
-		{	
+		{
 			prevThreads = prevThreads1;
 			prevIterTime = prevIterTime1;
 			setNumThreads();
@@ -795,7 +810,11 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		boost::dynamic_bitset<unsigned long> X = counterExampleBS;
 		//printVector(X);
 		totCounterExamples++;
-		//cout << "Got counter example" << endl;
+		// cout << "Got counter example" << endl;
+		// if(isPositiveCounterExample)
+		// 	cout << "Got Positive CS\n";
+		// else
+		// 	cout << "Got Negative CS\n";
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 		prevThreads1 = numThreads;
@@ -827,11 +846,13 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 		updownTime += thisIterMaxContextClosureTime;
 
-		if (!basisUpdate && !isPositiveCounterExample){
+		if (!basisUpdate && !isPositiveCounterExample)
+		{
+			// ansBS.push_back(implicationBS{X, contextClosureBS(X)});
 			boost::dynamic_bitset<unsigned long> allattribute(attrInp.size());
 			allattribute.set();
 			allattribute[0] = false;
-			ansBS.push_back(implicationBS{X,allattribute});
+			ansBS.push_back(implicationBS{X, allattribute});
 		}
 		else
 			ansBS[indexOfUpdatedImplication] = updatedImplication;
@@ -1075,11 +1096,11 @@ void getSupportOfImplicationsFrequent()
 	p50 = supports[0.5 * supports.size()];
 	p90 = supports[0.9 * supports.size()];
 	p95 = supports[0.95 * supports.size()];
-	cout << 100 * meanSupport / objInpBS.size() <<";";
-	cout << 100 * p10 / objInpBS.size() <<";";
-	cout << 100 * p50 / objInpBS.size() <<";";
-	cout << 100 * p90 / objInpBS.size() <<";";
-	cout << 100 * p95 / objInpBS.size() <<";";
+	cout << 100 * meanSupport / objInpBS.size() << ";";
+	cout << 100 * p10 / objInpBS.size() << ";";
+	cout << 100 * p50 / objInpBS.size() << ";";
+	cout << 100 * p90 / objInpBS.size() << ";";
+	cout << 100 * p95 / objInpBS.size() << ";";
 	return;
 }
 
@@ -1108,11 +1129,11 @@ void getSupportOfImplicationsArea()
 	p50 = supports[0.5 * supports.size()];
 	p90 = supports[0.9 * supports.size()];
 	p95 = supports[0.95 * supports.size()];
-	cout << meanSupport <<";";
-	cout << p10  <<";";
-	cout <<  p50 <<";";
-	cout << p90 <<";";
-	cout <<  p95 <<";";
+	cout << meanSupport << ";";
+	cout << p10 << ";";
+	cout << p50 << ";";
+	cout << p90 << ";";
+	cout << p95 << ";";
 	return;
 }
 
@@ -1143,11 +1164,11 @@ void getSupportOfImplicationsSquared()
 	p95 = supports[0.95 * supports.size()];
 	double numObjSq = objInpBS.size();
 	numObjSq *= numObjSq;
-	cout << 100 * meanSupport / numObjSq <<";";
-	cout << 100 * p10 / numObjSq <<";";
-	cout << 100 * p50 / numObjSq <<";";
-	cout << 100 * p90 / numObjSq <<";";
-	cout << 100 * p95 / numObjSq <<";";
+	cout << 100 * meanSupport / numObjSq << ";";
+	cout << 100 * p10 / numObjSq << ";";
+	cout << 100 * p50 / numObjSq << ";";
+	cout << 100 * p90 / numObjSq << ";";
+	cout << 100 * p95 / numObjSq << ";";
 	return;
 }
 
@@ -1193,33 +1214,33 @@ int main(int argc, char **argv)
 	del = atof(argv[3]);
 	if (string(argv[4]) == string("strong"))
 		epsilonStrong = true;
-	
+
 	if (string(argv[5]) != string("uniform"))
 	{
 		frequentCounterExamples = true;
 		string temp = argv[5];
 
-		if(temp == string("area"))
+		if (temp == string("area"))
 			counterexampleType = 2;
-		if(temp == string("squared"))
-			counterexampleType = 3;	
-		if(temp == string("discriminativity"))	
+		if (temp == string("squared"))
+			counterexampleType = 3;
+		if (temp == string("discriminativity"))
 		{
 			counterexampleType = 4;
 			readLabels(argv[8]);
 		}
-		if(temp == "binomial")
+		if (temp == "binomial")
 			counterexampleType = 5;
 	}
 
 	if (string(argv[5]) == string("both"))
 		bothCounterExamples = true;
-	
+
 	maxThreads = atoi(argv[6]);
 	numThreads = 1;
 	if (string(argv[7]) == string("support"))
 		implicationSupport = true;
-	
+
 	ThreadPool threadPool(maxThreads - 1);
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
@@ -1240,11 +1261,11 @@ int main(int argc, char **argv)
 	cout << TIMEPRINT(updownTime) << ",";
 	cout << totClosureComputations << ",";
 	cout << totUpDownComputes << ", ";
-	cout << ans.size() << ",";
+	cout << "\nNo. of implications : " << ans.size() << ",\n";
 	cout << totCounterExamples << ",";
 	cout << sumTotTries << ",";
 	cout << aEqualToCCount << ",";
-	cout << emptySetClosureComputes <<"," ;
+	cout << emptySetClosureComputes << ",";
 	cout << singletonCounterexamples << ";" << flush;
 	// cout << allContextClosures() << "," << flush;
 	if (implicationSupport)
@@ -1256,12 +1277,13 @@ int main(int argc, char **argv)
 
 	// cout << allImplicationClosures() << endl;
 
-	for (auto x : ans) {
+	for (auto x : ans)
+	{
 		// //cout << "Implication\n";
 		printVector(x.lhs);
-		cout <<"==> ";
+		cout << "==> ";
 		printVector(x.rhs);
-		cout <<"\n";
+		cout << "\n";
 	}
 	return 0;
 }
