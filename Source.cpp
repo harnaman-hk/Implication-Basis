@@ -80,6 +80,7 @@ vector<std::discrete_distribution<int>> discreteDistributionAttributeSets;
 vector<int> objectLabels, positiveObjects, negativeObjects;
 vector<long double> attrSetWeight;
 vector<implicationBS> ansBasisBS;
+vector<pair<int, implicationBS>> updatedImplications;
 
 double threadOverheadTime = 6;
 double prevIterTime = 0;
@@ -642,15 +643,19 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 
 	if (isPositiveCounterExample)
 	{
-		for(int i = 0; i < basis.size(); i++)
+		while(implicationsSeen < basis.size())
 		{
-			lck.lock();
-			boost::dynamic_bitset<unsigned long> A = basis[i].lhs;
-			boost::dynamic_bitset<unsigned long> B = basis[i].rhs;
+			int currIndex = implicationsSeen;
+			implicationsSeen++;
+			boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
+			boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
+			lck.unlock();
 			if (A.is_subset_of(counterExampleBS) && !B.is_subset_of(counterExampleBS))
 			{
-				basis[i] = implicationBS({A, B & counterExampleBS});
+				lck.lock();
+				updatedImplications.push_back({currIndex, implicationBS({A, B & counterExampleBS})});
 			}
+			lck.lock();
 		}
 	}
 	else
@@ -749,9 +754,9 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		auto start = chrono::high_resolution_clock::now();
 		gCounter++;
 		totTries = 0;
-		//cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
+		// cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
 		getLoopCount();
-		//cout << "Max number of tries for this iteration: " << maxTries << "\n";
+		// cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
 		counterExampleBS.clear();
 		thisIterMaxContextClosureTime = 0;
@@ -833,6 +838,7 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		setNumThreads();
 
 		vector<std::future<void>> taskVector;
+		updatedImplications.clear();
 
 		for (int i = 1; i < numThreads; i++)
 			taskVector.emplace_back(threadPool.enqueue(tryToUpdateImplicationBasis, ref(ansBS)));
@@ -846,7 +852,14 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 		updownTime += thisIterMaxContextClosureTime;
 
-		if(!isPositiveCounterExample)
+		if(isPositiveCounterExample)
+		{
+			for(auto &updateImp : updatedImplications)
+			{
+				ansBS[updateImp.first] = updateImp.second;
+			}
+		}
+		else
 		{
 			if (!basisUpdate)
 			{
@@ -1264,7 +1277,7 @@ int main(int argc, char **argv)
 	cout << TIMEPRINT(updownTime) << ",";
 	cout << totClosureComputations << ",";
 	cout << totUpDownComputes << ", ";
-	cout << "\nNo. of implications : " << ans.size() << ",\n";
+	cout << "No. of implications : " << ans.size() << ", ";
 	cout << totCounterExamples << ",";
 	cout << sumTotTries << ",";
 	cout << aEqualToCCount << ",";
