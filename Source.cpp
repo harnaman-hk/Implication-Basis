@@ -645,15 +645,15 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 	{
 		while(implicationsSeen < basis.size())
 		{
-			int currIndex = implicationsSeen;
+			int currentIndex = implicationsSeen;
+			boost::dynamic_bitset<unsigned long> A = basis[currentIndex].lhs;
+			boost::dynamic_bitset<unsigned long> B = basis[currentIndex].rhs;
 			implicationsSeen++;
-			boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
-			boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
 			lck.unlock();
 			if (A.is_subset_of(counterExampleBS) && !B.is_subset_of(counterExampleBS))
 			{
 				lck.lock();
-				updatedImplications.push_back({currIndex, implicationBS({A, B & counterExampleBS})});
+				updatedImplications.push_back({currentIndex, implicationBS({A, B & counterExampleBS})});
 			}
 			lck.lock();
 		}
@@ -664,7 +664,7 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 		{
 			boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
 			boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
-			int curIndex = implicationsSeen;
+			int currentIndex = implicationsSeen;
 			implicationsSeen++;
 			boost::dynamic_bitset<unsigned long> C = A & counterExampleBS;
 			lck.unlock();
@@ -689,14 +689,14 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 				if (!basisUpdate)
 				{
 					basisUpdate = true;
-					indexOfUpdatedImplication = curIndex;
+					indexOfUpdatedImplication = currentIndex;
 					updatedImplication.lhs = C;
 					updatedImplication.rhs = B;
 				}
 
-				else if (basisUpdate && (curIndex < indexOfUpdatedImplication))
+				else if (basisUpdate && (currentIndex < indexOfUpdatedImplication))
 				{
-					indexOfUpdatedImplication = curIndex;
+					indexOfUpdatedImplication = currentIndex;
 					updatedImplication.lhs = C;
 					updatedImplication.rhs = B;
 				}
