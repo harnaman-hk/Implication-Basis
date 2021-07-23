@@ -84,6 +84,7 @@ vector<pair<int, implicationBS>> updatedImplications;
 
 double threadOverheadTime = 6;
 double prevIterTime = 0;
+int UpdateImplicationTries = 0;
 int prevThreads = 1;
 int singletonCounterexamples = 0;
 //Can be used in case the input format is:
@@ -537,7 +538,6 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 				globalFlag = false;
 				counterExampleBS = cX;
 				isPositiveCounterExample = true;
-				//cout << "Counter-example found after " << totTries << " tries \n";
 				lck.unlock();
 				break;
 			}
@@ -548,7 +548,6 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 				globalFlag = false;
 				counterExampleBS = cL;
 				isPositiveCounterExample = false;
-				//cout << "Counter-example found after " << totTries << " tries \n";
 				lck.unlock();
 				break;
 			}
@@ -564,7 +563,6 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 					globalFlag = false;
 					counterExampleBS = X;
 					isPositiveCounterExample = true;
-					//cout << "Counter-example found after " << totTries << " tries \n";
 					lck.unlock();
 					break;
 				}
@@ -577,7 +575,6 @@ void getCounterExample(vector<implicationBS> &basis, int s)
 					globalFlag = false;
 					counterExampleBS = X;
 					isPositiveCounterExample = false;
-					//cout << "Counter-example found after " << totTries << " tries \n";
 					lck.unlock();
 					break;
 				}
@@ -640,15 +637,15 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 	std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
 	double threadContextClosureTime = 0;
 	lck.lock();
-
 	if (isPositiveCounterExample)
 	{
-		while(implicationsSeen < basis.size())
+		while (implicationsSeen < basis.size())
 		{
+			UpdateImplicationTries++;
 			int currIndex = implicationsSeen;
+			boost::dynamic_bitset<unsigned long> A = basis[currIndex].lhs;
+			boost::dynamic_bitset<unsigned long> B = basis[currIndex].rhs;
 			implicationsSeen++;
-			boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
-			boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
 			lck.unlock();
 			if (A.is_subset_of(counterExampleBS) && !B.is_subset_of(counterExampleBS))
 			{
@@ -662,6 +659,7 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 	{
 		while ((implicationsSeen < basis.size()) && (!basisUpdate))
 		{
+			UpdateImplicationTries++;
 			boost::dynamic_bitset<unsigned long> A = basis[implicationsSeen].lhs;
 			boost::dynamic_bitset<unsigned long> B = basis[implicationsSeen].rhs;
 			int curIndex = implicationsSeen;
@@ -754,9 +752,9 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		auto start = chrono::high_resolution_clock::now();
 		gCounter++;
 		totTries = 0;
-		// cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
+		cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
 		getLoopCount();
-		// cout << "Max number of tries for this iteration: " << maxTries << "\n";
+		cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
 		counterExampleBS.clear();
 		thisIterMaxContextClosureTime = 0;
@@ -816,10 +814,16 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		//printVector(X);
 		totCounterExamples++;
 		// cout << "Got counter example" << endl;
-		// if (isPositiveCounterExample)
-		// 	cout << "Got Positive CS\n";
-		// else
-		// 	cout << "Got Negative CS\n";
+		cout << "Counterexample found after " << totTries << " tries\n";
+		vector<int> counterExampleFound = attrBSToAttrVector(X);
+		if (isPositiveCounterExample)
+		{
+			cout << "Got Positive CS  "; printVector(counterExampleFound); cout << "\n";
+		}
+		else
+		{
+			cout << "Got Negative CS  "; printVector(counterExampleFound); cout << "\n";
+		}
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 		prevThreads1 = numThreads;
@@ -839,6 +843,7 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 		vector<std::future<void>> taskVector;
 		updatedImplications.clear();
+		UpdateImplicationTries = 0;
 
 		for (int i = 1; i < numThreads; i++)
 			taskVector.emplace_back(threadPool.enqueue(tryToUpdateImplicationBasis, ref(ansBS)));
@@ -851,10 +856,11 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		}
 
 		updownTime += thisIterMaxContextClosureTime;
+		cout << UpdateImplicationTries << " iterations in tryToUpdateImplicationBasis\n";
 
 		if(isPositiveCounterExample)
 		{
-			for(auto &updateImp : updatedImplications)
+			for (auto &updateImp : updatedImplications)
 			{
 				ansBS[updateImp.first] = updateImp.second;
 			}
@@ -868,9 +874,21 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 				allattribute.set();
 				allattribute[0] = false;
 				ansBS.push_back(implicationBS{X, allattribute});
+
+				// only for debugging
+				vector<int> vectorX = attrBSToAttrVector(X), vectorM = attrBSToAttrVector(allattribute);
+				cout << "Adding X -> M as : "; printVector(vectorX); cout << " ==> "; printVector(vectorM); cout << "\n\n";
 			}
 			else
+			{
+				vector<int> initialLHS = attrBSToAttrVector(ansBS[indexOfUpdatedImplication].lhs),
+							initialRHS = attrBSToAttrVector(ansBS[indexOfUpdatedImplication].rhs),
+							newLHS = attrBSToAttrVector(updatedImplication.lhs),
+							newRHS = attrBSToAttrVector(updatedImplication.rhs);
+				cout << "Initial Implication: "; printVector(initialLHS); cout << " ==> "; printVector(initialRHS); cout << "\n";
+				cout << "Updated Implication: "; printVector(newLHS); cout << " ==> "; printVector(newRHS); cout << "\n\n";
 				ansBS[indexOfUpdatedImplication] = updatedImplication;
+			}
 		}
 
 		end = std::chrono::high_resolution_clock::now();
@@ -1267,6 +1285,7 @@ int main(int argc, char **argv)
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 
+	cout << "\n";
 	for (int i = 2; i < 7; i++)
 		cout << argv[i] << ", ";
 
