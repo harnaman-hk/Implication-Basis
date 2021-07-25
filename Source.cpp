@@ -55,6 +55,7 @@ long long sumTotTries = 0;
 long long totClosureComputations = 0;
 long long totUpDownComputes = 0; //Stores how many random attribute sets needed to be tested before finding a counter-example. For debugging purposes.
 bool basisUpdate = false;
+long long countPositiveCounterExample = 0, countNegativeCounterExample = 0;
 implicationBS updatedImplication;
 int indexOfUpdatedImplication;
 int implicationsSeen;
@@ -651,6 +652,7 @@ void tryToUpdateImplicationBasis(vector<implicationBS> &basis)
 			{
 				lck.lock();
 				updatedImplications.push_back({currIndex, implicationBS({A, B & counterExampleBS})});
+				continue;
 			}
 			lck.lock();
 		}
@@ -818,10 +820,12 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		vector<int> counterExampleFound = attrBSToAttrVector(X);
 		if (isPositiveCounterExample)
 		{
+			countPositiveCounterExample++;
 			cout << "Got Positive CS  "; printVector(counterExampleFound); cout << "\n";
 		}
 		else
 		{
+			countNegativeCounterExample++;
 			cout << "Got Negative CS  "; printVector(counterExampleFound); cout << "\n";
 		}
 		auto end = std::chrono::high_resolution_clock::now();
@@ -1297,7 +1301,9 @@ int main(int argc, char **argv)
 	cout << totClosureComputations << ",";
 	cout << totUpDownComputes << ", ";
 	cout << "No. of implications : " << ans.size() << ", ";
-	cout << totCounterExamples << ",";
+	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << ", ";
+	cout << "Total Negative Counterexamples: " << countNegativeCounterExample << ", ";
+	cout <<  "Total Counterexamples: " << totCounterExamples << ",";
 	cout << sumTotTries << ",";
 	cout << aEqualToCCount << ",";
 	cout << emptySetClosureComputes << ",";
