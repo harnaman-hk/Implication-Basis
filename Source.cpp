@@ -865,9 +865,17 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		if(isPositiveCounterExample)
 		{
 			for (auto &updateImp : updatedImplications)
-			{
+
+			{	vector<int> initial_lhs=attrBSToAttrVector(ansBS[updateImp.first].lhs),
+				initial_rhs=attrBSToAttrVector(ansBS[updateImp.first].rhs);
+				cout<<"\nPrevious implication at index "<<updateImp.first<<" was: ";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n";
 				ansBS[updateImp.first] = updateImp.second;
+
+				vector<int> new_lhs=attrBSToAttrVector(ansBS[updateImp.first].lhs),
+				new_rhs=attrBSToAttrVector(ansBS[updateImp.first].rhs);
+				cout<<"Now implication is :";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n\n";
 			}
+			cout<<endl;
 		}
 		else
 		{
