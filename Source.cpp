@@ -914,6 +914,28 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 	ansBasisBS = ansBS;
 	return BSBasisToVectorBasis(ansBS);
 }
+vector<double> confidenceOfImplicationBasis;
+
+void FindConfidenceOfImplications(){
+	
+	for(int i=0;i<ansBasisBS.size();i++){
+		int support_premsis=0;
+		int support_implication=0;
+		for(int j=0;j<objInpBS.size();j++){
+
+			if(ansBasisBS[i].lhs.is_subset_of(objInpBS[j])){
+				support_premsis++;
+			}
+			
+			if(ansBasisBS[i].lhs.is_subset_of(objInpBS[j]) && ansBasisBS[i].rhs.is_subset_of(objInpBS[j])){
+				support_implication++;
+			}
+		}
+		confidenceOfImplicationBasis.push_back((double)support_implication/support_premsis);
+
+	}
+
+}
 
 void printUsageAndExit()
 {
@@ -1242,6 +1264,23 @@ void initFrequencyOrderedAttributes()
 		frequencyOrderedAttributes.push_back(freqPairs[i].second);
 }
 
+int NoOFExactRules=0;
+int NoOfRulesConfHighThanPoint9=0;
+
+void CountExactRules(){
+
+	for(int i=0;i<confidenceOfImplicationBasis.size();i++){
+		if(confidenceOfImplicationBasis[i]==1){
+			NoOFExactRules++;
+			NoOfRulesConfHighThanPoint9++;
+		}
+		else if(confidenceOfImplicationBasis[i]>0.9){
+			NoOfRulesConfHighThanPoint9++;
+		}
+
+	}
+}
+
 int main(int argc, char **argv)
 {
 	auto startTime = chrono::high_resolution_clock::now();
@@ -1291,6 +1330,9 @@ int main(int argc, char **argv)
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
 	vector<implication> ans = generateImplicationBasis(threadPool);
+	FindConfidenceOfImplications();
+
+	CountExactRules();
 	// cout << totalTime << "\n";
 
 	auto endTime = chrono::high_resolution_clock::now();
@@ -1326,13 +1368,24 @@ int main(int argc, char **argv)
 
 	// cout << allImplicationClosures() << endl;
 
-	for (auto x : ans)
+	for (int i=0;i<ans.size();i++)
 	{
 		// //cout << "Implication\n";
-		printVector(x.lhs);
+		
+		printVector(ans[i].lhs);
 		cout << "==> ";
-		printVector(x.rhs);
+		printVector(ans[i].rhs);
+		cout<<"\t(Confidence: "<<confidenceOfImplicationBasis[i]<<" )";
 		cout << "\n";
 	}
+
+	cout<<"No of Iterations: "<<gCounter<<endl;
+	cout << "No. of implications : " << ans.size() << "\n";
+	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << "\n";
+	cout << "Total Negative Counterexamples: " << countNegativeCounterExample << "\n";
+	cout <<  "Total Counterexamples: " << totCounterExamples << "\n";
+	cout<<"No of Exact Association Rules: "<<NoOFExactRules<<endl;
+	cout<<"No of Rules With Confidence higher than 0.9 : "<<NoOfRulesConfHighThanPoint9<<endl;
+	
 	return 0;
 }
