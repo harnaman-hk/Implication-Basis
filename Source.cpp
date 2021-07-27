@@ -916,6 +916,10 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 }
 vector<double> confidenceOfImplicationBasis;
 
+vector<int> supp_imp;
+vector<int> supp_prem;
+
+
 void FindConfidenceOfImplications(){
 	
 	for(int i=0;i<ansBasisBS.size();i++){
@@ -931,6 +935,8 @@ void FindConfidenceOfImplications(){
 				support_implication++;
 			}
 		}
+		supp_imp.push_back(support_implication);
+		supp_prem.push_back(support_premsis);
 		confidenceOfImplicationBasis.push_back((double)support_implication/support_premsis);
 
 	}
@@ -1281,6 +1287,74 @@ void CountExactRules(){
 	}
 }
 
+int subsetInModL=0;
+int subsetInIntK=0;
+
+void exploreAllSubsets(vector<int> &A,long long numberOfSubsets,int s){
+	std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
+
+	for(int i=s;i<numberOfSubsets;i+=maxThreads){
+
+		boost::dynamic_bitset <unsigned long> sub(attrInp.size());
+		sub.reset();
+		int I=i;
+		int j=0;
+		while(I){
+
+			sub[A[j]]=I%2;
+			I=I>>1;
+			j++;
+		}
+
+		
+		if(sub==contextClosureBS(sub)){
+			lck.lock();
+			subsetInIntK++;
+			lck.unlock();
+		}
+		if(sub==closureBS(ansBasisBS,sub)){
+			lck.lock();
+			subsetInModL++;
+			lck.unlock();
+		}
+		
+
+	}
+}
+
+double QualityFactor(ThreadPool &threadPool){
+	
+	int numberOfAttr=(attrInp.size()-1)/4;
+//	cout<<numberOfAttr<<endl;
+	vector<int> A;
+	for(int i=attrInp.size()-1;i>=attrInp.size()-numberOfAttr;i--){
+		A.push_back(frequencyOrderedAttributes[i]);
+	}
+
+	sort(A.begin(),A.end());
+//	boost::dynamic_bitset<unsigned long> ABS=attrVectorToAttrBS(A);
+//	cout<<endl;
+	long long numberOfSubsets= (long long)1<<numberOfAttr;
+	
+
+	vector<std::future<void>> taskVector;
+
+	for (int i = 1; i < maxThreads; i++)
+	{
+		taskVector.emplace_back(threadPool.enqueue(exploreAllSubsets,ref(A), numberOfSubsets,i));
+	}
+
+	exploreAllSubsets(A,numberOfSubsets,0);
+
+	for (int i = 0; i < taskVector.size(); i++)
+	{
+		taskVector[i].get();
+	}
+
+	double QF=(double)subsetInIntK/subsetInModL;
+	return QF;
+}
+
 int main(int argc, char **argv)
 {
 	auto startTime = chrono::high_resolution_clock::now();
@@ -1375,7 +1449,7 @@ int main(int argc, char **argv)
 		printVector(ans[i].lhs);
 		cout << "==> ";
 		printVector(ans[i].rhs);
-		cout<<"\t(Confidence: "<<confidenceOfImplicationBasis[i]<<" )";
+		cout<<"\t(Confidence: "<<confidenceOfImplicationBasis[i]<<" LHS support: "<<supp_prem[i]<<" Implication support: "<<supp_imp[i]<<" )";
 		cout << "\n";
 	}
 
@@ -1386,6 +1460,6 @@ int main(int argc, char **argv)
 	cout <<  "Total Counterexamples: " << totCounterExamples << "\n";
 	cout<<"No of Exact Association Rules: "<<NoOFExactRules<<endl;
 	cout<<"No of Rules With Confidence higher than 0.9 : "<<NoOfRulesConfHighThanPoint9<<endl;
-	
+	cout<<"Quality Factor : "<<QualityFactor(threadPool)<<endl;
 	return 0;
 }
