@@ -754,9 +754,9 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		auto start = chrono::high_resolution_clock::now();
 		gCounter++;
 		totTries = 0;
-		cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
+		//* cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
 		getLoopCount();
-		cout << "Max number of tries for this iteration: " << maxTries << "\n";
+		//* cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
 		counterExampleBS.clear();
 		thisIterMaxContextClosureTime = 0;
@@ -816,17 +816,17 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		//printVector(X);
 		totCounterExamples++;
 		// cout << "Got counter example" << endl;
-		cout << "Counterexample found after " << totTries << " tries\n";
+		//*cout << "Counterexample found after " << totTries << " tries\n";
 		vector<int> counterExampleFound = attrBSToAttrVector(X);
 		if (isPositiveCounterExample)
 		{
 			countPositiveCounterExample++;
-			cout << "Got Positive CS  "; printVector(counterExampleFound); cout << "\n";
+		//*	cout << "Got Positive CS  "; printVector(counterExampleFound); cout << "\n";
 		}
 		else
 		{
 			countNegativeCounterExample++;
-			cout << "Got Negative CS  "; printVector(counterExampleFound); cout << "\n";
+		//*	cout << "Got Negative CS  "; printVector(counterExampleFound); cout << "\n";
 		}
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
@@ -860,7 +860,7 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		}
 
 		updownTime += thisIterMaxContextClosureTime;
-		cout << UpdateImplicationTries << " iterations in tryToUpdateImplicationBasis\n";
+		//cout << UpdateImplicationTries << " iterations in tryToUpdateImplicationBasis\n";
 
 		if(isPositiveCounterExample)
 		{
@@ -868,12 +868,12 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 			{	vector<int> initial_lhs=attrBSToAttrVector(ansBS[updateImp.first].lhs),
 				initial_rhs=attrBSToAttrVector(ansBS[updateImp.first].rhs);
-				cout<<"\nPrevious implication at index "<<updateImp.first<<" was: ";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n";
+			//*	cout<<"\nPrevious implication at index "<<updateImp.first<<" was: ";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n";
 				ansBS[updateImp.first] = updateImp.second;
 
 				vector<int> new_lhs=attrBSToAttrVector(ansBS[updateImp.first].lhs),
 				new_rhs=attrBSToAttrVector(ansBS[updateImp.first].rhs);
-				cout<<"Now implication is :";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n\n";
+			//*	cout<<"Now implication is :";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n\n";
 			}
 			cout<<endl;
 		}
@@ -889,7 +889,7 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 				// only for debugging
 				vector<int> vectorX = attrBSToAttrVector(X), vectorM = attrBSToAttrVector(allattribute);
-				cout << "Adding X -> M as : "; printVector(vectorX); cout << " ==> "; printVector(vectorM); cout << "\n\n";
+				//*cout << "Adding X -> M as : "; printVector(vectorX); cout << " ==> "; printVector(vectorM); cout << "\n\n";
 			}
 			else
 			{
@@ -897,8 +897,8 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 							initialRHS = attrBSToAttrVector(ansBS[indexOfUpdatedImplication].rhs),
 							newLHS = attrBSToAttrVector(updatedImplication.lhs),
 							newRHS = attrBSToAttrVector(updatedImplication.rhs);
-				cout << "Initial Implication: "; printVector(initialLHS); cout << " ==> "; printVector(initialRHS); cout << "\n";
-				cout << "Updated Implication: "; printVector(newLHS); cout << " ==> "; printVector(newRHS); cout << "\n\n";
+				//cout << "Initial Implication: "; printVector(initialLHS); cout << " ==> "; printVector(initialRHS); cout << "\n";
+				//cout << "Updated Implication: "; printVector(newLHS); cout << " ==> "; printVector(newRHS); cout << "\n\n";
 				ansBS[indexOfUpdatedImplication] = updatedImplication;
 			}
 		}
@@ -1286,7 +1286,7 @@ void CountExactRules(){
 
 	}
 }
-
+/*
 int subsetInModL=0;
 int subsetInIntK=0;
 
@@ -1353,7 +1353,7 @@ double QualityFactor(ThreadPool &threadPool){
 
 	double QF=(double)subsetInIntK/subsetInModL;
 	return QF;
-}
+}*/
 
 int main(int argc, char **argv)
 {
@@ -1413,6 +1413,16 @@ int main(int argc, char **argv)
 	double TotalExecTime = 0;
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 
+	startTime = chrono::high_resolution_clock::now();
+
+	double qf=(double)allContextClosures()/allImplicationClosures();
+
+	endTime = chrono::high_resolution_clock::now();
+	
+	double Time_qf = (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
+
+
+
 	cout << "\n";
 	for (int i = 2; i < 7; i++)
 		cout << argv[i] << ", ";
@@ -1432,7 +1442,7 @@ int main(int argc, char **argv)
 	cout << aEqualToCCount << ",";
 	cout << emptySetClosureComputes << ",";
 	cout << singletonCounterexamples << ";" << flush;
-	// cout << allContextClosures() << "," << flush;
+	//cout << allContextClosures() << "," << flush;
 	if (implicationSupport)
 	{
 		getSupportOfImplicationsFrequent();
@@ -1442,6 +1452,8 @@ int main(int argc, char **argv)
 
 	// cout << allImplicationClosures() << endl;
 
+	
+	cout<<endl;
 	for (int i=0;i<ans.size();i++)
 	{
 		// //cout << "Implication\n";
@@ -1453,6 +1465,7 @@ int main(int argc, char **argv)
 		cout << "\n";
 	}
 
+	cout << TIMEPRINT(TotalExecTime) << ",";
 	cout<<"No of Iterations: "<<gCounter<<endl;
 	cout << "No. of implications : " << ans.size() << "\n";
 	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << "\n";
@@ -1460,6 +1473,6 @@ int main(int argc, char **argv)
 	cout <<  "Total Counterexamples: " << totCounterExamples << "\n";
 	cout<<"No of Exact Association Rules: "<<NoOFExactRules<<endl;
 	cout<<"No of Rules With Confidence higher than 0.9 : "<<NoOfRulesConfHighThanPoint9<<endl;
-	cout<<"Quality Factor : "<<QualityFactor(threadPool)<<endl;
+	cout<<"Qualtiy factor : "<<qf<<" and time to calculate quality factor is "<<TIMEPRINT(Time_qf)<<endl;
 	return 0;
 }
