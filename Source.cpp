@@ -876,7 +876,6 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 							new_rhs = attrBSToAttrVector(ansBS[updateImp.first].rhs);
 				// cout<<"Now implication is :";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n\n";
 			}
-			cout << endl;
 		}
 		else
 		{
@@ -1342,9 +1341,6 @@ int main(int argc, char **argv)
 	fillPotentialCounterExamples();
 	initializeRandSetGen();
 	vector<implication> ans = generateImplicationBasis(threadPool);
-	FindConfidenceOfImplications();
-
-	CountExactRules();
 	// cout << totalTime << "\n";
 
 	auto endTime = chrono::high_resolution_clock::now();
@@ -1352,12 +1348,12 @@ int main(int argc, char **argv)
 	TotalExecTime += (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
 
 	startTime = chrono::high_resolution_clock::now();
-
 	double qf = (double)allContextClosures() / allImplicationClosures();
-
 	endTime = chrono::high_resolution_clock::now();
-
 	double Time_qf = (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
+
+	FindConfidenceOfImplications();
+	CountExactRules();
 
 	cout << "\n";
 	for (int i = 2; i < 7; i++)
@@ -1370,10 +1366,8 @@ int main(int argc, char **argv)
 	cout << TIMEPRINT(updownTime) << ",";
 	cout << totClosureComputations << ",";
 	cout << totUpDownComputes << ", ";
-	cout << "No. of implications : " << ans.size() << ", ";
-	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << ", ";
-	cout << "Total Negative Counterexamples: " << countNegativeCounterExample << ", ";
-	cout << "Total Counterexamples: " << totCounterExamples << ",";
+	cout << ans.size() << ", ";
+	cout << totCounterExamples << ",";
 	cout << sumTotTries << ",";
 	cout << aEqualToCCount << ",";
 	cout << emptySetClosureComputes << ",";
@@ -1390,19 +1384,24 @@ int main(int argc, char **argv)
 
 	cout << endl;
 
+	ofstream output("output.txt");
+	streambuf *coutBuffer = cout.rdbuf();
+
+	cout.rdbuf(output.rdbuf());
 	for (int i = 0; i < ans.size(); i++)
 	{
 		// //cout << "Implication\n";
-
+		cout << "\n";
 		printVector(ans[i].lhs);
 		cout << "==> ";
 		printVector(ans[i].rhs);
-		cout << "confidence " << confidenceOfImplicationBasis[i] << "\n";
+		cout << "\nconfidence " << confidenceOfImplicationBasis[i] << "\n";
 		cout << "LHSsupport " << supp_prem[i] << "\n";
-		cout << "ImplicationSupport: " << supp_imp[i] << "\n";
+		cout << "ImplicationSupport " << supp_imp[i];
 	}
+	cout.rdbuf(coutBuffer);
 
-	cout << TIMEPRINT(TotalExecTime) << ",";
+	cout << "\nTotal execution time: " <<TIMEPRINT(TotalExecTime) << ",";
 	cout << "No of Iterations: " << gCounter << endl;
 	cout << "No. of implications : " << ans.size() << "\n";
 	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << "\n";
