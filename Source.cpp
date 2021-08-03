@@ -754,9 +754,9 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		auto start = chrono::high_resolution_clock::now();
 		gCounter++;
 		totTries = 0;
-		//* cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
+		// cout << "Going to get counter example. (Iteration Number: " << gCounter << " )" << endl;
 		getLoopCount();
-		//* cout << "Max number of tries for this iteration: " << maxTries << "\n";
+		// cout << "Max number of tries for this iteration: " << maxTries << "\n";
 		globalFlag = true;
 		counterExampleBS.clear();
 		thisIterMaxContextClosureTime = 0;
@@ -816,17 +816,17 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		//printVector(X);
 		totCounterExamples++;
 		// cout << "Got counter example" << endl;
-		//*cout << "Counterexample found after " << totTries << " tries\n";
+		// cout << "Counterexample found after " << totTries << " tries\n";
 		vector<int> counterExampleFound = attrBSToAttrVector(X);
 		if (isPositiveCounterExample)
 		{
 			countPositiveCounterExample++;
-		//*	cout << "Got Positive CS  "; printVector(counterExampleFound); cout << "\n";
+			//	cout << "Got Positive CS  "; printVector(counterExampleFound); cout << "\n";
 		}
 		else
 		{
 			countNegativeCounterExample++;
-		//*	cout << "Got Negative CS  "; printVector(counterExampleFound); cout << "\n";
+			//	cout << "Got Negative CS  "; printVector(counterExampleFound); cout << "\n";
 		}
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
@@ -860,22 +860,23 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 		}
 
 		updownTime += thisIterMaxContextClosureTime;
-		//cout << UpdateImplicationTries << " iterations in tryToUpdateImplicationBasis\n";
+		// cout << UpdateImplicationTries << " iterations in tryToUpdateImplicationBasis\n";
 
-		if(isPositiveCounterExample)
+		if (isPositiveCounterExample)
 		{
 			for (auto &updateImp : updatedImplications)
 
-			{	vector<int> initial_lhs=attrBSToAttrVector(ansBS[updateImp.first].lhs),
-				initial_rhs=attrBSToAttrVector(ansBS[updateImp.first].rhs);
-			//*	cout<<"\nPrevious implication at index "<<updateImp.first<<" was: ";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n";
+			{
+				vector<int> initial_lhs = attrBSToAttrVector(ansBS[updateImp.first].lhs),
+							initial_rhs = attrBSToAttrVector(ansBS[updateImp.first].rhs);
+				// cout<<"\nPrevious implication at index "<<updateImp.first<<" was: ";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n";
 				ansBS[updateImp.first] = updateImp.second;
 
-				vector<int> new_lhs=attrBSToAttrVector(ansBS[updateImp.first].lhs),
-				new_rhs=attrBSToAttrVector(ansBS[updateImp.first].rhs);
-			//*	cout<<"Now implication is :";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n\n";
+				vector<int> new_lhs = attrBSToAttrVector(ansBS[updateImp.first].lhs),
+							new_rhs = attrBSToAttrVector(ansBS[updateImp.first].rhs);
+				// cout<<"Now implication is :";printVector(initial_lhs);cout<<" ==> ";printVector(initial_rhs);cout<<"\n\n";
 			}
-			cout<<endl;
+			cout << endl;
 		}
 		else
 		{
@@ -889,7 +890,7 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 
 				// only for debugging
 				vector<int> vectorX = attrBSToAttrVector(X), vectorM = attrBSToAttrVector(allattribute);
-				//*cout << "Adding X -> M as : "; printVector(vectorX); cout << " ==> "; printVector(vectorM); cout << "\n\n";
+				// cout << "Adding X -> M as : "; printVector(vectorX); cout << " ==> "; printVector(vectorM); cout << "\n\n";
 			}
 			else
 			{
@@ -897,8 +898,8 @@ vector<implication> generateImplicationBasis(ThreadPool &threadPool)
 							initialRHS = attrBSToAttrVector(ansBS[indexOfUpdatedImplication].rhs),
 							newLHS = attrBSToAttrVector(updatedImplication.lhs),
 							newRHS = attrBSToAttrVector(updatedImplication.rhs);
-				//cout << "Initial Implication: "; printVector(initialLHS); cout << " ==> "; printVector(initialRHS); cout << "\n";
-				//cout << "Updated Implication: "; printVector(newLHS); cout << " ==> "; printVector(newRHS); cout << "\n\n";
+				// cout << "Initial Implication: "; printVector(initialLHS); cout << " ==> "; printVector(initialRHS); cout << "\n";
+				// cout << "Updated Implication: "; printVector(newLHS); cout << " ==> "; printVector(newRHS); cout << "\n\n";
 				ansBS[indexOfUpdatedImplication] = updatedImplication;
 			}
 		}
@@ -919,28 +920,30 @@ vector<double> confidenceOfImplicationBasis;
 vector<int> supp_imp;
 vector<int> supp_prem;
 
+void FindConfidenceOfImplications()
+{
 
-void FindConfidenceOfImplications(){
-	
-	for(int i=0;i<ansBasisBS.size();i++){
-		int support_premsis=0;
-		int support_implication=0;
-		for(int j=0;j<objInpBS.size();j++){
+	for (int i = 0; i < ansBasisBS.size(); i++)
+	{
+		int support_premsis = 0;
+		int support_implication = 0;
+		for (int j = 0; j < objInpBS.size(); j++)
+		{
 
-			if(ansBasisBS[i].lhs.is_subset_of(objInpBS[j])){
+			if (ansBasisBS[i].lhs.is_subset_of(objInpBS[j]))
+			{
 				support_premsis++;
 			}
-			
-			if(ansBasisBS[i].lhs.is_subset_of(objInpBS[j]) && ansBasisBS[i].rhs.is_subset_of(objInpBS[j])){
+
+			if (ansBasisBS[i].lhs.is_subset_of(objInpBS[j]) && ansBasisBS[i].rhs.is_subset_of(objInpBS[j]))
+			{
 				support_implication++;
 			}
 		}
 		supp_imp.push_back(support_implication);
 		supp_prem.push_back(support_premsis);
-		confidenceOfImplicationBasis.push_back((double)support_implication/support_premsis);
-
+		confidenceOfImplicationBasis.push_back((double)support_implication / support_premsis);
 	}
-
 }
 
 void printUsageAndExit()
@@ -1270,90 +1273,25 @@ void initFrequencyOrderedAttributes()
 		frequencyOrderedAttributes.push_back(freqPairs[i].second);
 }
 
-int NoOFExactRules=0;
-int NoOfRulesConfHighThanPoint9=0;
+int NoOFExactRules = 0;
+int NoOfRulesConfHighThanPoint9 = 0;
 
-void CountExactRules(){
+void CountExactRules()
+{
 
-	for(int i=0;i<confidenceOfImplicationBasis.size();i++){
-		if(confidenceOfImplicationBasis[i]==1){
+	for (int i = 0; i < confidenceOfImplicationBasis.size(); i++)
+	{
+		if (confidenceOfImplicationBasis[i] == 1)
+		{
 			NoOFExactRules++;
 			NoOfRulesConfHighThanPoint9++;
 		}
-		else if(confidenceOfImplicationBasis[i]>0.9){
+		else if (confidenceOfImplicationBasis[i] > 0.9)
+		{
 			NoOfRulesConfHighThanPoint9++;
 		}
-
 	}
 }
-/*
-int subsetInModL=0;
-int subsetInIntK=0;
-
-void exploreAllSubsets(vector<int> &A,long long numberOfSubsets,int s){
-	std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
-
-	for(int i=s;i<numberOfSubsets;i+=maxThreads){
-
-		boost::dynamic_bitset <unsigned long> sub(attrInp.size());
-		sub.reset();
-		int I=i;
-		int j=0;
-		while(I){
-
-			sub[A[j]]=I%2;
-			I=I>>1;
-			j++;
-		}
-
-		
-		if(sub==contextClosureBS(sub)){
-			lck.lock();
-			subsetInIntK++;
-			lck.unlock();
-		}
-		if(sub==closureBS(ansBasisBS,sub)){
-			lck.lock();
-			subsetInModL++;
-			lck.unlock();
-		}
-		
-
-	}
-}
-
-double QualityFactor(ThreadPool &threadPool){
-	
-	int numberOfAttr=(attrInp.size()-1)/4;
-//	cout<<numberOfAttr<<endl;
-	vector<int> A;
-	for(int i=attrInp.size()-1;i>=attrInp.size()-numberOfAttr;i--){
-		A.push_back(frequencyOrderedAttributes[i]);
-	}
-
-	sort(A.begin(),A.end());
-//	boost::dynamic_bitset<unsigned long> ABS=attrVectorToAttrBS(A);
-//	cout<<endl;
-	long long numberOfSubsets= (long long)1<<numberOfAttr;
-	
-
-	vector<std::future<void>> taskVector;
-
-	for (int i = 1; i < maxThreads; i++)
-	{
-		taskVector.emplace_back(threadPool.enqueue(exploreAllSubsets,ref(A), numberOfSubsets,i));
-	}
-
-	exploreAllSubsets(A,numberOfSubsets,0);
-
-	for (int i = 0; i < taskVector.size(); i++)
-	{
-		taskVector[i].get();
-	}
-
-	double QF=(double)subsetInIntK/subsetInModL;
-	return QF;
-}*/
 
 int main(int argc, char **argv)
 {
@@ -1415,13 +1353,11 @@ int main(int argc, char **argv)
 
 	startTime = chrono::high_resolution_clock::now();
 
-	double qf=(double)allContextClosures()/allImplicationClosures();
+	double qf = (double)allContextClosures() / allImplicationClosures();
 
 	endTime = chrono::high_resolution_clock::now();
-	
+
 	double Time_qf = (chrono::duration_cast<chrono::microseconds>(endTime - startTime)).count();
-
-
 
 	cout << "\n";
 	for (int i = 2; i < 7; i++)
@@ -1437,7 +1373,7 @@ int main(int argc, char **argv)
 	cout << "No. of implications : " << ans.size() << ", ";
 	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << ", ";
 	cout << "Total Negative Counterexamples: " << countNegativeCounterExample << ", ";
-	cout <<  "Total Counterexamples: " << totCounterExamples << ",";
+	cout << "Total Counterexamples: " << totCounterExamples << ",";
 	cout << sumTotTries << ",";
 	cout << aEqualToCCount << ",";
 	cout << emptySetClosureComputes << ",";
@@ -1452,27 +1388,29 @@ int main(int argc, char **argv)
 
 	// cout << allImplicationClosures() << endl;
 
-	
-	cout<<endl;
-	for (int i=0;i<ans.size();i++)
+	cout << endl;
+
+	for (int i = 0; i < ans.size(); i++)
 	{
 		// //cout << "Implication\n";
-		
+
 		printVector(ans[i].lhs);
 		cout << "==> ";
 		printVector(ans[i].rhs);
-		cout<<"\t(Confidence: "<<confidenceOfImplicationBasis[i]<<" LHS support: "<<supp_prem[i]<<" Implication support: "<<supp_imp[i]<<" )";
-		cout << "\n";
+		cout << "confidence " << confidenceOfImplicationBasis[i] << "\n";
+		cout << "LHSsupport " << supp_prem[i] << "\n";
+		cout << "ImplicationSupport: " << supp_imp[i] << "\n";
 	}
 
 	cout << TIMEPRINT(TotalExecTime) << ",";
-	cout<<"No of Iterations: "<<gCounter<<endl;
+	cout << "No of Iterations: " << gCounter << endl;
 	cout << "No. of implications : " << ans.size() << "\n";
 	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << "\n";
 	cout << "Total Negative Counterexamples: " << countNegativeCounterExample << "\n";
-	cout <<  "Total Counterexamples: " << totCounterExamples << "\n";
-	cout<<"No of Exact Association Rules: "<<NoOFExactRules<<endl;
-	cout<<"No of Rules With Confidence higher than 0.9 : "<<NoOfRulesConfHighThanPoint9<<endl;
-	cout<<"Qualtiy factor : "<<qf<<" and time to calculate quality factor is "<<TIMEPRINT(Time_qf)<<endl;
+	cout << "Total Counterexamples: " << totCounterExamples << "\n";
+	cout << "No of Exact Association Rules: " << NoOFExactRules << endl;
+	cout << "No of Rules With Confidence higher than 0.9 : " << NoOfRulesConfHighThanPoint9 << endl;
+	cout << "Qualtiy factor : " << qf << "\n";
+	cout << "Time to calculate quality factor is " << TIMEPRINT(Time_qf) << endl;
 	return 0;
 }
