@@ -1,0 +1,1 @@
+dataset,epsilon,delta,w/s,oracle,ExecutionTime,#iteration,#implications,#TotalCounterEx,#positiveCounterEx,#negativeCounterEx,#exactRules,#highConfidence,qualityFactor,QFtime

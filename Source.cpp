@@ -1355,23 +1355,23 @@ int main(int argc, char **argv)
 	FindConfidenceOfImplications();
 	CountExactRules();
 
-	cout << "\n";
-	for (int i = 2; i < 7; i++)
-		cout << argv[i] << ", ";
+	// cout << "\n";
+	// for (int i = 2; i < 7; i++)
+	// 	cout << argv[i] << ", ";
 
-	cout << TIMEPRINT(TotalExecTime) << ",";
-	cout << TIMEPRINT(totalTime) << ",";
-	cout << TIMEPRINT(totalExecTime2) << ",";
-	cout << TIMEPRINT(totalClosureTime) << ",";
-	cout << TIMEPRINT(updownTime) << ",";
-	cout << totClosureComputations << ",";
-	cout << totUpDownComputes << ", ";
-	cout << ans.size() << ", ";
-	cout << totCounterExamples << ",";
-	cout << sumTotTries << ",";
-	cout << aEqualToCCount << ",";
-	cout << emptySetClosureComputes << ",";
-	cout << singletonCounterexamples << ";" << flush;
+	// cout << TIMEPRINT(TotalExecTime) << ",";
+	// cout << TIMEPRINT(totalTime) << ",";
+	// cout << TIMEPRINT(totalExecTime2) << ",";
+	// cout << TIMEPRINT(totalClosureTime) << ",";
+	// cout << TIMEPRINT(updownTime) << ",";
+	// cout << totClosureComputations << ",";
+	// cout << totUpDownComputes << ", ";
+	// cout << ans.size() << ", ";
+	// cout << totCounterExamples << ",";
+	// cout << sumTotTries << ",";
+	// cout << aEqualToCCount << ",";
+	// cout << emptySetClosureComputes << ",";
+	// cout << singletonCounterexamples << ";" << flush;
 	//cout << allContextClosures() << "," << flush;
 	if (implicationSupport)
 	{
@@ -1382,34 +1382,37 @@ int main(int argc, char **argv)
 
 	// cout << allImplicationClosures() << endl;
 
-	cout << endl;
+	// cout << endl;
 
-	ofstream output("output.txt");
+	ofstream output("output.csv", ios_base::app);
 	streambuf *coutBuffer = cout.rdbuf();
 
 	cout.rdbuf(output.rdbuf());
-	for (int i = 0; i < ans.size(); i++)
-	{
-		// //cout << "Implication\n";
-		cout << "\n";
-		printVector(ans[i].lhs);
-		cout << "==> ";
-		printVector(ans[i].rhs);
-		cout << "\nconfidence " << confidenceOfImplicationBasis[i] << "\n";
-		cout << "LHSsupport " << supp_prem[i] << "\n";
-		cout << "ImplicationSupport " << supp_imp[i];
-	}
-	cout.rdbuf(coutBuffer);
+	// for (int i = 0; i < ans.size(); i++)
+	// {
+	// 	// //cout << "Implication\n";
+	// 	cout << "\n";
+	// 	printVector(ans[i].lhs);
+	// 	cout << "==> ";
+	// 	printVector(ans[i].rhs);
+	// 	cout << "\nconfidence " << confidenceOfImplicationBasis[i] << "\n";
+	// 	cout << "LHSsupport " << supp_prem[i] << "\n";
+	// 	cout << "ImplicationSupport " << supp_imp[i];
+	// }
 
-	cout << "\nTotal execution time: " <<TIMEPRINT(TotalExecTime) << ",";
-	cout << "No of Iterations: " << gCounter << endl;
-	cout << "No. of implications : " << ans.size() << "\n";
-	cout << "Total Positive Counterexamples: " << countPositiveCounterExample << "\n";
-	cout << "Total Negative Counterexamples: " << countNegativeCounterExample << "\n";
-	cout << "Total Counterexamples: " << totCounterExamples << "\n";
-	cout << "No of Exact Association Rules: " << NoOFExactRules << endl;
-	cout << "No of Rules With Confidence higher than 0.9 : " << NoOfRulesConfHighThanPoint9 << endl;
-	cout << "Qualtiy factor : " << qf << "\n";
-	cout << "Time to calculate quality factor is " << TIMEPRINT(Time_qf) << endl;
+	// ExecutionTime, #iteration, #implications, #TotalCounterEx, #positiveCounterEx, #negativeCounterEx, #exactRules, #highConfidence, qualityFactor, QFtime
+	for (int i = 1; i < 6; i++)
+		cout << argv[i] << ",";
+	cout << TIMEPRINT(TotalExecTime) << ",";
+	cout << gCounter << ",";
+	cout << ans.size() << ",";
+	cout << totCounterExamples << ",";
+	cout << countPositiveCounterExample << ",";
+	cout << countNegativeCounterExample << ",";
+	cout << NoOFExactRules << ",";
+	cout << NoOfRulesConfHighThanPoint9 << ",";
+	cout << qf << ",";
+	cout << TIMEPRINT(Time_qf) << "\n";
+	cout.rdbuf(coutBuffer);
 	return 0;
 }
