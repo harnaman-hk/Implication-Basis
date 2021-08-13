@@ -1030,7 +1030,8 @@ int allContextClosures()
 	finalClosedSet.set();
 	finalClosedSet[0] = false;
 	int nattr = attrInp.size();
-	int lectInd = max(1, ((3 * nattr) / 4)), lectLessClosures;
+	// int lectInd = max(1, ((3 * nattr) / 4)), lectLessClosures;
+	int lectInd = max(1, (nattr / 2)), lectLessClosures;
 	bool lectDone = false;
 	auto timeStart = chrono::high_resolution_clock::now();
 	auto timePrev = chrono::high_resolution_clock::now();
@@ -1109,8 +1110,8 @@ int allImplicationClosures()
 	finalClosedSet[0] = false;
 
 	int nattr = attrInp.size();
-	int lectInd = max(1, ((3 * nattr) / 4)), lectLessClosures;
-	bool lectDone = false;
+	// int lectInd = max(1, ((3 * nattr) / 4)), lectLessClosures;
+	int lectInd = max(1, (nattr / 2)), lectLessClosures;	bool lectDone = false;
 	auto timeStart = chrono::high_resolution_clock::now();
 	auto timePrev = chrono::high_resolution_clock::now();
 
